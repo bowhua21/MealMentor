@@ -25,7 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UserAccountInt
         } else if !validLogin(username: userName, password: password){
             statusLabelField.text = "Invalid login"
         } else {
-            statusLabelField.text = userName + " logged in"
+            statusLabelField.text = userName + " successfully logged in"
         }
     }
     
