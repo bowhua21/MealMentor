@@ -15,7 +15,12 @@ class WelcomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RegisterSegue", let registerVC = segue.destination as? RegisterViewController {
+            
+            registerVC.delegate = UIViewController() as? LoginViewController
+        }
+    }
     /*
     // MARK: - Navigation
 
