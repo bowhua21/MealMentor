@@ -26,6 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UserAccountInt
             statusLabelField.text = "Invalid login"
         } else {
             statusLabelField.text = userName + " successfully logged in"
+            self.performSegue(withIdentifier: "HomePageSegueID", sender: nil)
         }
     }
     

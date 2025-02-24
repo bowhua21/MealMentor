@@ -168,11 +168,20 @@
                         <outlet property="passwordField" destination="lZk-3d-jiG" id="VRm-aq-NSy"/>
                         <outlet property="statusLabelField" destination="ND4-oh-mgp" id="Vdv-tB-a7m"/>
                         <outlet property="userIDField" destination="6Sd-3E-Bng" id="30c-VP-8jh"/>
+                        <segue destination="U3q-3v-Owm" kind="presentation" identifier="HomePageSegueID" modalPresentationStyle="fullScreen" id="giI-QV-spA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-199.09090909090909" y="-29.497907949790797"/>
+        </scene>
+        <!--HomePageStoryboard-->
+        <scene sceneID="Y0y-2M-nv3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomePage" referencedIdentifier="HomePageStoryboard" id="U3q-3v-Owm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bao-Qz-ShF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-185" y="414"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="TKx-rO-I4e">
