@@ -1,8 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UserAccountInterface {
-
-    var accounts: [String : String] = [:]
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var userIDField: UITextField!
  
@@ -31,29 +29,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UserAccountInt
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "RegisterSegue", let registerVC = segue.destination as? RegisterViewController {
-            
-            registerVC.delegate = self
+        if segue.identifier == "HomePageSegueID", let homePageVC = segue.destination as? HomePageViewController {
+            homePageVC.userName = userIDField.text!
         }
     }
     
-    func addNewAccount(username: String, password: String) {
-        accounts[username] = password
-    }
     
-    func validLogin(username: String, password: String) -> Bool {
-        if !usernameExists(username: username) {
-            return false
-        }
-        if accounts[username] != password {
-            return false
-        }
-        return true
-    }
-    
-    func usernameExists(username: String) -> Bool {
-        return accounts.contains { $0.key == username}
-    }
+
     // Called when 'return' key pressed
 
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
