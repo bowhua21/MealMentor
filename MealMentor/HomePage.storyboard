@@ -57,15 +57,28 @@
                     </tabBar>
                     <connections>
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="8VN-PI-mnc"/>
+                        <segue destination="fPB-eO-xTN" kind="relationship" relationship="viewControllers" id="Qs1-vP-0O4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pSG-4t-cgP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5.7971014492753632" y="3.3482142857142856"/>
         </scene>
+        <!--ChatPage-->
+        <scene sceneID="a8Y-uT-AUO">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="ChatPageStoryboardID" storyboardName="ChatPage" id="fPB-eO-xTN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Chat" image="message" catalog="system" id="K84-eO-pU1"/>
+                    <navigationItem key="navigationItem" id="OOR-mQ-9JG"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5HH-aR-s3D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-29" y="431"/>
+        </scene>
     </scenes>
     <resources>
         <image name="house" catalog="system" width="128" height="104"/>
+        <image name="message" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
