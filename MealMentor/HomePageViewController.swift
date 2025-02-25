@@ -11,14 +11,15 @@ class HomePageViewController: UIViewController {
     
     @IBOutlet weak var username: UILabel!
     
+    var userName:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        username.text = userName
         // Do any additional setup after loading the view.
         // TODO set username
     }
     
-
     /*
     // MARK: - Navigation
 

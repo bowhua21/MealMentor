@@ -1,8 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UserAccountInterface {
-
-    var accounts: [String : String] = [:]
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var userIDField: UITextField!
  
@@ -26,34 +24,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UserAccountInt
             statusLabelField.text = "Invalid login"
         } else {
             statusLabelField.text = userName + " successfully logged in"
-            self.performSegue(withIdentifier: "HomePageSegueID", sender: nil)
+            self.performSegue(withIdentifier: "LoginToHomePageIdentifier", sender: nil)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "RegisterSegue", let registerVC = segue.destination as? RegisterViewController {
-            
-            registerVC.delegate = self
+        if segue.identifier == "LoginToHomePageIdentifier", let tabBarController = segue.destination as? UITabBarController {
+            tabBarController.selectedIndex = 0
+            if let homePageNav = tabBarController.viewControllers?[0] as? UINavigationController,
+               let homePageVC = homePageNav.topViewController as? HomePageViewController {
+                homePageVC.userName = userIDField.text!
+            }
         }
+
     }
     
-    func addNewAccount(username: String, password: String) {
-        accounts[username] = password
-    }
     
-    func validLogin(username: String, password: String) -> Bool {
-        if !usernameExists(username: username) {
-            return false
-        }
-        if accounts[username] != password {
-            return false
-        }
-        return true
-    }
-    
-    func usernameExists(username: String) -> Bool {
-        return accounts.contains { $0.key == username}
-    }
+
     // Called when 'return' key pressed
 
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {

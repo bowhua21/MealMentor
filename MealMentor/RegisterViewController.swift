@@ -21,7 +21,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func createAccountPressed(_ sender: Any) {
-        let loginVC = delegate as! UserAccountInterface
         let userName = userIDField.text!
         let password = passwordField.text!
         let confirmPass = confirmPasswordField.text!
@@ -29,14 +28,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             statusLabelField.text = "Please fill in all fields"
         } else if password != confirmPass {
             statusLabelField.text = "The passwords do not match"
-        } else if loginVC.usernameExists(username: userName) {
+        } else if usernameExists(username: userName) {
             statusLabelField.text = "Username already exists"
         } else {
-            loginVC.addNewAccount(username: userName, password: password)
+            addNewAccount(username: userName, password: password)
             statusLabelField.text = "Successfully created new account"
-            self.dismiss(animated: true)
+            self.performSegue(withIdentifier: "OnboardSegueID", sender: nil)
+            //self.dismiss(animated: true)
         }
     }
+    
+    
     // Called when 'return' key pressed
     
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {

@@ -64,10 +64,10 @@
             </objects>
             <point key="canvasLocation" x="-5.7971014492753632" y="3.3482142857142856"/>
         </scene>
-        <!--ChatPage-->
+        <!--ChatPageStoryboard-->
         <scene sceneID="a8Y-uT-AUO">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="ChatPageStoryboardID" storyboardName="ChatPage" id="fPB-eO-xTN" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="ChatPageStoryboard" storyboardName="ChatPage" referencedIdentifier="ChatPageStoryboard" id="fPB-eO-xTN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Chat" image="message" catalog="system" id="K84-eO-pU1"/>
                     <navigationItem key="navigationItem" id="OOR-mQ-9JG"/>
                 </viewControllerPlaceholder>
