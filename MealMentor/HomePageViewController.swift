@@ -11,7 +11,7 @@ class HomePageViewController: UIViewController {
     
     @IBOutlet weak var username: UILabel!
     
-    var userName:String = ""
+    var userName:String = "Jane Doe"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,5 +30,5 @@ class HomePageViewController: UIViewController {
     }
     */
     
-
+    
 }
