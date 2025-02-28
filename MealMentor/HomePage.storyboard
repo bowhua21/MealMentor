@@ -33,7 +33,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eVS-s9-Ppo">
-                                        <rect key="frame" x="0.0" y="0.0" width="440" height="820"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="1020"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wY2-6z-CYV">
                                                 <rect key="frame" x="0.0" y="0.0" width="440" height="120"/>
@@ -139,6 +139,32 @@
                                                     <constraint firstAttribute="height" constant="200" id="n2n-2n-i68"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jV9-sg-j9g">
+                                                <rect key="frame" x="0.0" y="820" width="440" height="200"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NY7-Se-j6N">
+                                                        <rect key="frame" x="20" y="8" width="400" height="184"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weekly calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2e-ic-76U">
+                                                                <rect key="frame" x="141" y="82" width="119" height="21"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.91764705879999997" green="0.94117647059999998" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="NY7-Se-j6N" firstAttribute="top" secondItem="jV9-sg-j9g" secondAttribute="top" constant="8" id="3a0-7o-UBj"/>
+                                                    <constraint firstItem="NY7-Se-j6N" firstAttribute="leading" secondItem="jV9-sg-j9g" secondAttribute="leading" constant="20" id="7Br-PN-BgA"/>
+                                                    <constraint firstAttribute="bottom" secondItem="NY7-Se-j6N" secondAttribute="bottom" constant="8" id="Xi4-RV-aLj"/>
+                                                    <constraint firstAttribute="height" constant="200" id="iHJ-g8-g9l"/>
+                                                    <constraint firstAttribute="trailing" secondItem="NY7-Se-j6N" secondAttribute="trailing" constant="20" id="jWS-EU-W48"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -166,7 +192,12 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
+                        <outlet property="highlightsView" destination="XFD-1I-86S" id="ZdX-Le-CHK"/>
+                        <outlet property="thisWeekView" destination="tlS-pC-W3k" id="Dea-I0-f6f"/>
+                        <outlet property="todayMealsView" destination="SBw-l7-5uO" id="62X-3Q-Rrv"/>
                         <outlet property="username" destination="O85-1K-mIL" id="fgm-sh-876"/>
+                        <outlet property="weeklyCaloriesView" destination="NY7-Se-j6N" id="3q6-PJ-jOh"/>
+                        <outlet property="weeklyProteinView" destination="tFQ-WY-f61" id="qtv-0i-FXL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

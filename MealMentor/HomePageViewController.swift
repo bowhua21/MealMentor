@@ -13,22 +13,26 @@ class HomePageViewController: UIViewController {
     
     var userName:String = "Jane Doe"
     
+    @IBOutlet weak var highlightsView: UIView!
+    @IBOutlet weak var thisWeekView: UIView!
+    @IBOutlet weak var todayMealsView: UIView!
+    @IBOutlet weak var weeklyProteinView: UIView!
+    @IBOutlet weak var weeklyCaloriesView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         username.text = userName
         // Do any additional setup after loading the view.
         // TODO set username
+        
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // put rounded corners for cells
+        highlightsView.layer.cornerRadius = 20
+        thisWeekView.layer.cornerRadius = 20
+        todayMealsView.layer.cornerRadius = 20
+        weeklyProteinView.layer.cornerRadius = 20
+        weeklyCaloriesView.layer.cornerRadius = 20
     }
-    */
-    
-    
 }
