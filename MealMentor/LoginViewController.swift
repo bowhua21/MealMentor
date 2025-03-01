@@ -13,6 +13,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         userIDField.delegate = self
         passwordField.delegate = self
+        passwordField.isSecureTextEntry = true
     }
     
     @IBAction func buttonPressed(_ sender: Any) {

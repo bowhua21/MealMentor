@@ -16,6 +16,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         userIDField.delegate = self
         passwordField.delegate = self
         confirmPasswordField.delegate = self
+        passwordField.isSecureTextEntry = true
+        confirmPasswordField.isSecureTextEntry = true
         
         // Do any additional setup after loading the view.
     }
@@ -26,10 +28,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let confirmPass = confirmPasswordField.text!
         if userName.isEmpty || password.isEmpty || confirmPass.isEmpty {
             statusLabelField.text = "Please fill in all fields"
+        } else if !isValidEmail(userName) {
+            statusLabelField.text = "Invalid email format"
+        } else if !isValidPassword(password) {
+            statusLabelField.text = "Password length must be >= 6"
         } else if password != confirmPass {
             statusLabelField.text = "The passwords do not match"
         } else if usernameExists(username: userName) {
-            statusLabelField.text = "Username already exists"
+            statusLabelField.text = "Email already exists"
         } else {
             addNewAccount(username: userName, password: password)
             statusLabelField.text = "Successfully created new account"
