@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -41,15 +42,79 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFD-1I-86S">
                                                         <rect key="frame" x="20" y="8" width="400" height="104"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Highlights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKf-Dv-exH">
-                                                                <rect key="frame" x="162" y="42" width="77" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highlights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKf-Dv-exH">
+                                                                <rect key="frame" x="42" y="10.999999999999998" width="73" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="bolt" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GxD-H4-WKY">
+                                                                <rect key="frame" x="8" y="8.0000000000000107" width="25" height="26.000000000000004"/>
+                                                                <color key="tintColor" systemColor="labelColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="25" id="imB-Af-eKy"/>
+                                                                    <constraint firstAttribute="height" constant="25" id="lxZ-BQ-f9S"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEK-RA-uBS">
+                                                                <rect key="frame" x="13" y="24" width="83" height="83"/>
+                                                                <color key="tintColor" red="0.82352941176470584" green="0.25490196078431371" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="83" id="Ec7-ne-uXK"/>
+                                                                    <constraint firstAttribute="height" constant="83" id="gjK-cn-L1n"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="60"/>
+                                                                <color key="textColor" red="0.82352941180000006" green="0.25490196079999999" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days logged this month" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUU-YW-FQS">
+                                                                <rect key="frame" x="92" y="40" width="92" height="48"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="92" id="EDi-Y2-84l"/>
+                                                                    <constraint firstAttribute="height" constant="48" id="yf8-jP-Hpc"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <color key="textColor" red="0.82352941180000006" green="0.25490196079999999" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gd-NF-c9N">
+                                                                <rect key="frame" x="215" y="25.999999999999993" width="33.333333333333343" height="81.333333333333314"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="60"/>
+                                                                <color key="textColor" red="0.82352941180000006" green="0.25490196079999999" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="day streak " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHt-Ul-nJT">
+                                                                <rect key="frame" x="257" y="40" width="77.333333333333314" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <color key="textColor" red="0.82352941180000006" green="0.25490196079999999" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="flame" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hf0-M3-T8G">
+                                                                <rect key="frame" x="257" y="62.000000000000014" width="25" height="24.666666666666671"/>
+                                                                <color key="tintColor" red="0.82352941180000006" green="0.25490196079999999" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="jzy-fa-H1x"/>
+                                                                    <constraint firstAttribute="width" constant="25" id="qWw-pA-a6v"/>
+                                                                </constraints>
+                                                            </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.98039215686274506" green="0.92549019607843142" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="cEK-RA-uBS" firstAttribute="leading" secondItem="XFD-1I-86S" secondAttribute="leading" constant="13" id="7PD-PJ-k0Z"/>
+                                                            <constraint firstItem="NKf-Dv-exH" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="11" id="CMx-D4-Eof"/>
+                                                            <constraint firstItem="NKf-Dv-exH" firstAttribute="leading" secondItem="GxD-H4-WKY" secondAttribute="trailing" constant="9" id="GRq-Eu-NfI"/>
+                                                            <constraint firstItem="7gd-NF-c9N" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="26" id="HQQ-U5-RFg"/>
+                                                            <constraint firstItem="Hf0-M3-T8G" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="62.329999999999998" id="T8y-l4-phj"/>
+                                                            <constraint firstItem="GxD-H4-WKY" firstAttribute="leading" secondItem="XFD-1I-86S" secondAttribute="leading" constant="8" id="Xzn-Ky-BST"/>
+                                                            <constraint firstItem="cEK-RA-uBS" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="24" id="YaJ-Gn-xSo"/>
+                                                            <constraint firstItem="RHt-Ul-nJT" firstAttribute="leading" secondItem="7gd-NF-c9N" secondAttribute="trailing" constant="8.6666666666666572" id="Yai-F1-aHQ"/>
+                                                            <constraint firstItem="GxD-H4-WKY" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="8.3333333333333321" id="bmx-DZ-NUO"/>
+                                                            <constraint firstItem="Hf0-M3-T8G" firstAttribute="leading" secondItem="7gd-NF-c9N" secondAttribute="trailing" constant="8.6666666666666572" id="dvy-ch-o4b"/>
+                                                            <constraint firstItem="RHt-Ul-nJT" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="40" id="ewI-JX-6pM"/>
+                                                            <constraint firstItem="7gd-NF-c9N" firstAttribute="leading" secondItem="QUU-YW-FQS" secondAttribute="trailing" constant="31" id="fsw-Bt-kHL"/>
+                                                            <constraint firstItem="QUU-YW-FQS" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="40" id="jLl-Vl-e1H"/>
+                                                            <constraint firstItem="QUU-YW-FQS" firstAttribute="leading" secondItem="cEK-RA-uBS" secondAttribute="trailing" constant="-4" id="kYo-Ke-sZX"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,15 +132,83 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlS-pC-W3k">
                                                         <rect key="frame" x="20" y="8" width="400" height="134"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdv-DD-LrA">
-                                                                <rect key="frame" x="162" y="57" width="77" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdv-DD-LrA">
+                                                                <rect key="frame" x="11" y="10.999999999999998" width="72.666666666666671" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4/7 days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGY-Rj-Ogh">
+                                                                <rect key="frame" x="328.33333333333331" y="10.999999999999998" width="60.666666666666686" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t6j-V3-OEc">
+                                                                <rect key="frame" x="8" y="42.333333333333321" width="384" height="83.666666666666686"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Da5-Na-4Y6">
+                                                                    <size key="itemSize" width="46" height="70"/>
+                                                                    <size key="estimatedItemSize" width="46" height="70"/>
+                                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                </collectionViewFlowLayout>
+                                                                <cells>
+                                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="ThisWeekDayCell" id="7ye-0S-Wag" customClass="ThisWeekDayCell" customModule="MealMentor" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="2" width="46" height="80"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LDb-jU-0On">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="46" height="80"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vh-ya-0xV">
+                                                                                    <rect key="frame" x="3.3333333333333321" y="8" width="39.666666666666671" height="17"/>
+                                                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="checkmark.circle" catalog="system" id="nwx-7S-8z3">
+                                                                                    <rect key="frame" x="10" y="32.666666666666629" width="26" height="25"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                </imageView>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="6vh-ya-0xV" firstAttribute="centerX" secondItem="LDb-jU-0On" secondAttribute="centerX" id="7R2-ZD-Eaz"/>
+                                                                                <constraint firstItem="nwx-7S-8z3" firstAttribute="top" secondItem="6vh-ya-0xV" secondAttribute="bottom" constant="7" id="QmK-JL-uBE"/>
+                                                                                <constraint firstItem="6vh-ya-0xV" firstAttribute="top" secondItem="LDb-jU-0On" secondAttribute="top" constant="8" id="ST4-uc-hFK"/>
+                                                                            </constraints>
+                                                                        </collectionViewCellContentView>
+                                                                        <size key="customSize" width="46" height="80"/>
+                                                                        <connections>
+                                                                            <outlet property="checkMarkIcon" destination="nwx-7S-8z3" id="Cht-zy-dnC"/>
+                                                                            <outlet property="dayLabel" destination="6vh-ya-0xV" id="BVl-nr-C26"/>
+                                                                        </connections>
+                                                                    </collectionViewCell>
+                                                                </cells>
+                                                            </collectionView>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoa-eW-9Bq">
+                                                                <rect key="frame" x="-35" y="116" width="400" height="334"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                                <connections>
+                                                                    <action selector="todayMealsViewClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Sl5-Pb-rOH"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.75294117650000003" green="0.87843137250000003" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="t6j-V3-OEc" firstAttribute="top" secondItem="cdv-DD-LrA" secondAttribute="bottom" constant="8" id="Qtl-Su-KA5"/>
+                                                            <constraint firstItem="cdv-DD-LrA" firstAttribute="leading" secondItem="tlS-pC-W3k" secondAttribute="leading" constant="11" id="a9T-3q-FjT"/>
+                                                            <constraint firstAttribute="bottom" secondItem="t6j-V3-OEc" secondAttribute="bottom" constant="8" id="bNn-Io-shJ"/>
+                                                            <constraint firstItem="oGY-Rj-Ogh" firstAttribute="top" secondItem="tlS-pC-W3k" secondAttribute="top" constant="11" id="huU-Pv-mNj"/>
+                                                            <constraint firstAttribute="trailing" secondItem="t6j-V3-OEc" secondAttribute="trailing" constant="8" id="sZU-fY-TOD"/>
+                                                            <constraint firstItem="cdv-DD-LrA" firstAttribute="top" secondItem="tlS-pC-W3k" secondAttribute="top" constant="11" id="sZb-Oq-VWg"/>
+                                                            <constraint firstAttribute="trailing" secondItem="oGY-Rj-Ogh" secondAttribute="trailing" constant="11" id="xOM-q2-cAq"/>
+                                                            <constraint firstItem="t6j-V3-OEc" firstAttribute="leading" secondItem="tlS-pC-W3k" secondAttribute="leading" constant="8" id="yrH-sa-es5"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,15 +226,28 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBw-l7-5uO">
                                                         <rect key="frame" x="20" y="8" width="400" height="334"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIy-Dt-WQG">
-                                                                <rect key="frame" x="146" y="157" width="109" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="fork.knife" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hAz-Qj-WDI">
+                                                                <rect key="frame" x="8" y="7" width="25" height="26"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="25" id="0Xv-oe-umk"/>
+                                                                    <constraint firstAttribute="height" constant="25" id="x3m-Pl-P8D"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIy-Dt-WQG">
+                                                                <rect key="frame" x="42" y="10.999999999999998" width="102" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.75294117650000003" green="0.87843137250000003" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="tIy-Dt-WQG" firstAttribute="leading" secondItem="hAz-Qj-WDI" secondAttribute="trailing" constant="9" id="bHs-th-3cH"/>
+                                                            <constraint firstItem="tIy-Dt-WQG" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="11" id="gum-as-My3"/>
+                                                            <constraint firstItem="hAz-Qj-WDI" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="8" id="pdl-2g-NHt"/>
+                                                            <constraint firstItem="hAz-Qj-WDI" firstAttribute="leading" secondItem="SBw-l7-5uO" secondAttribute="leading" constant="8" id="qic-FA-fLe"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -119,15 +265,18 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFQ-WY-f61">
                                                         <rect key="frame" x="20" y="8" width="400" height="184"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weekly protein" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-p8-Vjh">
-                                                                <rect key="frame" x="143" y="82" width="114" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly Protein" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-p8-Vjh">
+                                                                <rect key="frame" x="11.000000000000007" y="10.999999999999998" width="108.66666666666669" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.91764705882352937" green="0.94117647058823528" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="pF6-p8-Vjh" firstAttribute="top" secondItem="tFQ-WY-f61" secondAttribute="top" constant="11" id="V8o-qM-75Z"/>
+                                                            <constraint firstItem="pF6-p8-Vjh" firstAttribute="leading" secondItem="tFQ-WY-f61" secondAttribute="leading" constant="11" id="WT0-P5-RPA"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -145,15 +294,18 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NY7-Se-j6N">
                                                         <rect key="frame" x="20" y="8" width="400" height="184"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weekly calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2e-ic-76U">
-                                                                <rect key="frame" x="141" y="82" width="119" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly Calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2e-ic-76U">
+                                                                <rect key="frame" x="11.000000000000007" y="10.999999999999998" width="115.66666666666669" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.91764705879999997" green="0.94117647059999998" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="B2e-ic-76U" firstAttribute="top" secondItem="NY7-Se-j6N" secondAttribute="top" constant="11" id="WWv-OU-gto"/>
+                                                            <constraint firstItem="B2e-ic-76U" firstAttribute="leading" secondItem="NY7-Se-j6N" secondAttribute="leading" constant="11" id="bUm-62-sTU"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -193,6 +345,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="highlightsView" destination="XFD-1I-86S" id="ZdX-Le-CHK"/>
+                        <outlet property="thisWeekCollectionView" destination="t6j-V3-OEc" id="c38-lv-Itf"/>
                         <outlet property="thisWeekView" destination="tlS-pC-W3k" id="Dea-I0-f6f"/>
                         <outlet property="todayMealsView" destination="SBw-l7-5uO" id="62X-3Q-Rrv"/>
                         <outlet property="username" destination="O85-1K-mIL" id="fgm-sh-876"/>
@@ -236,8 +389,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bolt" catalog="system" width="100" height="128"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
+        <image name="flame" catalog="system" width="106" height="128"/>
+        <image name="fork.knife" catalog="system" width="94" height="128"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="message" catalog="system" width="128" height="116"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
