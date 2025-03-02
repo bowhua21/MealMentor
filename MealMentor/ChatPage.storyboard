@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,51 +14,51 @@
             <objects>
                 <viewController storyboardIdentifier="ChatPageStoryboard" id="Y6W-OH-hqX" customClass="ChatPageViewController" customModule="MealMentor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MealMentor Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKL-hr-3vh">
-                                <rect key="frame" x="122" y="104" width="149" height="45"/>
+                                <rect key="frame" x="145.66666666666666" y="107" width="148.99999999999997" height="42"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ask MealMentor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b9w-se-5oA">
-                                <rect key="frame" x="30" y="714" width="277" height="50"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ask MealMentor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b9w-se-5oA">
+                                <rect key="frame" x="30" y="789" width="315" height="50"/>
                                 <color key="backgroundColor" red="0.93470836670000002" green="0.90623706169999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="290" id="KGd-Fb-Xus"/>
+                                    <constraint firstAttribute="width" constant="315" id="KGd-Fb-Xus"/>
                                     <constraint firstAttribute="height" constant="50" id="xz2-cA-X7E"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LxN-YD-yKH">
-                                <rect key="frame" x="30" y="296.66666666666669" width="333" height="259.00000000000006"/>
+                                <rect key="frame" x="30" y="296.66666666666669" width="380" height="363.00000000000006"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ask MealMentor" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWu-d0-ULD">
-                                        <rect key="frame" x="19" y="8" width="276" height="99"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="38"/>
-                                        <color key="textColor" systemColor="systemIndigoColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;What are some quick lunch ideas?&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egU-xE-hcc">
-                                        <rect key="frame" x="12" y="174" width="275" height="21"/>
+                                        <rect key="frame" x="26" y="229" width="275" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemIndigoColor"/>
                                         <color key="highlightedColor" systemColor="systemIndigoColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;What nutrients am I lacking this month?&quot;" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K3-uW-67a">
-                                        <rect key="frame" x="12" y="115" width="305" height="41"/>
+                                        <rect key="frame" x="26" y="148" width="329" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemIndigoColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ask MealMentor" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWu-d0-ULD">
+                                        <rect key="frame" x="26" y="21" width="276" height="99"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="38"/>
+                                        <color key="textColor" systemColor="systemIndigoColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;I have chicken and tomatoes. Give me recipe ideas.&quot;" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ol6-T4-Xbb">
-                                        <rect key="frame" x="12" y="213" width="330" height="45"/>
+                                        <rect key="frame" x="26" y="291" width="330" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemIndigoColor"/>
@@ -67,44 +68,58 @@
                                 <color key="backgroundColor" red="0.93470836668080848" green="0.90623706174557961" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.93470836670000002" green="0.90623706169999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJB-KC-rLf">
-                                <rect key="frame" x="315" y="714" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJB-KC-rLf">
+                                <rect key="frame" x="362" y="789" width="50" height="50"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="FPZ-sK-JeM"/>
                                     <constraint firstAttribute="height" constant="50" id="Phh-w3-VQT"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemIndigoColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="" cornerStyle="capsule"/>
+                                <buttonConfiguration key="configuration" style="filled" title="" cornerStyle="capsule">
+                                    <imageReference key="image" image="paperplane.fill" catalog="system" renderingMode="template"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="sendButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="q03-kR-QbA"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="b9w-se-5oA" secondAttribute="bottom" constant="54" id="1Mv-Ea-3Ce"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="LxN-YD-yKH" secondAttribute="bottom" constant="213.5" id="3yn-ga-HXA"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tJB-KC-rLf" secondAttribute="trailing" constant="28" id="7yl-HK-HXu"/>
                             <constraint firstItem="lKL-hr-3vh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="45" id="IsV-Ig-eUw"/>
                             <constraint firstItem="lKL-hr-3vh" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="VoV-kj-quW"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Wxg-nA-F5y"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tJB-KC-rLf" secondAttribute="trailing" constant="30" id="g8k-oX-DmK"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="top" secondItem="lKL-hr-3vh" secondAttribute="bottom" constant="147.5" id="gfD-Td-gdB"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="lfm-Py-7xo"/>
                             <constraint firstItem="b9w-se-5oA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="mSt-nS-TzT"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="LxN-YD-yKH" secondAttribute="trailing" constant="30" id="mYQ-0g-1g8"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="nTV-BD-8O4"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tJB-KC-rLf" secondAttribute="bottom" constant="54" id="xEq-4w-2iU"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="b9w-se-5oA" secondAttribute="bottom" constant="34" id="wb1-SA-73S"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tJB-KC-rLf" secondAttribute="bottom" constant="34" id="yoG-VE-Xvi"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Chat" image="message" catalog="system" id="Gys-WM-IEm"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="askMealMentorIntroView" destination="LxN-YD-yKH" id="R9p-aQ-rdK"/>
+                        <outlet property="chatInputBar" destination="b9w-se-5oA" id="0zD-vJ-GTy"/>
+                        <outlet property="sendButton" destination="tJB-KC-rLf" id="SX6-2J-hHe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122.90076335877862" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="122.72727272727273" y="-2.510460251046025"/>
         </scene>
     </scenes>
     <resources>
         <image name="message" catalog="system" width="128" height="116"/>
+        <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

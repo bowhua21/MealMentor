@@ -42,18 +42,12 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "OnboardingToHomePageIdentifier" {
-            print("Segue destination: \(segue.destination)")
             if let tabBarController = segue.destination as? UITabBarController {
                 tabBarController.loadViewIfNeeded()
-                print("TabBarController viewControllers: \(String(describing: tabBarController.viewControllers))")
                 tabBarController.selectedIndex = 0
                 if let homeVC = tabBarController.viewControllers?[0] as? HomePageViewController {
                     homeVC.userName = "test"
-                } else {
-                    print("Home view controller not found or not of type HomePageViewController.")
                 }
-            } else {
-                print("Segue destination is not a UITabBarController.")
             }
         }
     }
