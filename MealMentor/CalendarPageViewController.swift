@@ -8,6 +8,7 @@
 import UIKit
 
 class CalendarPageViewController: UIViewController {
+    let segueToCalendarPageIdentifier = "SegueToCalendarPageIdentifier"
 
     override func viewDidLoad() {
         super.viewDidLoad()
