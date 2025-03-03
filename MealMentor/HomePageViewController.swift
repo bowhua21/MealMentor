@@ -22,6 +22,9 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     //    TODO tracked days
 //    var trackedDays: [Date] = []
     var daysOfWeek: [Date] = []
+    // segue identifiers
+    let segueToProteinVisualizationsIdentifier = "SegueToProteinVisualizationsIdentifier"
+    let segueToCaloriesVisualizationsIdentifier = "SegueToCaloriesVisualizationsIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +82,21 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         return days
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueToProteinVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
+            // set segmented to be on protein
+            visualizationsVC.selectedSegmentIndex = 0
+            visualizationsVC.delegate = self
+        }
+        else if segue.identifier == segueToCaloriesVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
+            // set segmented to be on calories
+            visualizationsVC.selectedSegmentIndex = 1
+            visualizationsVC.delegate = self
+        }
+    }
 }
+
+// extension function for Calendar class
 extension Calendar {
     func startOfWeek(for date: Date) -> Date {
         let components = dateComponents([.yearForWeekOfYear, .weekOfYear], from: date)
