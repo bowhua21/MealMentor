@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ask MealMentor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b9w-se-5oA">
-                                <rect key="frame" x="30" y="789" width="315" height="50"/>
+                                <rect key="frame" x="30" y="813" width="315" height="50"/>
                                 <color key="backgroundColor" red="0.93470836670000002" green="0.90623706169999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="315" id="KGd-Fb-Xus"/>
@@ -69,7 +69,7 @@
                                 <color key="tintColor" red="0.93470836670000002" green="0.90623706169999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJB-KC-rLf">
-                                <rect key="frame" x="362" y="789" width="50" height="50"/>
+                                <rect key="frame" x="362" y="813" width="50" height="50"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" image="YES"/>
                                 </accessibility>
@@ -100,8 +100,8 @@
                             <constraint firstItem="b9w-se-5oA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="mSt-nS-TzT"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="LxN-YD-yKH" secondAttribute="trailing" constant="30" id="mYQ-0g-1g8"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="nTV-BD-8O4"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="b9w-se-5oA" secondAttribute="bottom" constant="34" id="wb1-SA-73S"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tJB-KC-rLf" secondAttribute="bottom" constant="34" id="yoG-VE-Xvi"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="b9w-se-5oA" secondAttribute="bottom" constant="10" id="wb1-SA-73S"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tJB-KC-rLf" secondAttribute="bottom" constant="10" id="yoG-VE-Xvi"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Chat" image="Chat" id="Gys-WM-IEm"/>
@@ -109,7 +109,9 @@
                     <connections>
                         <outlet property="askMealMentorIntroView" destination="LxN-YD-yKH" id="R9p-aQ-rdK"/>
                         <outlet property="chatInputBar" destination="b9w-se-5oA" id="0zD-vJ-GTy"/>
+                        <outlet property="chatInputBarBottomConstraint" destination="wb1-SA-73S" id="ic2-A0-wp1"/>
                         <outlet property="sendButton" destination="tJB-KC-rLf" id="SX6-2J-hHe"/>
+                        <outlet property="sendButtonBottomConstraint" destination="yoG-VE-Xvi" id="BFa-0l-6iK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -117,6 +119,7 @@
             <point key="canvasLocation" x="122.72727272727273" y="-2.510460251046025"/>
         </scene>
     </scenes>
+    <color key="tintColor" systemColor="systemIndigoColor"/>
     <resources>
         <image name="Chat" width="25" height="25"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>

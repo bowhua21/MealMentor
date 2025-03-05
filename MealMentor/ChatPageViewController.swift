@@ -8,11 +8,13 @@
 import UIKit
 import FirebaseFirestore
 
-class ChatPageViewController: UIViewController {
+class ChatPageViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var askMealMentorIntroView: UIView!
     @IBOutlet weak var chatInputBar: UITextField!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var chatInputBarBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sendButtonBottomConstraint: NSLayoutConstraint!
     
     var chatStackView: UIStackView!
     var chatScrollView: UIScrollView!
@@ -24,10 +26,13 @@ class ChatPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        chatInputBar.delegate = self
+        
         askMealMentorIntroView.layer.cornerRadius = 10
         askMealMentorIntroView.clipsToBounds = true
+ 
         sendButton.tintColor = UIColor.systemIndigo
+        
         chatInputBar.layer.cornerRadius = 90
         
         chatScrollView = UIScrollView()
@@ -37,7 +42,7 @@ class ChatPageViewController: UIViewController {
             chatScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 87),
             chatScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             chatScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
-            chatScrollView.bottomAnchor.constraint(equalTo: chatInputBar.topAnchor, constant: -30)
+            chatScrollView.bottomAnchor.constraint(equalTo: chatInputBar.topAnchor, constant: -10)
         ])
         
         chatStackView = UIStackView()
@@ -63,6 +68,22 @@ class ChatPageViewController: UIViewController {
         super.viewDidLayoutSubviews()
         chatInputBar.layer.cornerRadius = chatInputBar.frame.height / 2
         chatInputBar.clipsToBounds = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        sendButton.tintColor = UIColor.systemIndigo
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        sendButton.tintColor = UIColor.systemIndigo
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func fetchChats() {
@@ -108,19 +129,16 @@ class ChatPageViewController: UIViewController {
     }
     
     func populateChatUI() {
-        // Clear previous messages
         chatStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for chat in messages {
-            // Create the horizontal container for message alignment
             let messageContainer = UIStackView()
             messageContainer.axis = .horizontal
             messageContainer.alignment = .fill
             messageContainer.spacing = 8
             messageContainer.translatesAutoresizingMaskIntoConstraints = false
             
-            // Configure bubble label
-            let bubbleLabel = PaddingLabel()
+            let bubbleLabel = ChatBubble()
             bubbleLabel.text = chat.message
             bubbleLabel.numberOfLines = 0
             bubbleLabel.layer.cornerRadius = 10
@@ -128,26 +146,25 @@ class ChatPageViewController: UIViewController {
             bubbleLabel.translatesAutoresizingMaskIntoConstraints = false
             
             if chat.sender == "user" {
-                bubbleLabel.backgroundColor = UIColor.lightGray
+                bubbleLabel.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .right
             } else if chat.sender == "ai" {
                 bubbleLabel.backgroundColor = UIColor.systemIndigo.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .left
-            } else {
+            } else if chat.sender == "error" {
                 bubbleLabel.backgroundColor = UIColor.red.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .center
             }
             
-            // Add bubble label to the container and set the maximum width relative to the container
             if chat.sender == "user" {
                 let spacer = UIView()
                 spacer.translatesAutoresizingMaskIntoConstraints = false
                 messageContainer.addArrangedSubview(spacer)
                 messageContainer.addArrangedSubview(bubbleLabel)
             } else {
-                messageContainer.addArrangedSubview(bubbleLabel)
                 let spacer = UIView()
                 spacer.translatesAutoresizingMaskIntoConstraints = false
+                messageContainer.addArrangedSubview(bubbleLabel)
                 messageContainer.addArrangedSubview(spacer)
             }
             
@@ -157,28 +174,30 @@ class ChatPageViewController: UIViewController {
         }
     }
     
-    @IBAction func sendButtonTapped(_ sender: UIButton) {
+    func handleSendMessage() {
         guard let text = chatInputBar.text, !text.isEmpty else { return }
         
-        // Create a new document in Firestore with the required fields.
-        let newChat: [String: Any] = [
+        let newChat = [
             "message": text,
             "userId": currentUserId,
             "createdAt": Timestamp(date: Date()),
             "sender": "user"
-        ]
+        ] as [String : Any]
         
         db.collection("chats").addDocument(data: newChat) { error in
             if let error = error {
-                print("Error sending message: \(error)")
+                print("Error: \(error)")
                 return
             }
-            // Clear the input field.
+
             self.chatInputBar.text = ""
-            // Append the new message to the local array and update the UI.
             self.messages.append(ChatMessage(userId: self.currentUserId, message: text, sender: "user", createdAt: Date()))
             self.populateChatUI()
         }
+    }
+    
+    @IBAction func sendButtonTapped(_ sender: UIButton) {
+        handleSendMessage()
     }
     
     func setupKeyboardNotifications() {
@@ -191,25 +210,43 @@ class ChatPageViewController: UIViewController {
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        handleSendMessage()
+        return true
+    }
+        
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        self.chatScrollView.endEditing(true)
+    }
+
+    
     @objc func keyboardWillShow(notification: Notification) {
-        // Update constraints or view frame so the chat input bar remains visible.
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        let adjustedKeyboardHeight = keyboardFrame.height - view.safeAreaInsets.bottom + 10
+
+        chatInputBarBottomConstraint.constant = adjustedKeyboardHeight
+        sendButtonBottomConstraint.constant = adjustedKeyboardHeight
+        UIView.animate(withDuration: animationDuration) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     @objc func keyboardWillHide(notification: Notification) {
-        // Revert any changes made when the keyboard appeared.
-    }
-}
-
-class PaddingLabel: UILabel {
-    var textInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-    
-    override func drawText(in rect: CGRect) {
-        super.drawText(in: rect.inset(by: textInsets))
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        return CGSize(width: size.width + textInsets.left + textInsets.right,
-                      height: size.height + textInsets.top + textInsets.bottom)
+        guard let userInfo = notification.userInfo,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        
+        chatInputBarBottomConstraint.constant = 10
+        sendButtonBottomConstraint.constant = 10
+        UIView.animate(withDuration: animationDuration) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
