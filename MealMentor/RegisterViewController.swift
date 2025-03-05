@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     
@@ -19,6 +20,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         passwordField.isSecureTextEntry = true
         confirmPasswordField.isSecureTextEntry = true
         
+        Auth.auth().addStateDidChangeListener() {
+            (auth, user) in
+            if user != nil {
+                self.performSegue(withIdentifier: "OnboardSegueID", sender: nil)
+                self.userIDField.text = nil
+                self.passwordField.text = nil
+                self.confirmPasswordField.text = nil
+            }
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -31,15 +41,19 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         } else if !isValidEmail(userName) {
             statusLabelField.text = "Invalid email format"
         } else if !isValidPassword(password) {
-            statusLabelField.text = "Password length must be >= 6"
+            statusLabelField.text = "The password is too short"
         } else if password != confirmPass {
             statusLabelField.text = "The passwords do not match"
-        } else if usernameExists(username: userName) {
-            statusLabelField.text = "Email already exists"
         } else {
-            addNewAccount(username: userName, password: password)
-            statusLabelField.text = "Successfully created new account"
-            self.performSegue(withIdentifier: "OnboardSegueID", sender: nil)
+            Auth.auth().createUser(withEmail: userName, password: password) {
+                (authResult, error) in
+                if let error = error as NSError? {
+                    self.statusLabelField.text = "Database error - \(error.localizedDescription)"
+                } else {
+                    self.statusLabelField.text = "Successfully created new account"
+                }
+            }
+            
             //self.dismiss(animated: true)
         }
     }

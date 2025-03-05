@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -14,6 +15,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         userIDField.delegate = self
         passwordField.delegate = self
         passwordField.isSecureTextEntry = true
+        
+        Auth.auth().addStateDidChangeListener() {
+            (auth, user) in
+            if user != nil {
+                self.performSegue(withIdentifier: "LoginToHomePageIdentifier", sender: nil)
+                self.userIDField.text = nil
+                self.passwordField.text = nil
+            }
+        }
     }
     
     @IBAction func buttonPressed(_ sender: Any) {
@@ -21,11 +31,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let password = passwordField.text!
         if userName.isEmpty || password.isEmpty {
             statusLabelField.text = "Please fill in all fields"
-        } else if !validLogin(username: userName, password: password){
-            statusLabelField.text = "Invalid login"
+        } else if !isValidEmail(userName) {
+            statusLabelField.text = "Invalid email format"
+        } else if !isValidPassword(password) {
+            statusLabelField.text = "The password is too short"
         } else {
-            statusLabelField.text = userName + " successfully logged in"
-            self.performSegue(withIdentifier: "LoginToHomePageIdentifier", sender: nil)
+            Auth.auth().signIn(withEmail: userName, password: password) {
+                (authResult, error) in
+                if let error = error as NSError? {
+                    self.statusLabelField.text = "Database error - \(error.localizedDescription)"
+                } else {
+                    self.statusLabelField.text = userName + " successfully logged in"
+                }
+            }
+            
         }
     }
     

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
 
@@ -17,12 +18,18 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var nutritionFocusField: UITextField!
     
+    @IBOutlet weak var firstNameField: UITextField!
+    
+    @IBOutlet weak var lastNameField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         goalsField.delegate = self
         allergiesField.delegate = self
         dietRestrictionsField.delegate = self
         nutritionFocusField.delegate = self
+        firstNameField.delegate = self
+        lastNameField.delegate = self
 
         // Do any additional setup after loading the view.
     }
