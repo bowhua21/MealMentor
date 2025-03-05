@@ -7,8 +7,16 @@
 
 import UIKit
 
-class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+// TODO delete later
+let dummyMeals = ["Oatmeal with berries", "fake meal 1", "fake meal 2", "fake meal 3", "fake meal 4"]
+let dummyNutrition = ["350 kcal, 10g Protein, 60g Carbs, 5g Fat", "fake nutrition 1", "fake nutrition 2", "fake nutrition 3", "fake nutrition 4"]
+
+class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+    
+    // home screen properties
     @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var numDaysLoggedThisMonth: UILabel!
+    @IBOutlet weak var numDayStreak: UILabel!
     
     var userName:String = "Jane Doe"
     // each floating cell
@@ -17,7 +25,11 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var todayMealsView: UIView!
     @IBOutlet weak var weeklyProteinView: UIView!
     @IBOutlet weak var weeklyCaloriesView: UIView!
-    // calendar within thisWeekView
+    // today's meals table view within todayMealsView
+    let tableViewCellIdentifier = "TableViewCellIdentifier"
+    @IBOutlet weak var todayMealsTableView: UITableView!
+  
+    // calendar collection within thisWeekView
     @IBOutlet weak var thisWeekCollectionView: UICollectionView!
     //    TODO tracked days
 //    var trackedDays: [Date] = []
@@ -31,6 +43,11 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         username.text = userName
         // Do any additional setup after loading the view.
         // TODO set username
+        
+        
+        // setup today's meals
+        todayMealsTableView.dataSource = self
+        todayMealsTableView.delegate = self
         
         // setup this week calendar collection view
         thisWeekCollectionView.dataSource = self
@@ -50,10 +67,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         weeklyProteinView.layer.cornerRadius = 20
         weeklyCaloriesView.layer.cornerRadius = 20
     }
-    
-    @IBAction func todayMealsViewClicked(_ sender: Any) {
-        print("today meals clicked")
-    }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return daysOfWeek.count
@@ -82,6 +96,24 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         return days
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        dummyMeals.count
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath)
+        cell.textLabel?.text = dummyMeals[indexPath.section]
+        cell.detailTextLabel?.text = dummyNutrition[indexPath.section]
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segueToProteinVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on protein
