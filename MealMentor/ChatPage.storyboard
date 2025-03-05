@@ -104,7 +104,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tJB-KC-rLf" secondAttribute="bottom" constant="34" id="yoG-VE-Xvi"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Chat" image="message" catalog="system" id="Gys-WM-IEm"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="Chat" id="Gys-WM-IEm"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="askMealMentorIntroView" destination="LxN-YD-yKH" id="R9p-aQ-rdK"/>
@@ -118,7 +118,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="message" catalog="system" width="128" height="116"/>
+        <image name="Chat" width="25" height="25"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
