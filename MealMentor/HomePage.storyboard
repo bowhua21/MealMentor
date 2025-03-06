@@ -590,10 +590,10 @@
                     </tabBar>
                     <connections>
                         <segue destination="fPB-eO-xTN" kind="relationship" relationship="viewControllers" id="Qs1-vP-0O4"/>
+                        <segue destination="uA0-la-mfW" kind="relationship" relationship="viewControllers" id="wzL-Vg-ro1"/>
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="5wr-FX-rqi"/>
                         <segue destination="G5Q-m5-X6g" kind="relationship" relationship="viewControllers" id="dxz-8x-CTI"/>
                         <segue destination="uzh-qR-cfz" kind="relationship" relationship="viewControllers" id="6yB-oq-TEh"/>
-                        <segue destination="uA0-la-mfW" kind="relationship" relationship="viewControllers" id="wzL-Vg-ro1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pSG-4t-cgP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
