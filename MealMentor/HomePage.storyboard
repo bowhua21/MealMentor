@@ -258,7 +258,7 @@
                                                                 <rect key="frame" x="0.0" y="32" width="400" height="294"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <prototypes>
-                                                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TableViewCellIdentifier" textLabel="6eO-dO-WUh" detailTextLabel="wpW-8j-lbz" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="Key-Hv-eVJ">
+                                                                    <tableViewCell opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TableViewCellIdentifier" textLabel="6eO-dO-WUh" detailTextLabel="wpW-8j-lbz" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="Key-Hv-eVJ">
                                                                         <rect key="frame" x="20" y="55.333332061767578" width="360" height="64"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Key-Hv-eVJ" id="N0P-Kd-F8J">
@@ -284,39 +284,17 @@
                                                                     </tableViewCell>
                                                                 </prototypes>
                                                             </tableView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Arrow right transparent" translatesAutoresizingMaskIntoConstraints="NO" id="oZe-AD-8Fr">
-                                                                <rect key="frame" x="372" y="11" width="20" height="20"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="20" id="Ovl-PY-ehc"/>
-                                                                    <constraint firstAttribute="width" constant="20" id="QV4-0Q-zKP"/>
-                                                                </constraints>
-                                                            </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Pz-fB-gQi">
-                                                                <rect key="frame" x="0.0" y="0.0" width="400" height="334"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="400" id="GdL-3X-MGt"/>
-                                                                    <constraint firstAttribute="height" constant="334" id="eW4-vt-IN9"/>
-                                                                </constraints>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title=""/>
-                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.75294117650000003" green="0.87843137250000003" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstItem="oZe-AD-8Fr" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="11" id="HFR-gf-o3M"/>
                                                             <constraint firstAttribute="bottom" secondItem="Rk3-8a-kEr" secondAttribute="bottom" constant="8" id="OIf-ds-KuQ"/>
                                                             <constraint firstItem="tIy-Dt-WQG" firstAttribute="leading" secondItem="hAz-Qj-WDI" secondAttribute="trailing" constant="9" id="bHs-th-3cH"/>
-                                                            <constraint firstAttribute="bottom" secondItem="2Pz-fB-gQi" secondAttribute="bottom" id="goj-F8-I7T"/>
                                                             <constraint firstItem="tIy-Dt-WQG" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="11" id="gum-as-My3"/>
                                                             <constraint firstAttribute="trailing" secondItem="Rk3-8a-kEr" secondAttribute="trailing" id="mIo-ew-Ka6"/>
                                                             <constraint firstItem="hAz-Qj-WDI" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="8" id="pdl-2g-NHt"/>
-                                                            <constraint firstAttribute="trailing" secondItem="oZe-AD-8Fr" secondAttribute="trailing" constant="8" id="q8j-J6-9jx"/>
                                                             <constraint firstItem="hAz-Qj-WDI" firstAttribute="leading" secondItem="SBw-l7-5uO" secondAttribute="leading" constant="8" id="qic-FA-fLe"/>
                                                             <constraint firstItem="Rk3-8a-kEr" firstAttribute="leading" secondItem="SBw-l7-5uO" secondAttribute="leading" id="qij-cN-VDa"/>
-                                                            <constraint firstItem="2Pz-fB-gQi" firstAttribute="leading" secondItem="SBw-l7-5uO" secondAttribute="leading" id="qyb-vh-Nm5"/>
-                                                            <constraint firstAttribute="trailing" secondItem="2Pz-fB-gQi" secondAttribute="trailing" id="w9r-Fg-4ke"/>
                                                             <constraint firstItem="Rk3-8a-kEr" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="32" id="x0y-VZ-5dX"/>
-                                                            <constraint firstItem="2Pz-fB-gQi" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" id="yIk-oF-jQZ"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
