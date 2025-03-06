@@ -40,8 +40,8 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(chatScrollView)
         NSLayoutConstraint.activate([
             chatScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 87),
-            chatScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            chatScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            chatScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            chatScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             chatScrollView.bottomAnchor.constraint(equalTo: chatInputBar.topAnchor, constant: -10)
         ])
         
@@ -194,6 +194,91 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             self.messages.append(ChatMessage(userId: self.currentUserId, message: text, sender: "user", createdAt: Date()))
             self.populateChatUI()
         }
+        
+        self.getAIResponse(with: text)
+    }
+    
+    // this function protects the API key by reading from the Config.plist file
+    // there should be a row called DeepSeekAPIKey with the api key as the value
+    func getDeepSeekAPIKey() -> String? {
+        guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+              let config = NSDictionary(contentsOfFile: path) as? [String: Any],
+              let deepSeekAPIKey = config["DeepSeekAPIKey"] as? String else {
+            print("Error: Could not load DeepSeekAPIKey from Config.plist")
+            return nil
+        }
+        return deepSeekAPIKey
+    }
+    
+    func getAIResponse(with message: String) {
+        print("in getAIResponse")
+        guard let url = URL(string: "https://api.deepseek.com/chat/completions") else { return }
+        guard let apiKey = getDeepSeekAPIKey() else { return }
+        
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let payload: [String: Any] = [
+            "messages": [
+                ["role": "system", "content": "You are an assistant for food and nutrition."],
+                ["role": "user", "content": message]
+            ],
+            "model": "deepseek-chat"
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
+        } catch {
+            print("Error serializing JSON: \(error)")
+            return
+        }
+        print("About to start URLSession dataTask")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("DeepSeek request error: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received from DeepSeek")
+                return
+            }
+            
+            do {
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let choices = jsonResponse["choices"] as? [[String: Any]],
+                   let firstChoice = choices.first,
+                   let message = firstChoice["message"] as? [String: Any],
+                   let deepSeekResponse = message["content"] as? String {
+                    print("choices \(choices) firstChoice \(firstChoice) message \(message) deepSeekResponse \(deepSeekResponse)")
+                    let newAIChat = [
+                        "message": deepSeekResponse,
+                        "userId": self.currentUserId,
+                        "createdAt": Timestamp(date: Date()),
+                        "sender": "ai"
+                    ] as [String: Any]
+                    
+                    self.db.collection("chats").addDocument(data: newAIChat) { error in
+                        if let error = error {
+                            print("Error storing AI response: \(error)")
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.messages.append(ChatMessage(userId: self.currentUserId, message: deepSeekResponse, sender: "ai", createdAt: Date()))
+                            self.populateChatUI()
+                        }
+                    }
+                }
+            } catch {
+                print("Error parsing DeepSeek response: \(error)")
+            }
+        }.resume()
+        print("URLSession dataTask resume() called")
     }
     
     @IBAction func sendButtonTapped(_ sender: UIButton) {

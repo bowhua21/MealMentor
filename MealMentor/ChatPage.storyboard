@@ -18,16 +18,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MealMentor Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKL-hr-3vh">
-                                <rect key="frame" x="145.66666666666666" y="107" width="148.99999999999997" height="42"/>
+                                <rect key="frame" x="145.66666666666666" y="72" width="148.99999999999997" height="77"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ask MealMentor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b9w-se-5oA">
-                                <rect key="frame" x="30" y="813" width="315" height="50"/>
+                                <rect key="frame" x="10" y="813" width="360" height="50"/>
                                 <color key="backgroundColor" red="0.93470836670000002" green="0.90623706169999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="315" id="KGd-Fb-Xus"/>
+                                    <constraint firstAttribute="width" constant="360" id="KGd-Fb-Xus"/>
                                     <constraint firstAttribute="height" constant="50" id="xz2-cA-X7E"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -69,7 +69,7 @@
                                 <color key="tintColor" red="0.93470836670000002" green="0.90623706169999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJB-KC-rLf">
-                                <rect key="frame" x="362" y="813" width="50" height="50"/>
+                                <rect key="frame" x="380" y="813" width="50" height="50"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" image="YES"/>
                                 </accessibility>
@@ -91,13 +91,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="LxN-YD-yKH" secondAttribute="bottom" constant="213.5" id="3yn-ga-HXA"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tJB-KC-rLf" secondAttribute="trailing" constant="28" id="7yl-HK-HXu"/>
-                            <constraint firstItem="lKL-hr-3vh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="45" id="IsV-Ig-eUw"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tJB-KC-rLf" secondAttribute="trailing" constant="10" id="7yl-HK-HXu"/>
+                            <constraint firstItem="lKL-hr-3vh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="IsV-Ig-eUw"/>
                             <constraint firstItem="lKL-hr-3vh" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="VoV-kj-quW"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Wxg-nA-F5y"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="top" secondItem="lKL-hr-3vh" secondAttribute="bottom" constant="147.5" id="gfD-Td-gdB"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="lfm-Py-7xo"/>
-                            <constraint firstItem="b9w-se-5oA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="mSt-nS-TzT"/>
+                            <constraint firstItem="b9w-se-5oA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="mSt-nS-TzT"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="LxN-YD-yKH" secondAttribute="trailing" constant="30" id="mYQ-0g-1g8"/>
                             <constraint firstItem="LxN-YD-yKH" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="nTV-BD-8O4"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="b9w-se-5oA" secondAttribute="bottom" constant="10" id="wb1-SA-73S"/>
