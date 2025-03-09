@@ -9,6 +9,7 @@ import UIKit
 
 class CalendarPageViewController: UIViewController {
     let segueToCalendarPageIdentifier = "SegueToCalendarPageIdentifier"
+    let calendarViewColor = UIColor(red: 0.2509, green: 0.4588, blue: 0.1764, alpha: 1.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ class CalendarPageViewController: UIViewController {
         calendarView.fontDesign = .rounded
         calendarView.delegate = self
         calendarView.layer.cornerRadius = 10
-        calendarView.backgroundColor = .systemGreen
+        calendarView.backgroundColor = calendarViewColor
         view.addSubview(calendarView)
         NSLayoutConstraint.activate([calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
                                      calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
