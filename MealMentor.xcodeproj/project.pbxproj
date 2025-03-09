@@ -11,6 +11,8 @@
 		37425AC42D5D5DD3004DE8CA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 37425AC32D5D5DD3004DE8CA /* FirebaseAuth */; };
 		37425AC62D5D5DE0004DE8CA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 37425AC52D5D5DE0004DE8CA /* FirebaseFirestore */; };
 		37425AC82D5D5DEC004DE8CA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 37425AC72D5D5DEC004DE8CA /* FirebaseAnalytics */; };
+		405983862D7CC9C00016FBBD /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 405983852D7CC9C00016FBBD /* DGCharts */; };
+		40BE2D402D7CC6C40023997D /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 40BE2D3F2D7CC6C40023997D /* TinyConstraints */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,9 +45,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40BE2D402D7CC6C40023997D /* TinyConstraints in Frameworks */,
 				37425AC22D5D5CC1004DE8CA /* FirebaseCore in Frameworks */,
 				37425AC42D5D5DD3004DE8CA /* FirebaseAuth in Frameworks */,
 				37425AC82D5D5DEC004DE8CA /* FirebaseAnalytics in Frameworks */,
+				405983862D7CC9C00016FBBD /* DGCharts in Frameworks */,
 				37425AC62D5D5DE0004DE8CA /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +105,8 @@
 				37425AC32D5D5DD3004DE8CA /* FirebaseAuth */,
 				37425AC52D5D5DE0004DE8CA /* FirebaseFirestore */,
 				37425AC72D5D5DEC004DE8CA /* FirebaseAnalytics */,
+				40BE2D3F2D7CC6C40023997D /* TinyConstraints */,
+				405983852D7CC9C00016FBBD /* DGCharts */,
 			);
 			productName = "HuangBowen-HW2";
 			productReference = 444548162D52C41C00CCDEBE /* MealMentor.app */;
@@ -132,6 +138,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				37425AA92D5D59A9004DE8CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				40BE2D3E2D7CC6C40023997D /* XCRemoteSwiftPackageReference "TinyConstraints" */,
+				405983842D7CC9C00016FBBD /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 444548172D52C41C00CCDEBE /* Products */;
@@ -371,6 +379,22 @@
 				minimumVersion = 11.8.1;
 			};
 		};
+		405983842D7CC9C00016FBBD /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+		40BE2D3E2D7CC6C40023997D /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roberthein/TinyConstraints.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -393,6 +417,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 37425AA92D5D59A9004DE8CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		405983852D7CC9C00016FBBD /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 405983842D7CC9C00016FBBD /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
+		40BE2D3F2D7CC6C40023997D /* TinyConstraints */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40BE2D3E2D7CC6C40023997D /* XCRemoteSwiftPackageReference "TinyConstraints" */;
+			productName = TinyConstraints;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

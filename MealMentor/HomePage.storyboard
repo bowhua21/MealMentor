@@ -132,8 +132,8 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlS-pC-W3k">
                                                         <rect key="frame" x="20" y="8" width="400" height="134"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdv-DD-LrA">
-                                                                <rect key="frame" x="11" y="10.999999999999998" width="72.666666666666671" height="23.333333333333329"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdv-DD-LrA">
+                                                                <rect key="frame" x="11" y="10.999999999999998" width="76.333333333333329" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -326,7 +326,7 @@
                                                                     <constraint firstAttribute="width" constant="400" id="iw1-qN-t5I"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain"/>
                                                                 <connections>
                                                                     <segue destination="KMb-la-iC5" kind="show" identifier="SegueToProteinVisualizationsIdentifier" id="id0-0p-Vza"/>
                                                                 </connections>
@@ -441,6 +441,7 @@
                         <outlet property="highlightsView" destination="XFD-1I-86S" id="ZdX-Le-CHK"/>
                         <outlet property="numDayStreak" destination="7gd-NF-c9N" id="RSu-X4-nMW"/>
                         <outlet property="numDaysLoggedThisMonth" destination="cEK-RA-uBS" id="va7-se-ZzI"/>
+                        <outlet property="proteinCellButton" destination="47u-TM-XeX" id="w9i-KR-LIt"/>
                         <outlet property="thisWeekCollectionView" destination="t6j-V3-OEc" id="c38-lv-Itf"/>
                         <outlet property="thisWeekView" destination="tlS-pC-W3k" id="Dea-I0-f6f"/>
                         <outlet property="todayMealsTableView" destination="Rk3-8a-kEr" id="kMJ-g7-LlH"/>

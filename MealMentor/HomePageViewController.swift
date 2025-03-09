@@ -6,10 +6,22 @@
 //
 
 import UIKit
+import DGCharts
+import TinyConstraints
 
 // TODO delete later
 let dummyMeals = ["Oatmeal with berries", "fake meal 1", "fake meal 2", "fake meal 3", "fake meal 4"]
 let dummyNutrition = ["350 kcal, 10g Protein, 60g Carbs, 5g Fat", "fake nutrition 1", "fake nutrition 2", "fake nutrition 3", "fake nutrition 4"]
+let dummyDataPts: [BarChartDataEntry] = [
+    BarChartDataEntry(x: 1.0, y: 50.0),
+    BarChartDataEntry(x: 2.0, y: 25.0),
+    BarChartDataEntry(x: 3.0, y: 30.0),
+    BarChartDataEntry(x: 4.0, y: 0.0),
+    BarChartDataEntry(x: 5.0, y: 10.0),
+    BarChartDataEntry(x: 6.0, y: 25.0),
+    BarChartDataEntry(x: 7.0, y: 40.0)
+]
+
 
 class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,7 +29,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var numDaysLoggedThisMonth: UILabel!
     @IBOutlet weak var numDayStreak: UILabel!
-    
+    @IBOutlet weak var proteinCellButton: UIButton!
     var userName:String = "Jane Doe"
     // each floating cell
     @IBOutlet weak var highlightsView: UIView!
@@ -34,6 +46,25 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     //    TODO tracked days
 //    var trackedDays: [Date] = []
     var daysOfWeek: [Date] = []
+    // graphs
+    lazy var proteinBarChartView: BarChartView = {
+        let chartView = BarChartView()
+        chartView.backgroundColor = .clear
+        chartView.rightAxis.enabled = false
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.leftAxis.enabled = false
+        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
+        chartView.xAxis.granularity = 1
+        chartView.xAxis.labelPosition = .bottom
+        chartView.xAxis.axisMinimum = 0.5
+        chartView.xAxis.axisMaximum = 7.5
+        chartView.xAxis.labelCount = 7
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.legend.enabled = false
+        
+        return chartView
+    }()
     // segue identifiers
     let segueToProteinVisualizationsIdentifier = "SegueToProteinVisualizationsIdentifier"
     let segueToCaloriesVisualizationsIdentifier = "SegueToCaloriesVisualizationsIdentifier"
@@ -56,6 +87,15 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         let today = Date()
         let startOfWeek = Calendar.current.startOfWeek(for: today)
         daysOfWeek = getDaysOfWeek(startOfWeek: startOfWeek)
+        
+        // setup protein bar chart
+        weeklyProteinView.addSubview(proteinBarChartView)
+        proteinBarChartView.center(in: weeklyProteinView, offset: CGPoint(x: 0, y: 10))
+        proteinBarChartView.width(360)
+        proteinBarChartView.height(130)
+        setProteinData()
+        // make sure protein cell button is still clickable
+        weeklyProteinView.bringSubviewToFront(proteinCellButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -112,6 +152,14 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func setProteinData() {
+        let set = BarChartDataSet(entries: dummyDataPts, label: "Protein")
+        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
+        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        let data = BarChartData(dataSet: set)
+        proteinBarChartView.data = data
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
