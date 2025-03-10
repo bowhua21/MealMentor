@@ -104,11 +104,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8H-D1-Hh9">
-                                <rect key="frame" x="162" y="299" width="69" height="35"/>
+                                <rect key="frame" x="169" y="299" width="55" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Finish"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Add"/>
                                 <connections>
-                                    <action selector="finishClicked:" destination="c4i-jf-ySt" eventType="touchUpInside" id="4XI-LV-Wxx"/>
+                                    <action selector="addClicked:" destination="c4i-jf-ySt" eventType="touchUpInside" id="3RC-q2-ljL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee6-vj-HPd">
+                                <rect key="frame" x="146" y="342" width="102" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Finish Log"/>
+                                <connections>
+                                    <action selector="finishLogClicked:" destination="c4i-jf-ySt" eventType="touchUpInside" id="zi6-0e-9hg"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wNV-ZE-8x2">
