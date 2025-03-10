@@ -6,24 +6,39 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
-class LogDisplayViewController: UIViewController {
-
+class LogDisplayViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource {
+    let breakfastCellIdentifier = "breakfastCell"
+    var breakfast: Meal?
+    var lunch: Meal?
+    var dinner: Meal?
+    var snack: Meal?
+    
+    @IBOutlet weak var breakfastTableView: UITableView!
+    // MARK: - UITableViewDataSource Methods
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return breakfast?.foodList.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: breakfastCellIdentifier, for: indexPath)
+        if let eachFood = breakfast?.foodList[indexPath.row] {
+            cell.textLabel?.text = eachFood.name
+        }
+        return cell
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupBreakfastTableView()
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupBreakfastTableView() {
+        breakfastTableView.delegate = self
+        breakfastTableView.dataSource = self
     }
-    */
-
+    
 }

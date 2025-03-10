@@ -7,20 +7,29 @@
 
 import UIKit
 import Firebase
-
-
+import FirebaseAuth
 
 class LogEntryViewController: UIViewController {
-    var userInput: String?
     var foodList: [Food] = []
     let defaultCategory = "Breakfast"
-    //let db = Firestore.firestore()
-    let currentUserId = "user123" // Replace with actual user ID retrieval logic
+    var currentUserId: String? // Replace with actual user ID retrieval logic
     @IBOutlet weak var logTextField: UITextField!
     
     @IBOutlet weak var mealLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentUserId = getUserID()
+    }
+    
+    func getUserID() -> String? {
+        if let user = Auth.auth().currentUser {
+            let userID = user.uid
+            print("Current User ID: \(userID)")
+            return userID
+        } else {
+            print("No user is signed in")
+            return nil
+        }
     }
     
     func generateNutritionPrompt(for foodItem: String) -> String {
@@ -127,47 +136,47 @@ class LogEntryViewController: UIViewController {
         do {
             // Print raw response data for debugging
             let rawResponse = String(data: data, encoding: .utf8) ?? "Invalid response data"
-            print("⛔️ RAW API RESPONSE START ⛔️")
+            print("RAW API RESPONSE START")
             print(rawResponse)
-            print("⛔️ RAW API RESPONSE END ⛔️")
+            print("RAW API RESPONSE END")
             
             // First-level parsing
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                 showError("Invalid root JSON structure")
-                print("🔴 FAILED TO PARSE ROOT JSON OBJECT")
+                print("FAILED TO PARSE ROOT JSON OBJECT")
                 return
             }
             
-            print("✅ Root JSON parsed successfully")
+            print("Root JSON parsed successfully")
             print("Root JSON keys: \(json.keys.joined(separator: ", "))")
             
             // Extract choices array
             guard let choices = json["choices"] as? [[String: Any]] else {
                 showError("Missing choices array")
-                print("🔴 MISSING CHOICES ARRAY")
+                print("MISSING CHOICES ARRAY")
                 return
             }
             
-            print("✅ Found \(choices.count) choices")
+            print("Found \(choices.count) choices")
             
             // Get first choice
             guard let firstChoice = choices.first else {
                 showError("Empty choices array")
-                print("🔴 EMPTY CHOICES ARRAY")
+                print("EMPTY CHOICES ARRAY")
                 return
             }
             
-            print("✅ First choice contents:", firstChoice)
+            print("First choice contents:", firstChoice)
             
             // Extract message content
             guard let message = firstChoice["message"] as? [String: Any],
                   let responseText = message["content"] as? String else {
                 showError("Invalid message format")
-                print("🔴 INVALID MESSAGE FORMAT")
+                print("INVALID MESSAGE FORMAT")
                 return
             }
             
-            print("✅ Extracted response text:")
+            print("Extracted response text:")
             print("--- RESPONSE TEXT START ---")
             print(responseText)
             print("--- RESPONSE TEXT END ---")
@@ -178,43 +187,43 @@ class LogEntryViewController: UIViewController {
             
             guard let jsonData = jsonString?.data(using: .utf8) else {
                 showError("Invalid JSON encoding")
-                print("🔴 FAILED TO CONVERT JSON STRING TO DATA")
+                print("FAILED TO CONVERT JSON STRING TO DATA")
                 return
             }
             
             // Parse food JSON
             let foodDict = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
-            print("✅ Parsed food dictionary:", foodDict ?? "nil")
+            print("Parsed food dictionary:", foodDict ?? "nil")
             
             // Clean data
             guard let cleanedDict = cleanNutritionData(foodDict) else {
                 showError("Missing required fields")
-                print("🔴 FAILED TO CLEAN NUTRITION DATA")
+                print("FAILED TO CLEAN NUTRITION DATA")
                 return
             }
             
-            print("🧼 Cleaned nutrition data:", cleanedDict)
+            print("Cleaned nutrition data:", cleanedDict)
             
             // Create Food object
             guard let food = Food.fromDictionary(cleanedDict) else {
                 showError("Failed to create food item")
-                print("🔴 FAILED TO INITIALIZE FOOD OBJECT")
+                print("FAILED TO INITIALIZE FOOD OBJECT")
                 print("Problematic dictionary:", cleanedDict)
                 return
             }
             
-            print("🍎 Successfully created Food object:", food)
+            print("Successfully created Food object:", food)
             DispatchQueue.main.async { [weak self] in
                 self?.handleNewFoodItem(food)
             }
             
         } catch {
             showError("Parsing error: \(error.localizedDescription)")
-            print("🔴 DETAILED PARSING ERROR:", error)
+            print("DETAILED PARSING ERROR:", error)
             print("Error context:", error)
             
             if let jsonStr = String(data: data, encoding: .utf8) {
-                print("⚠️ PROBLEMATIC JSON CONTENT:")
+                print("PROBLEMATIC JSON CONTENT:")
                 print(jsonStr)
             }
         }
@@ -266,13 +275,12 @@ class LogEntryViewController: UIViewController {
         return dict
     }
     
-    // MARK: - Data Management
         private func handleNewFoodItem(_ food: Food) {
             foodList.append(food)
             logTextField.text = ""
             updateMealLabel()
             showTemporaryMessage("Added: \(food.name)")
-            print("✅ Added food: \(food.name)")
+            print("Added food: \(food.name)")
         }
     
     private func saveCompleteMeal() {
@@ -287,7 +295,7 @@ class LogEntryViewController: UIViewController {
         
         let meal = Meal(
             date: Date(),
-            userID: currentUserId,
+            userID: currentUserId!,
             category: defaultCategory,
             foodList: foodList
         )
@@ -314,7 +322,6 @@ class LogEntryViewController: UIViewController {
         showTemporaryMessage("Meal saved successfully!")
     }
     
-    // MARK: - UI Updates
        private func updateMealLabel() {
            var labelText = "Current Meal (\(defaultCategory)):\n"
            labelText += foodList.isEmpty ? "No items added yet" : foodList.enumerated().map {
