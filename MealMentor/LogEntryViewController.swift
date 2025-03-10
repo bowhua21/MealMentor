@@ -10,15 +10,22 @@ import Firebase
 import FirebaseAuth
 
 class LogEntryViewController: UIViewController {
+    var selectedCategory: MealCategory = .breakfast {
+        didSet {
+            mealHeaderLabel?.text = selectedCategory.headerText
+        }
+    }
     var foodList: [Food] = []
     let defaultCategory = "Breakfast"
     var currentUserId: String? // Replace with actual user ID retrieval logic
     @IBOutlet weak var logTextField: UITextField!
     
+    @IBOutlet weak var mealHeaderLabel: UILabel?
     @IBOutlet weak var mealLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         currentUserId = getUserID()
+        selectedCategory = .breakfast
     }
     
     func getUserID() -> String? {
@@ -134,19 +141,16 @@ class LogEntryViewController: UIViewController {
     }
     private func handleAPIResponse(data: Data) {
         do {
-            // Print raw response data for debugging
+
             let rawResponse = String(data: data, encoding: .utf8) ?? "Invalid response data"
             print("RAW API RESPONSE START")
             print(rawResponse)
             print("RAW API RESPONSE END")
-            
-            // First-level parsing
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                 showError("Invalid root JSON structure")
                 print("FAILED TO PARSE ROOT JSON OBJECT")
                 return
             }
-            
             print("Root JSON parsed successfully")
             print("Root JSON keys: \(json.keys.joined(separator: ", "))")
             
@@ -158,8 +162,6 @@ class LogEntryViewController: UIViewController {
             }
             
             print("Found \(choices.count) choices")
-            
-            // Get first choice
             guard let firstChoice = choices.first else {
                 showError("Empty choices array")
                 print("EMPTY CHOICES ARRAY")
@@ -183,7 +185,7 @@ class LogEntryViewController: UIViewController {
             
             // Attempt to find JSON in response text
             let jsonString = self.extractJSONString(from: responseText)
-            print("🔍 Extracted JSON string:", jsonString ?? "nil")
+            print("Extracted JSON string:", jsonString ?? "nil")
             
             guard let jsonData = jsonString?.data(using: .utf8) else {
                 showError("Invalid JSON encoding")
@@ -191,11 +193,8 @@ class LogEntryViewController: UIViewController {
                 return
             }
             
-            // Parse food JSON
             let foodDict = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
             print("Parsed food dictionary:", foodDict ?? "nil")
-            
-            // Clean data
             guard let cleanedDict = cleanNutritionData(foodDict) else {
                 showError("Missing required fields")
                 print("FAILED TO CLEAN NUTRITION DATA")
@@ -203,8 +202,6 @@ class LogEntryViewController: UIViewController {
             }
             
             print("Cleaned nutrition data:", cleanedDict)
-            
-            // Create Food object
             guard let food = Food.fromDictionary(cleanedDict) else {
                 showError("Failed to create food item")
                 print("FAILED TO INITIALIZE FOOD OBJECT")
@@ -228,23 +225,21 @@ class LogEntryViewController: UIViewController {
             }
         }
     }
-    // MARK: - JSON Handling
-       private func extractJSONString(from text: String) -> String? {
-           // Handle markdown code blocks
-           let pattern = "```(?:json)?\\s*([\\s\\S]*?)\\s*```"
-           guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
-               return nil
-           }
-           
-           let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-           guard let match = matches.first else {
-               return text.range(of: "\\{.*\\}", options: .regularExpression).map { String(text[$0]) }
-           }
-           
-           let jsonRange = Range(match.range(at: 1), in: text)!
-           return String(text[jsonRange])
-       }
-
+    private func extractJSONString(from text: String) -> String? {
+        let pattern = "```(?:json)?\\s*([\\s\\S]*?)\\s*```"
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
+            return nil
+        }
+        
+        let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
+        guard let match = matches.first else {
+            return text.range(of: "\\{.*\\}", options: .regularExpression).map { String(text[$0]) }
+        }
+        
+        let jsonRange = Range(match.range(at: 1), in: text)!
+        return String(text[jsonRange])
+    }
+    
     
     private func cleanNutritionData(_ dict: [String: Any]?) -> [String: Any]? {
         guard var dict = dict else {
@@ -252,7 +247,6 @@ class LogEntryViewController: UIViewController {
             return nil
         }
         
-        // Handle quantity conversion
         if let quantity = dict["quantity"] as? String {
             print("Original quantity string:", quantity)
             let numericString = quantity.filter { $0.isNumber }
@@ -260,7 +254,6 @@ class LogEntryViewController: UIViewController {
             print("Converted quantity:", dict["quantity"] ?? "conversion failed")
         }
         
-        // Ensure all numbers are Int
         let numberKeys = ["quantity", "calories", "protein", "carbohydrates",
                           "fat", "fiber", "vitaminA", "vitaminC"]
         
@@ -275,13 +268,13 @@ class LogEntryViewController: UIViewController {
         return dict
     }
     
-        private func handleNewFoodItem(_ food: Food) {
-            foodList.append(food)
-            logTextField.text = ""
-            updateMealLabel()
-            showTemporaryMessage("Added: \(food.name)")
-            print("Added food: \(food.name)")
-        }
+    private func handleNewFoodItem(_ food: Food) {
+        foodList.append(food)
+        logTextField.text = ""
+        updateMealLabel()
+        showTemporaryMessage("Added: \(food.name)")
+        print("Added food: \(food.name)")
+    }
     
     private func saveCompleteMeal() {
         guard !foodList.isEmpty else {
@@ -296,7 +289,7 @@ class LogEntryViewController: UIViewController {
         let meal = Meal(
             date: Date(),
             userID: currentUserId!,
-            category: defaultCategory,
+            category: selectedCategory.rawValue,
             foodList: foodList
         )
         
@@ -322,13 +315,13 @@ class LogEntryViewController: UIViewController {
         showTemporaryMessage("Meal saved successfully!")
     }
     
-       private func updateMealLabel() {
-           var labelText = "Current Meal (\(defaultCategory)):\n"
-           labelText += foodList.isEmpty ? "No items added yet" : foodList.enumerated().map {
-               "\($0+1). \($1.name) (\($1.quantity)g)"
-           }.joined(separator: "\n")
-           mealLabel.text = labelText
-       }
+    private func updateMealLabel() {
+        var labelText = "Current Meal (\(defaultCategory)):\n"
+        labelText += foodList.isEmpty ? "No items added yet" : foodList.enumerated().map {
+            "\($0+1). \($1.name) (\($1.quantity)g)"
+        }.joined(separator: "\n")
+        mealLabel.text = labelText
+    }
     
     private func showTemporaryMessage(_ message: String) {
         let originalText = mealLabel.text ?? ""
