@@ -22,7 +22,7 @@ class ThisWeekDayCell: UICollectionViewCell {
         if isTracked {
             contentView.backgroundColor = UIColor(red: 0.2509, green: 0.4588, blue: 0.1764, alpha: 1.0)
             dayLabel.textColor = .white
-            checkMarkIcon.tintColor = .white
+            checkMarkIcon.tintColor = UIColor(red: 0.7529, green: 0.878, blue: 0.7098, alpha: 1.0)
         }
         else {
             contentView.backgroundColor = .white
