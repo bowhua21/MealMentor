@@ -50,8 +50,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginToHomePageIdentifier", let tabBarController = segue.destination as? UITabBarController {
-            tabBarController.selectedIndex = 0
-            if let homePageNav = tabBarController.viewControllers?[0] as? UINavigationController,
+            tabBarController.selectedIndex = 2
+            if let homePageNav = tabBarController.viewControllers?[2] as? UINavigationController,
                let homePageVC = homePageNav.topViewController as? HomePageViewController {
                 homePageVC.userName = userIDField.text!
             }
