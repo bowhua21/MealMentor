@@ -9,14 +9,15 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+protocol LogEntryViewControllerDelegate: AnyObject {
+    func didSaveMeal()
+}
+
+
 class LogEntryViewController: UIViewController {
-    var selectedCategory: MealCategory = .breakfast {
-        didSet {
-            mealHeaderLabel?.text = selectedCategory.headerText
-        }
-    }
+    var selectedCategory: MealCategory = .breakfast 
+    weak var delegate: LogEntryViewControllerDelegate?
     var foodList: [Food] = []
-    let defaultCategory = "Breakfast"
     var currentUserId: String? // Replace with actual user ID retrieval logic
     @IBOutlet weak var logTextField: UITextField!
     
@@ -25,7 +26,6 @@ class LogEntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currentUserId = getUserID()
-        selectedCategory = .breakfast
     }
     
     func getUserID() -> String? {
@@ -312,16 +312,31 @@ class LogEntryViewController: UIViewController {
         foodList.removeAll()
         logTextField.text = ""
         updateMealLabel()
+        delegate?.didSaveMeal()
         showTemporaryMessage("Meal saved successfully!")
     }
     
+    // Modify JUST the updateMealLabel function:
     private func updateMealLabel() {
-        var labelText = "Current Meal (\(defaultCategory)):\n"
+        let categoryName: String
+        switch selectedCategory {
+        case .breakfast:
+            categoryName = "breakfast"
+        case .lunch:
+            categoryName = "lunch"
+        case .dinner:
+            categoryName = "dinner"
+        case .snack:
+            categoryName = "snacks"  // Maps "snack" category to "snacks" label
+        }
+        
+        var labelText = "Current Meal (\(categoryName)):\n"
         labelText += foodList.isEmpty ? "No items added yet" : foodList.enumerated().map {
             "\($0+1). \($1.name) (\($1.quantity)g)"
         }.joined(separator: "\n")
         mealLabel.text = labelText
     }
+
     
     private func showTemporaryMessage(_ message: String) {
         let originalText = mealLabel.text ?? ""
