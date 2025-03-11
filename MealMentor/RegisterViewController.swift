@@ -50,6 +50,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 if let error = error as NSError? {
                     self.statusLabelField.text = "Database error - \(error.localizedDescription)"
                 } else {
+                    createUserDefaultData(password: password)
                     self.statusLabelField.text = "Successfully created new account"
                 }
             }

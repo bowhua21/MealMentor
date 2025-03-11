@@ -81,6 +81,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="" cornerStyle="capsule">
                                     <imageReference key="image" image="paperplane.fill" catalog="system" renderingMode="template"/>
+                                    <color key="baseBackgroundColor" systemColor="systemIndigoColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="sendButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="q03-kR-QbA"/>

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class ChatPageViewController: UIViewController, UITextFieldDelegate {
 
@@ -20,8 +21,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     var chatScrollView: UIScrollView!
 
     let db = Firestore.firestore()
-    // temporary hard-coded user id
-    let currentUserId = "2fUZi54QesUbquSJAp9M"
+    let currentUserId = Auth.auth().currentUser?.uid
     var messages: [ChatMessage] = []
     
     override func viewDidLoad() {
@@ -87,11 +87,13 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     func fetchChats() {
+        if (currentUserId == nil) { return }
+            
         let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
         let timestamp = Timestamp(date: oneWeekAgo)
         
         db.collection("chats")
-            .whereField("userId", isEqualTo: currentUserId)
+            .whereField("userId", isEqualTo: currentUserId!)
             .whereField("createdAt", isGreaterThan: timestamp)
             .order(by: "createdAt", descending: false)
             .getDocuments { (snapshot, error) in
@@ -127,7 +129,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     func showAskMealMentorIntroView() {
         self.askMealMentorIntroView.isHidden = false
     }
-    
+        
     func populateChatUI() {
         chatStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
@@ -175,11 +177,12 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     func handleSendMessage() {
+        if (currentUserId == nil) { return }
         guard let text = chatInputBar.text, !text.isEmpty else { return }
         
         let newChat = [
             "message": text,
-            "userId": currentUserId,
+            "userId": currentUserId!,
             "createdAt": Timestamp(date: Date()),
             "sender": "user"
         ] as [String : Any]
@@ -191,7 +194,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             }
 
             self.chatInputBar.text = ""
-            self.messages.append(ChatMessage(userId: self.currentUserId, message: text, sender: "user", createdAt: Date()))
+            self.messages.append(ChatMessage(userId: self.currentUserId!, message: text, sender: "user", createdAt: Date()))
             self.populateChatUI()
         }
         
@@ -211,7 +214,8 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     func getAIResponse(with message: String) {
-        print("in getAIResponse")
+        if (currentUserId == nil) { return }
+
         guard let url = URL(string: "https://api.deepseek.com/chat/completions") else { return }
         guard let apiKey = getDeepSeekAPIKey() else { return }
         
@@ -257,7 +261,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                     print("choices \(choices) firstChoice \(firstChoice) message \(message) deepSeekResponse \(deepSeekResponse)")
                     let newAIChat = [
                         "message": deepSeekResponse,
-                        "userId": self.currentUserId,
+                        "userId": self.currentUserId!,
                         "createdAt": Timestamp(date: Date()),
                         "sender": "ai"
                     ] as [String: Any]
@@ -269,7 +273,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         DispatchQueue.main.async {
-                            self.messages.append(ChatMessage(userId: self.currentUserId, message: deepSeekResponse, sender: "ai", createdAt: Date()))
+                            self.messages.append(ChatMessage(userId: self.currentUserId!, message: deepSeekResponse, sender: "ai", createdAt: Date()))
                             self.populateChatUI()
                         }
                     }
@@ -308,6 +312,8 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
 
     
     @objc func keyboardWillShow(notification: Notification) {
+        self.askMealMentorIntroView.isHidden = true
+        
         guard let userInfo = notification.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
               let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
@@ -323,6 +329,10 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func keyboardWillHide(notification: Notification) {
+        if self.messages.count == 0 {
+            self.showAskMealMentorIntroView()
+        }
+        
         guard let userInfo = notification.userInfo,
               let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
             return
