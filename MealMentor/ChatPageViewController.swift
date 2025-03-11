@@ -29,22 +29,19 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         chatInputBar.delegate = self
         
         askMealMentorIntroView.layer.cornerRadius = 10
-        askMealMentorIntroView.clipsToBounds = true
- 
-        sendButton.tintColor = UIColor.systemIndigo
         
-        chatInputBar.layer.cornerRadius = 90
-        
+        // setting up the scroll view programmatically
         chatScrollView = UIScrollView()
         chatScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(chatScrollView)
-        NSLayoutConstraint.activate([
-            chatScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 87),
-            chatScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            chatScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            chatScrollView.bottomAnchor.constraint(equalTo: chatInputBar.topAnchor, constant: -10)
-        ])
         
+        let scrollViewTopConstraint = NSLayoutConstraint(item: chatScrollView!, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view.safeAreaLayoutGuide, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 87)
+        let scrollViewLeftConstraint = NSLayoutConstraint(item: chatScrollView!, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view.safeAreaLayoutGuide, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 20)
+        let scrollViewRightConstaint = NSLayoutConstraint(item: chatScrollView!, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view.safeAreaLayoutGuide, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: -20)
+        let scrollViewBottomConstraint = NSLayoutConstraint(item: chatScrollView!, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: chatInputBar!, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: -10)
+        view.addConstraints([scrollViewTopConstraint, scrollViewLeftConstraint, scrollViewRightConstaint, scrollViewBottomConstraint])
+        
+        // setting up the stack view programatically
         chatStackView = UIStackView()
         chatStackView.axis = .vertical
         chatStackView.alignment = .fill
@@ -52,15 +49,18 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         chatStackView.spacing = 8
         chatStackView.translatesAutoresizingMaskIntoConstraints = false
         chatScrollView.addSubview(chatStackView)
-        NSLayoutConstraint.activate([
-            chatStackView.topAnchor.constraint(equalTo: chatScrollView.topAnchor),
-            chatStackView.leadingAnchor.constraint(equalTo: chatScrollView.leadingAnchor),
-            chatStackView.trailingAnchor.constraint(equalTo: chatScrollView.trailingAnchor),
-            chatStackView.bottomAnchor.constraint(equalTo: chatScrollView.bottomAnchor),
-            chatStackView.widthAnchor.constraint(equalTo: chatScrollView.widthAnchor)
-        ])
         
-        setupKeyboardNotifications()
+        let stackViewTopConstraint = NSLayoutConstraint(item: chatStackView!, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: chatScrollView!, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+        let stackViewLeftConstraint = NSLayoutConstraint(item: chatStackView!, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: chatScrollView!, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
+        let stackViewRightConstraint = NSLayoutConstraint(item: chatStackView!, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: chatScrollView!, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
+        let stackViewBottomConstraint = NSLayoutConstraint(item: chatStackView!, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: chatScrollView!, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
+        let stackViewWidth = NSLayoutConstraint(item: chatStackView!, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: chatScrollView!, attribute: NSLayoutConstraint.Attribute.width, multiplier: 1, constant: 0)
+        chatScrollView.addConstraints([stackViewTopConstraint, stackViewLeftConstraint, stackViewRightConstraint, stackViewBottomConstraint, stackViewWidth])
+
+        // setting up keyboard notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
         fetchChats()
     }
     
@@ -69,67 +69,45 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         chatInputBar.layer.cornerRadius = chatInputBar.frame.height / 2
         chatInputBar.clipsToBounds = true
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        sendButton.tintColor = UIColor.systemIndigo
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        sendButton.tintColor = UIColor.systemIndigo
-
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
     func fetchChats() {
         if (currentUserId == nil) { return }
             
         let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
         let timestamp = Timestamp(date: oneWeekAgo)
         
-        db.collection("chats")
-            .whereField("userId", isEqualTo: currentUserId!)
-            .whereField("createdAt", isGreaterThan: timestamp)
-            .order(by: "createdAt", descending: false)
-            .getDocuments { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching chats: \(error)")
+        db.collection("chats").whereField("userId", isEqualTo: currentUserId!).whereField("createdAt", isGreaterThan:  timestamp).order(by: "createdAt", descending: false).getDocuments { (snapshot, error) in
+                guard let snapshot = snapshot else {
+                    self.askMealMentorIntroView.isHidden = false
+                    print("Error fetching chats: \(String(describing: error))")
                     return
                 }
                 
-                guard let documents = snapshot?.documents else {
-                    self.showAskMealMentorIntroView()
-                    return
-                }
+                let documents = snapshot.documents
                 
                 if documents.isEmpty {
-                    self.showAskMealMentorIntroView()
+                    self.askMealMentorIntroView.isHidden = false
                 } else {
                     self.askMealMentorIntroView.isHidden = true
-                    self.messages = documents.compactMap { (doc) -> ChatMessage? in
+
+                    var messagesArray = [ChatMessage]()
+                    for doc in documents {
                         let data = doc.data()
                         guard let message = data["message"] as? String,
                               let sender = data["sender"] as? String,
                               let userId = data["userId"] as? String,
                               let createdAt = data["createdAt"] as? Timestamp else {
-                            return nil
+                            continue
                         }
-                        return ChatMessage(userId: userId, message: message, sender: sender, createdAt: createdAt.dateValue())
+                        let chatMessage = ChatMessage(userId: userId, message: message, sender: sender, createdAt: createdAt.dateValue())
+                        messagesArray.append(chatMessage)
                     }
+                    self.messages = messagesArray
                     self.populateChatUI()
                 }
-            }
+        }
     }
     
-    func showAskMealMentorIntroView() {
-        self.askMealMentorIntroView.isHidden = false
-    }
-        
     func populateChatUI() {
         chatStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
@@ -142,10 +120,6 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             
             let bubbleLabel = ChatBubble()
             bubbleLabel.text = chat.message
-            bubbleLabel.numberOfLines = 0
-            bubbleLabel.layer.cornerRadius = 10
-            bubbleLabel.clipsToBounds = true
-            bubbleLabel.translatesAutoresizingMaskIntoConstraints = false
             
             if chat.sender == "user" {
                 bubbleLabel.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
@@ -170,8 +144,8 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                 messageContainer.addArrangedSubview(spacer)
             }
             
-            bubbleLabel.widthAnchor.constraint(lessThanOrEqualTo: messageContainer.widthAnchor, multiplier: 0.7).isActive = true
-
+            NSLayoutConstraint(item: bubbleLabel, attribute: .width, relatedBy: .lessThanOrEqual, toItem: messageContainer, attribute: .width, multiplier: 0.7, constant: 0).isActive = true
+            
             chatStackView.addArrangedSubview(messageContainer)
         }
     }
@@ -240,7 +214,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             print("Error serializing JSON: \(error)")
             return
         }
-        print("About to start URLSession dataTask")
+
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("DeepSeek request error: \(error)")
@@ -258,7 +232,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                    let firstChoice = choices.first,
                    let message = firstChoice["message"] as? [String: Any],
                    let deepSeekResponse = message["content"] as? String {
-                    print("choices \(choices) firstChoice \(firstChoice) message \(message) deepSeekResponse \(deepSeekResponse)")
+   
                     let newAIChat = [
                         "message": deepSeekResponse,
                         "userId": self.currentUserId!,
@@ -282,23 +256,12 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                 print("Error parsing DeepSeek response: \(error)")
             }
         }.resume()
-        print("URLSession dataTask resume() called")
     }
     
     @IBAction func sendButtonTapped(_ sender: UIButton) {
         handleSendMessage()
     }
-    
-    func setupKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(notification:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide(notification:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
+
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
         textField.resignFirstResponder()
         handleSendMessage()
@@ -314,34 +277,22 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     @objc func keyboardWillShow(notification: Notification) {
         self.askMealMentorIntroView.isHidden = true
         
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
-            return
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let height = keyboardRectangle.height
+            let adjustedKeyboardHeight = height - view.safeAreaInsets.bottom + 10
+            chatInputBarBottomConstraint.constant = adjustedKeyboardHeight
+            sendButtonBottomConstraint.constant = adjustedKeyboardHeight
         }
-        let adjustedKeyboardHeight = keyboardFrame.height - view.safeAreaInsets.bottom + 10
 
-        chatInputBarBottomConstraint.constant = adjustedKeyboardHeight
-        sendButtonBottomConstraint.constant = adjustedKeyboardHeight
-        UIView.animate(withDuration: animationDuration) {
-            self.view.layoutIfNeeded()
-        }
     }
     
     @objc func keyboardWillHide(notification: Notification) {
         if self.messages.count == 0 {
-            self.showAskMealMentorIntroView()
+            self.askMealMentorIntroView.isHidden = false
         }
-        
-        guard let userInfo = notification.userInfo,
-              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
-            return
-        }
-        
+
         chatInputBarBottomConstraint.constant = 10
         sendButtonBottomConstraint.constant = 10
-        UIView.animate(withDuration: animationDuration) {
-            self.view.layoutIfNeeded()
-        }
     }
 }
