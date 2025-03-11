@@ -13,7 +13,6 @@ class VisualizationsPageViewController: UIViewController {
     var selectedSegmentIndex = 0
     var delegate: UIViewController!
     // each floating cell
-    
     @IBOutlet weak var dataTodayView: UIView!
     @IBOutlet weak var weeklyDataView: UIView!
     @IBOutlet weak var monthlyDataView: UIView!
@@ -35,16 +34,6 @@ class VisualizationsPageViewController: UIViewController {
         weeklyDataView.layer.cornerRadius = 20
         monthlyDataView.layer.cornerRadius = 20
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @IBAction func onSegmentedChanged(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex {
@@ -56,5 +45,4 @@ class VisualizationsPageViewController: UIViewController {
             print("default")
         }
     }
-    
 }
