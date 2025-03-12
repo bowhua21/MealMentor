@@ -12,6 +12,10 @@ import FirebaseAuth
 class ChatPageViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var askMealMentorIntroView: UIView!
+    @IBOutlet weak var askMealMentorTitleLabel: UILabel!
+    @IBOutlet weak var topExamplePromptLabel: UILabel!
+    @IBOutlet weak var middleExamplePromptLabel: UILabel!
+    @IBOutlet weak var bottomExamplePromptLabel: UILabel!
     @IBOutlet weak var chatInputBar: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var chatInputBarBottomConstraint: NSLayoutConstraint!
@@ -21,6 +25,8 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     var chatScrollView: UIScrollView!
 
     let db = Firestore.firestore()
+    let lightPurple = UIColor(red: 0.9451, green: 0.9255, blue: 0.9804, alpha: 1.0)
+    let darkPurple = UIColor(red: 0.4392, green: 0.2588, blue: 0.7882, alpha: 1.0)
     let currentUserId = Auth.auth().currentUser?.uid
     var messages: [ChatMessage] = []
     
@@ -29,8 +35,14 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         chatInputBar.delegate = self
         
         askMealMentorIntroView.layer.cornerRadius = 10
+        chatInputBar.backgroundColor = lightPurple
+        askMealMentorIntroView.backgroundColor = lightPurple
+        askMealMentorTitleLabel.textColor = darkPurple
+        topExamplePromptLabel.textColor = darkPurple
+        middleExamplePromptLabel.textColor = darkPurple
+        bottomExamplePromptLabel.textColor = darkPurple
         
-        // setting up the scroll view programmatically
+        // setting up the scroll view
         chatScrollView = UIScrollView()
         chatScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(chatScrollView)
@@ -41,7 +53,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         let scrollViewBottomConstraint = NSLayoutConstraint(item: chatScrollView!, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: chatInputBar!, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: -10)
         view.addConstraints([scrollViewTopConstraint, scrollViewLeftConstraint, scrollViewRightConstaint, scrollViewBottomConstraint])
         
-        // setting up the stack view programatically
+        // setting up the stack view
         chatStackView = UIStackView()
         chatStackView.axis = .vertical
         chatStackView.alignment = .fill
@@ -68,6 +80,13 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews()
         chatInputBar.layer.cornerRadius = chatInputBar.frame.height / 2
         chatInputBar.clipsToBounds = true
+        sendButton.backgroundColor = darkPurple
+        sendButton.layer.cornerRadius = sendButton.frame.height / 2
+        sendButton.clipsToBounds = true
+        
+        if self.messages.count > 0 {
+            self.askMealMentorIntroView.isHidden = true
+        }
     }
 
     func fetchChats() {
@@ -125,7 +144,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                 bubbleLabel.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .right
             } else if chat.sender == "ai" {
-                bubbleLabel.backgroundColor = UIColor.systemIndigo.withAlphaComponent(0.3)
+                bubbleLabel.backgroundColor = lightPurple
                 bubbleLabel.textAlignment = .left
             } else if chat.sender == "error" {
                 bubbleLabel.backgroundColor = UIColor.red.withAlphaComponent(0.3)
@@ -289,8 +308,10 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     
     @objc func keyboardWillHide(notification: Notification) {
         if self.messages.count == 0 {
-            self.askMealMentorIntroView.isHidden = false
-        }
+                self.askMealMentorIntroView.isHidden = false
+            } else {
+                self.askMealMentorIntroView.isHidden = true
+            }
 
         chatInputBarBottomConstraint.constant = 10
         sendButtonBottomConstraint.constant = 10
