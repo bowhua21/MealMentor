@@ -8,6 +8,8 @@
 import UIKit
 import DGCharts
 import TinyConstraints
+import FirebaseAuth
+import FirebaseFirestore
 
 // TODO delete later
 let dummyMeals = ["Oatmeal with berries", "fake meal 1", "fake meal 2", "fake meal 3", "fake meal 4"]
@@ -33,6 +35,11 @@ let dummyDataPts2: [BarChartDataEntry] = [
 ]
 
 class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    //user firestore document
+    let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
+    
     // home screen properties
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var numDaysLoggedThisMonth: UILabel!
@@ -130,6 +137,31 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         setCaloriesDate()
         // make sure calories cell button is still clickable
         weeklyCaloriesView.bringSubviewToFront(caloriesCellButton)
+        
+        
+        //bowen edit 3/11 (input name)
+        getDocumentData(from: userDoc, category: "firstName") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else if let value = value {
+                print("Fetched field value: \(value)")
+                self.username.text = value as? String
+            } else {
+                print("Field does not exist")
+            }
+        }
+        
+        getDocumentData(from: userDoc, category: "lastName") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else if let value = value {
+                print("Fetched field value: \(value)")
+                let last : String = (value as? String)!
+                self.username.text = self.username.text! +  " " + last
+            } else {
+                print("Field does not exist")
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {

@@ -39,9 +39,28 @@ internal func updateDocument(doc: DocumentReference, category: String, value: An
 }
 
 
+
+internal func getDocumentData(from docRef: DocumentReference, category: String, completion: @escaping (Any?, Error?) -> Void) {
+    
+    docRef.getDocument { document, error in
+        if let error = error {
+            completion(nil, error)
+            return
+        }
+        
+        if let document = document, document.exists {
+            let value = document.data()?[category]
+            completion(value, nil)
+        } else {
+            completion(nil, NSError(domain: "Firestore", code: 404, userInfo: [NSLocalizedDescriptionKey: "Document does not exist"]))
+        }
+    }
+}
+
+
 //copied from https://stackoverflow.com/questions/24263007/how-to-use-hex-color-values
 //function to transform a color hex string to a UIColor in swift
-internal func hexStringToUIColor (hex:String) -> UIColor {
+internal func hexStringToUIColor (hex:String, alphaVal:Double) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
     if (cString.hasPrefix("#")) {
@@ -59,7 +78,7 @@ internal func hexStringToUIColor (hex:String) -> UIColor {
         red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
         green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
         blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-        alpha: CGFloat(1.0)
+        alpha: CGFloat(alphaVal)
     )
 }
 

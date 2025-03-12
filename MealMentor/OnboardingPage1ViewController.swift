@@ -13,9 +13,9 @@ class OnboardingPage1ViewController: UIViewController {
     
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     
-    let buttonColor : UIColor = hexStringToUIColor(hex: "#0DB1AD")
+    let buttonColor : UIColor = hexStringToUIColor(hex: "#0DB1AD", alphaVal: 0.25)
     
-    let lightGrayColor : UIColor = hexStringToUIColor(hex: "#9A9A9A")
+    let lightGrayColor : UIColor = hexStringToUIColor(hex: "#9A9A9A", alphaVal: 0.25)
     
     @IBOutlet weak var maleButton: UIButton!
     
