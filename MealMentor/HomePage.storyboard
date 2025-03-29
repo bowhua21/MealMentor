@@ -77,20 +77,20 @@
                                                                 <color key="textColor" red="0.10196078431372549" green="0.4823529411764706" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gd-NF-c9N">
-                                                                <rect key="frame" x="213" y="25.999999999999993" width="33.333333333333343" height="81.333333333333314"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gd-NF-c9N">
+                                                                <rect key="frame" x="250.00000000000003" y="25.999999999999993" width="33.333333333333343" height="81.333333333333314"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="60"/>
                                                                 <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="day streak " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHt-Ul-nJT">
-                                                                <rect key="frame" x="255.00000000000003" y="40" width="77.333333333333343" height="23.333333333333329"/>
+                                                                <rect key="frame" x="292" y="40" width="77.333333333333314" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="flame" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hf0-M3-T8G">
-                                                                <rect key="frame" x="255" y="62.000000000000014" width="25" height="24.666666666666671"/>
+                                                                <rect key="frame" x="292" y="62.000000000000014" width="25" height="24.666666666666671"/>
                                                                 <color key="tintColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="25" id="jzy-fa-H1x"/>
@@ -111,9 +111,9 @@
                                                             <constraint firstItem="GxD-H4-WKY" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="8.3333333333333321" id="bmx-DZ-NUO"/>
                                                             <constraint firstItem="Hf0-M3-T8G" firstAttribute="leading" secondItem="7gd-NF-c9N" secondAttribute="trailing" constant="8.6666666666666572" id="dvy-ch-o4b"/>
                                                             <constraint firstItem="RHt-Ul-nJT" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="40" id="ewI-JX-6pM"/>
-                                                            <constraint firstItem="7gd-NF-c9N" firstAttribute="leading" secondItem="QUU-YW-FQS" secondAttribute="trailing" constant="31" id="fsw-Bt-kHL"/>
                                                             <constraint firstItem="QUU-YW-FQS" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="40" id="jLl-Vl-e1H"/>
                                                             <constraint firstItem="QUU-YW-FQS" firstAttribute="leading" secondItem="cEK-RA-uBS" secondAttribute="trailing" constant="8" id="kYo-Ke-sZX"/>
+                                                            <constraint firstAttribute="trailing" secondItem="7gd-NF-c9N" secondAttribute="trailing" constant="116.67" id="nqX-ig-aJF"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
