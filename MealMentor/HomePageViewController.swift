@@ -33,7 +33,6 @@ let dummyDataPts2: [BarChartDataEntry] = [
 ]
 
 class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
-//    static let shared = HomePageViewController()
     //user firestore document
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     
@@ -59,7 +58,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     // calendar collection within thisWeekView
     @IBOutlet weak var thisWeekCollectionView: UICollectionView!
     // TODO tracked days
-    // var trackedDays: [Date] = []
+    var trackedDays: [Date] = []
     var daysOfWeek: [Date] = []
     // graphs
     lazy var proteinBarChartView: BarChartView = {
@@ -126,6 +125,14 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         let startOfWeek = Calendar.current.startOfWeek(for: today)
         daysOfWeek = getDaysOfWeek(startOfWeek: startOfWeek)
         
+        getTrackedDaysOfWeek { [weak self] trackedDays in
+            self?.trackedDays = trackedDays
+            DispatchQueue.main.async {
+                self?.thisWeekCollectionView.reloadData()
+            }
+        }
+        
+        
         // setup protein bar chart
         weeklyProteinView.addSubview(proteinBarChartView)
         proteinBarChartView.center(in: weeklyProteinView, offset: CGPoint(x: 0, y: 10))
@@ -185,6 +192,13 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         todayMealsTableView.dataSource = self
         todayMealsTableView.delegate = self
         fetchTodayFoods()
+        getTrackedDaysOfWeek { [weak self] trackedDays in
+            self?.trackedDays = trackedDays
+            print("tracked days", trackedDays)
+            DispatchQueue.main.async {
+                self?.thisWeekCollectionView.reloadData()
+            }
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -194,16 +208,9 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThisWeekDayCell.identifier, for: indexPath) as! ThisWeekDayCell
         let date = daysOfWeek[indexPath.row]
-        // (dummy configuration) TODO change to tracked days
-        if indexPath.row == 3 || indexPath.row == 5 {
-            cell.configure(with: date, isTracked: false)
-        }
-        else {
-            cell.configure(with: date, isTracked: true)
-        }
-        //TODO check if day is tracked
-//        let isTracked = trackedDays.contains { Calendar.current.isDate($0, inSameDayAs: date) }
-//        cell.configure(with: day, isTracked: true)
+        // Check if this date is in the trackedDays list
+        let isTracked = trackedDays.contains { Calendar.current.isDate($0, inSameDayAs: date) }
+        cell.configure(with: date, isTracked: isTracked)
         return cell
     }
     
@@ -260,6 +267,49 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                 DispatchQueue.main.async {
                     self.todayMealsTableView.reloadData()
                 }
+            }
+    }
+    
+    // get dates of this week that have tracked meals
+    func getTrackedDaysOfWeek(completion: @escaping ([Date]) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            completion([]) // return empty array if no user is authenticated
+            return
+        }
+        let today = Date()
+        let startOfWeek = Calendar.current.startOfWeek(for: today)
+        let endOfWeek = Calendar.current.date(byAdding: .day, value: 6, to: startOfWeek)!
+        let startTimestamp = Timestamp(date: startOfWeek)
+        let endTimestamp = Timestamp(date: Calendar.current.date(byAdding: .day, value: 1, to: endOfWeek)!)
+        print("start of week", startOfWeek, "end of week", endOfWeek)
+
+        db.collection("meals")
+            .whereField("userID", isEqualTo: userID)
+            .whereField("date", isGreaterThanOrEqualTo: startTimestamp)
+            .whereField("date", isLessThanOrEqualTo: endTimestamp)
+            .order(by: "date", descending: false)
+            .getDocuments { (querySnapshot, err) in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching weekly meals: \(String(describing: err))")
+                    completion([])
+                    return
+                }
+                
+                var trackedDaysSet = Set<Date>()
+                let calendar = Calendar.current
+                
+                for doc in snapshot.documents {
+                    if let timestamp = doc.data()["date"] as? Timestamp {
+                        let mealDate = timestamp.dateValue()
+                        let normalizedDate = calendar.startOfDay(for: mealDate) // Normalize to remove time
+                        trackedDaysSet.insert(normalizedDate)
+                    }
+                }
+                
+                // convert set to sorted array
+                let trackedDays = trackedDaysSet.sorted()
+                completion(trackedDays)
             }
     }
     

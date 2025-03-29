@@ -18,7 +18,7 @@ class NutritionStats {
     func loadTotalNutritionForToday(completion: @escaping () -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
-            completion() // Call completion immediately if the user is not authenticated
+            completion() // call completion immediately if the user is not authenticated
             return
         }
 
@@ -34,15 +34,14 @@ class NutritionStats {
             .getDocuments() { (querySnapshot, err) in
                 guard let snapshot = querySnapshot else {
                     print("Error getting snapshot: \(String(describing: err))")
-                    completion() // Call completion even if there's an error
+                    completion() // call completion even if there's an error
                     return
                 }
 
                 let documents = snapshot.documents
-                // Clear previous data before updating
+                // clear previous data before updating
                 totalNutritionForToday = [:]
                 
-                // Process the fetched data
                 for doc in documents {
                     let data = doc.data()
                     guard let foodListData = data["foodList"] as? [[String: Any]] else {
@@ -51,7 +50,7 @@ class NutritionStats {
                     }
                     let foodList = foodListData.compactMap { Food.fromDictionary($0) }
                     for food in foodList {
-                        // Update total nutrition
+                        // update total nutrition
                         totalNutritionForToday["calories", default: 0] += food.calories
                         totalNutritionForToday["protein", default: 0] += food.protein
                         totalNutritionForToday["carbohydrates", default: 0] += food.carbohydrates
@@ -61,8 +60,6 @@ class NutritionStats {
                         totalNutritionForToday["vitaminC", default: 0] += food.vitaminC
                     }
                 }
-                
-                // Call the completion handler after data is fetched and totalNutritionForToday is updated
                 completion()
             }
     }
