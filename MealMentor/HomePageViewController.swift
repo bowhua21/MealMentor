@@ -12,8 +12,6 @@ import FirebaseAuth
 import FirebaseFirestore
 
 // TODO delete later
-let dummyMeals = ["Oatmeal with berries", "fake meal 1", "fake meal 2", "fake meal 3", "fake meal 4"]
-let dummyNutrition = ["350 kcal, 10g Protein, 60g Carbs, 5g Fat", "fake nutrition 1", "fake nutrition 2", "fake nutrition 3", "fake nutrition 4"]
 let dummyDataPts: [BarChartDataEntry] = [
     BarChartDataEntry(x: 1.0, y: 50.0),
     BarChartDataEntry(x: 2.0, y: 25.0),
@@ -35,8 +33,6 @@ let dummyDataPts2: [BarChartDataEntry] = [
 ]
 
 class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
-    
-    
     //user firestore document
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     
@@ -56,6 +52,9 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     // today's meals table view within todayMealsView
     let tableViewCellIdentifier = "TableViewCellIdentifier"
     @IBOutlet weak var todayMealsTableView: UITableView!
+    var todayFoods: [String] = []
+    var todayNutritionDescription: [String] = []
+    var todayNutrition: [String: Int] = [:]
     // calendar collection within thisWeekView
     @IBOutlet weak var thisWeekCollectionView: UICollectionView!
     // TODO tracked days
@@ -104,6 +103,8 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("home page view didi load")
+        print("viewDidLoad entry")
         username.text = userName
         // Do any additional setup after loading the view.
         // TODO set username
@@ -111,6 +112,10 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         // setup today's meals
         todayMealsTableView.dataSource = self
         todayMealsTableView.delegate = self
+        // fetch today's food data
+        fetchTodayFoods()
+        
+        print("here", todayFoods, todayNutrition)
         
         // setup this week calendar collection view
         thisWeekCollectionView.dataSource = self
@@ -173,6 +178,13 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         weeklyProteinView.layer.cornerRadius = 20
         weeklyCaloriesView.layer.cornerRadius = 20
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        todayMealsTableView.dataSource = self
+        todayMealsTableView.delegate = self
+        fetchTodayFoods()
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return daysOfWeek.count
@@ -194,6 +206,69 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         return cell
     }
     
+    // fetch user's meals for today. populates food list and corresponding nutrition list
+    private func fetchTodayFoods() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return
+        }
+        let today = Date()
+        let startOfDay = Calendar.current.startOfDay(for: today)
+        let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
+        db.collection("meals")
+            .whereField("userID", isEqualTo: userID)
+            .whereField("date", isGreaterThanOrEqualTo: Timestamp(date: startOfDay))
+            .whereField("date", isLessThan: Timestamp(date: endOfDay))
+            .order(by: "date", descending: false)
+            .getDocuments() { (querySnapshot, err) in
+                guard let snapshot = querySnapshot else {
+                    print("Error getting snapshot: \(String(describing: err))")
+                    return
+                }
+                let documents = snapshot.documents
+                print("in fetch. documents", documents)
+                // get most updated food list and corresponding nutrition
+                self.todayFoods = []
+                self.todayNutritionDescription = []
+                self.todayNutrition = [:]
+                for doc in documents {
+                    let data = doc.data()
+                    print("in fetch. data:", data)
+                    guard let foodListData = data["foodList"] as? [[String: Any]] else {
+                        print("error getting foodlist from meal document")
+                        return
+                    }
+                    print("in fetch. foodListData:", foodListData)
+                    let foodList = foodListData.compactMap { Food.fromDictionary($0) }
+                    print("in fetch. foodList:", foodList)
+                    for food in foodList {
+                        self.todayFoods.append(food.name)
+                        // TODO add other nutrition later
+                        let nutritionDescription = "\(food.calories) kcal, \(food.protein)g protein, \(food.carbohydrates)g carbs, \(food.fat)g fat, \(food.fiber)g fiber"
+                        self.todayNutritionDescription.append(nutritionDescription)
+                        // update total nutrition
+                        self.todayNutrition["calories", default: 0] += food.calories
+                        self.todayNutrition["protein", default: 0] += food.protein
+                        self.todayNutrition["carbohydrates", default: 0] += food.carbohydrates
+                        self.todayNutrition["fat", default: 0] += food.fat
+                        self.todayNutrition["fiber", default: 0] += food.fiber
+                        self.todayNutrition["vitaminA", default: 0] += food.vitaminA
+                        self.todayNutrition["vitaminC", default: 0] += food.vitaminC
+                        print("in fetch. updated lists:", self.todayFoods, self.todayNutrition)
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.todayMealsTableView.reloadData()
+                }
+            }
+    }
+    
+    // return total nutrition for today. to be used by chat feature
+    func getTotalNutritionForToday() -> [String:Int] {
+        fetchTodayFoods()
+        return self.todayNutrition
+    }
+    
     // get the days of the current week using the start of the week date
     private func getDaysOfWeek(startOfWeek: Date) -> [Date] {
         var days: [Date] = []
@@ -209,18 +284,20 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        dummyMeals.count
+        self.todayFoods.count
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath)
-        cell.textLabel?.text = dummyMeals[indexPath.section]
-        cell.detailTextLabel?.text = dummyNutrition[indexPath.section]
+        cell.textLabel?.text = self.todayFoods[indexPath.section]
+        cell.detailTextLabel?.text = self.todayNutritionDescription[indexPath.section]
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -249,6 +326,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
             // set segmented to be on protein
             visualizationsVC.selectedSegmentIndex = 0
             visualizationsVC.delegate = self
+            print("TOTAL NUTRITION", getTotalNutritionForToday())
         }
         else if segue.identifier == segueToCaloriesVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on calories
