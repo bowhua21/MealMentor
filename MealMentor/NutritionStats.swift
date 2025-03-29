@@ -107,4 +107,48 @@ class NutritionStats {
                 completion(trackedDays)
             }
     }
+    
+    // get number of days this month that have meals logged
+    func getTrackedDaysOfMonth(completion: @escaping (Int) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            completion(0)
+            return
+        }
+
+        let today = Date()
+        let calendar = Calendar.current
+        
+        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: today))!
+        let startOfNextMonth = calendar.date(byAdding: .month, value: 1, to: startOfMonth)!
+
+        let startTimestamp = Timestamp(date: startOfMonth)
+        let endTimestamp = Timestamp(date: startOfNextMonth)
+
+        print("Fetching tracked days from \(startOfMonth) to \(startOfNextMonth)")
+
+        db.collection("meals")
+            .whereField("userID", isEqualTo: userID)
+            .whereField("date", isGreaterThanOrEqualTo: startTimestamp)
+            .whereField("date", isLessThan: endTimestamp)
+            .getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error fetching tracked days: \(err)")
+                    completion(0)
+                    return
+                }
+                guard let documents = querySnapshot?.documents else {
+                    print("No tracked days found.")
+                    completion(0)
+                    return
+                }
+                let uniqueTrackedDays: Set<Date> = Set(documents.compactMap { doc in
+                    if let timestamp = doc.data()["date"] as? Timestamp {
+                        return calendar.startOfDay(for: timestamp.dateValue()) // Normalize to midnight
+                    }
+                    return nil
+                })
+                completion(uniqueTrackedDays.count)
+            }
+    }
 }

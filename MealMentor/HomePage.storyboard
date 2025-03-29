@@ -56,11 +56,11 @@
                                                                     <constraint firstAttribute="height" constant="25" id="lxZ-BQ-f9S"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEK-RA-uBS">
-                                                                <rect key="frame" x="13" y="24" width="83" height="83"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEK-RA-uBS">
+                                                                <rect key="frame" x="8" y="24" width="74" height="83"/>
                                                                 <color key="tintColor" red="0.82352941176470584" green="0.25490196078431371" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="83" id="Ec7-ne-uXK"/>
+                                                                    <constraint firstAttribute="width" constant="74" id="Ec7-ne-uXK"/>
                                                                     <constraint firstAttribute="height" constant="83" id="gjK-cn-L1n"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="60"/>
@@ -68,7 +68,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days logged this month" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUU-YW-FQS">
-                                                                <rect key="frame" x="92" y="40" width="92" height="48"/>
+                                                                <rect key="frame" x="90" y="40" width="92" height="48"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="92" id="EDi-Y2-84l"/>
                                                                     <constraint firstAttribute="height" constant="48" id="yf8-jP-Hpc"/>
@@ -78,19 +78,19 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gd-NF-c9N">
-                                                                <rect key="frame" x="215" y="25.999999999999993" width="33.333333333333343" height="81.333333333333314"/>
+                                                                <rect key="frame" x="213" y="25.999999999999993" width="33.333333333333343" height="81.333333333333314"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="60"/>
                                                                 <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="day streak " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHt-Ul-nJT">
-                                                                <rect key="frame" x="257" y="40" width="77.333333333333314" height="23.333333333333329"/>
+                                                                <rect key="frame" x="255.00000000000003" y="40" width="77.333333333333343" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="flame" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hf0-M3-T8G">
-                                                                <rect key="frame" x="257" y="62.000000000000014" width="25" height="24.666666666666671"/>
+                                                                <rect key="frame" x="255" y="62.000000000000014" width="25" height="24.666666666666671"/>
                                                                 <color key="tintColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="25" id="jzy-fa-H1x"/>
@@ -100,7 +100,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.93333333333333335" green="0.95294117647058818" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstItem="cEK-RA-uBS" firstAttribute="leading" secondItem="XFD-1I-86S" secondAttribute="leading" constant="13" id="7PD-PJ-k0Z"/>
+                                                            <constraint firstItem="cEK-RA-uBS" firstAttribute="leading" secondItem="XFD-1I-86S" secondAttribute="leading" constant="8" id="7PD-PJ-k0Z"/>
                                                             <constraint firstItem="NKf-Dv-exH" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="11" id="CMx-D4-Eof"/>
                                                             <constraint firstItem="NKf-Dv-exH" firstAttribute="leading" secondItem="GxD-H4-WKY" secondAttribute="trailing" constant="9" id="GRq-Eu-NfI"/>
                                                             <constraint firstItem="7gd-NF-c9N" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="26" id="HQQ-U5-RFg"/>
@@ -113,7 +113,7 @@
                                                             <constraint firstItem="RHt-Ul-nJT" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="40" id="ewI-JX-6pM"/>
                                                             <constraint firstItem="7gd-NF-c9N" firstAttribute="leading" secondItem="QUU-YW-FQS" secondAttribute="trailing" constant="31" id="fsw-Bt-kHL"/>
                                                             <constraint firstItem="QUU-YW-FQS" firstAttribute="top" secondItem="XFD-1I-86S" secondAttribute="top" constant="40" id="jLl-Vl-e1H"/>
-                                                            <constraint firstItem="QUU-YW-FQS" firstAttribute="leading" secondItem="cEK-RA-uBS" secondAttribute="trailing" constant="-4" id="kYo-Ke-sZX"/>
+                                                            <constraint firstItem="QUU-YW-FQS" firstAttribute="leading" secondItem="cEK-RA-uBS" secondAttribute="trailing" constant="8" id="kYo-Ke-sZX"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>

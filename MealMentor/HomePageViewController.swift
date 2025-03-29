@@ -108,7 +108,11 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         print("viewDidLoad entry")
         username.text = userName
         // Do any additional setup after loading the view.
-        // TODO set username
+        // setup highlights
+        NutritionStats.shared.getTrackedDaysOfMonth { daysTracked in
+            print("You have tracked \(daysTracked) days this month.")
+            self.numDaysLoggedThisMonth.text = String(daysTracked)
+        }
         
         // setup today's meals
         todayMealsTableView.dataSource = self
