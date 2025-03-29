@@ -33,6 +33,7 @@ let dummyDataPts2: [BarChartDataEntry] = [
 ]
 
 class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+//    static let shared = HomePageViewController()
     //user firestore document
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     
@@ -238,7 +239,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                         print("error getting foodlist from meal document")
                         return
                     }
-                    print("in fetch. foodListData:", foodListData)
                     let foodList = foodListData.compactMap { Food.fromDictionary($0) }
                     print("in fetch. foodList:", foodList)
                     for food in foodList {
@@ -261,12 +261,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                     self.todayMealsTableView.reloadData()
                 }
             }
-    }
-    
-    // return total nutrition for today. to be used by chat feature
-    func getTotalNutritionForToday() -> [String:Int] {
-        fetchTodayFoods()
-        return self.todayNutrition
     }
     
     // get the days of the current week using the start of the week date
@@ -326,7 +320,10 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
             // set segmented to be on protein
             visualizationsVC.selectedSegmentIndex = 0
             visualizationsVC.delegate = self
-            print("TOTAL NUTRITION", getTotalNutritionForToday())
+            NutritionStats.shared.loadTotalNutritionForToday {
+                // loadTotalNutritionForToday is complete. can use totalNutritionForToday
+                print("Total nutrition", totalNutritionForToday)
+            }
         }
         else if segue.identifier == segueToCaloriesVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on calories
