@@ -40,6 +40,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var numDaysLoggedThisMonth: UILabel!
     @IBOutlet weak var numDayStreak: UILabel!
+    @IBOutlet weak var numDaysTrackedLabel: UILabel!
     @IBOutlet weak var proteinCellButton: UIButton!
     @IBOutlet weak var caloriesCellButton: UIButton!
     var userName:String = "Jane Doe"
@@ -124,14 +125,14 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         let today = Date()
         let startOfWeek = Calendar.current.startOfWeek(for: today)
         daysOfWeek = getDaysOfWeek(startOfWeek: startOfWeek)
-        
-        getTrackedDaysOfWeek { [weak self] trackedDays in
+        NutritionStats.shared.getTrackedDaysOfWeek { [weak self] trackedDays in
             self?.trackedDays = trackedDays
+            var numDaysTracked = (self?.trackedDays.count)!
+            self?.numDaysTrackedLabel.text = "\(numDaysTracked)/7 days"
             DispatchQueue.main.async {
                 self?.thisWeekCollectionView.reloadData()
             }
         }
-        
         
         // setup protein bar chart
         weeklyProteinView.addSubview(proteinBarChartView)
@@ -192,9 +193,10 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         todayMealsTableView.dataSource = self
         todayMealsTableView.delegate = self
         fetchTodayFoods()
-        getTrackedDaysOfWeek { [weak self] trackedDays in
+        NutritionStats.shared.getTrackedDaysOfWeek { [weak self] trackedDays in
             self?.trackedDays = trackedDays
-            print("tracked days", trackedDays)
+            var numDaysTracked = (self?.trackedDays.count)!
+            self?.numDaysTrackedLabel.text = "\(numDaysTracked)/7 days"
             DispatchQueue.main.async {
                 self?.thisWeekCollectionView.reloadData()
             }
@@ -267,49 +269,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                 DispatchQueue.main.async {
                     self.todayMealsTableView.reloadData()
                 }
-            }
-    }
-    
-    // get dates of this week that have tracked meals
-    func getTrackedDaysOfWeek(completion: @escaping ([Date]) -> Void) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User not authenticated")
-            completion([]) // return empty array if no user is authenticated
-            return
-        }
-        let today = Date()
-        let startOfWeek = Calendar.current.startOfWeek(for: today)
-        let endOfWeek = Calendar.current.date(byAdding: .day, value: 6, to: startOfWeek)!
-        let startTimestamp = Timestamp(date: startOfWeek)
-        let endTimestamp = Timestamp(date: Calendar.current.date(byAdding: .day, value: 1, to: endOfWeek)!)
-        print("start of week", startOfWeek, "end of week", endOfWeek)
-
-        db.collection("meals")
-            .whereField("userID", isEqualTo: userID)
-            .whereField("date", isGreaterThanOrEqualTo: startTimestamp)
-            .whereField("date", isLessThanOrEqualTo: endTimestamp)
-            .order(by: "date", descending: false)
-            .getDocuments { (querySnapshot, err) in
-                guard let snapshot = querySnapshot else {
-                    print("Error fetching weekly meals: \(String(describing: err))")
-                    completion([])
-                    return
-                }
-                
-                var trackedDaysSet = Set<Date>()
-                let calendar = Calendar.current
-                
-                for doc in snapshot.documents {
-                    if let timestamp = doc.data()["date"] as? Timestamp {
-                        let mealDate = timestamp.dateValue()
-                        let normalizedDate = calendar.startOfDay(for: mealDate) // Normalize to remove time
-                        trackedDaysSet.insert(normalizedDate)
-                    }
-                }
-                
-                // convert set to sorted array
-                let trackedDays = trackedDaysSet.sorted()
-                completion(trackedDays)
             }
     }
     

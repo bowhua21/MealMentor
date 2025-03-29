@@ -442,6 +442,7 @@
                         <outlet property="highlightsView" destination="XFD-1I-86S" id="ZdX-Le-CHK"/>
                         <outlet property="numDayStreak" destination="7gd-NF-c9N" id="RSu-X4-nMW"/>
                         <outlet property="numDaysLoggedThisMonth" destination="cEK-RA-uBS" id="va7-se-ZzI"/>
+                        <outlet property="numDaysTrackedLabel" destination="oGY-Rj-Ogh" id="vc1-qD-qGO"/>
                         <outlet property="proteinCellButton" destination="47u-TM-XeX" id="w9i-KR-LIt"/>
                         <outlet property="thisWeekCollectionView" destination="t6j-V3-OEc" id="c38-lv-Itf"/>
                         <outlet property="thisWeekView" destination="tlS-pC-W3k" id="Dea-I0-f6f"/>
