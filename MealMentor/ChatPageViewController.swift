@@ -24,11 +24,14 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     var chatStackView: UIStackView!
     var chatScrollView: UIScrollView!
 
-    let db = Firestore.firestore()
+    let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
+    
     let lightPurple = UIColor(red: 0.9451, green: 0.9255, blue: 0.9804, alpha: 1.0)
     let darkPurple = UIColor(red: 0.4392, green: 0.2588, blue: 0.7882, alpha: 1.0)
     let currentUserId = Auth.auth().currentUser?.uid
     var messages: [ChatMessage] = []
+    var nutritionDataToday: [String: Int] = [:]
+    var generateVerboseResponse: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +77,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         fetchChats()
+        refetchUserData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -88,6 +92,20 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             self.askMealMentorIntroView.isHidden = true
         }
     }
+    
+    func refetchUserData() {
+        NutritionStats.shared.loadTotalNutritionForToday {
+            self.nutritionDataToday = totalNutritionForToday
+            print("nutritionDataToday: \(self.nutritionDataToday)")
+        }
+        getDocumentData(from: userDoc, category:  "verboseResponsePreference") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else {
+                self.generateVerboseResponse = value as? Bool ?? false
+            }
+        }
+    }
 
     func fetchChats() {
         if (currentUserId == nil) { return }
@@ -95,7 +113,11 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
         let timestamp = Timestamp(date: oneWeekAgo)
         
-        db.collection("chats").whereField("userId", isEqualTo: currentUserId!).whereField("createdAt", isGreaterThan:  timestamp).order(by: "createdAt", descending: false).getDocuments { (snapshot, error) in
+        db.collection("chats")
+            .whereField("userId", isEqualTo: currentUserId!)
+            .whereField("createdAt", isGreaterThan:  timestamp)
+            .order(by: "createdAt", descending: false)
+            .getDocuments { (snapshot, error) in
                 guard let snapshot = snapshot else {
                     self.askMealMentorIntroView.isHidden = false
                     print("Error fetching chats: \(String(describing: error))")
@@ -190,7 +212,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             self.messages.append(ChatMessage(userId: self.currentUserId!, message: text, sender: "user", createdAt: Date()))
             self.populateChatUI()
         }
-        
+        refetchUserData()
         self.getAIResponse(with: text)
     }
     
@@ -219,9 +241,12 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        let chatLengthPreference = generateVerboseResponse ? "Respond in detailed." : "Respond in a 2-3 sentences."
+        
         let payload: [String: Any] = [
             "messages": [
-                ["role": "system", "content": "You are an assistant for food and nutrition."],
+                ["role": "system", "content": "You are an assistant for food and nutrition. Please give advice based on today's nutrition intake: \(nutritionDataToday["calories", default: 0]) calories,  \(nutritionDataToday["protein", default: 0]) grams of protein,  \(nutritionDataToday["carbohydrates", default: 0]) grams of carbs,  \(nutritionDataToday["fat", default: 0]) grams of fat,  \(nutritionDataToday["vitaminA", default: 0]) mcg of Vitamin A,  \(nutritionDataToday["vitaminC", default: 0]) mcg of Vitamin C. You may organize the advice into paragraphs and bullet points but do not use astericks or hashtags. \(chatLengthPreference)"]
+                ,
                 ["role": "user", "content": message]
             ],
             "model": "deepseek-chat"
@@ -259,7 +284,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                         "sender": "ai"
                     ] as [String: Any]
                     
-                    self.db.collection("chats").addDocument(data: newAIChat) { error in
+                    db.collection("chats").addDocument(data: newAIChat) { error in
                         if let error = error {
                             print("Error storing AI response: \(error)")
                             return

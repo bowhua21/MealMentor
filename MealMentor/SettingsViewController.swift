@@ -6,24 +6,29 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var verboseChatResponsesSwitch: UISwitch!
+    
+    let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        getDocumentData(from: userDoc, category:  "verboseResponsePreference") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else {
+                self.verboseChatResponsesSwitch.isOn = value as? Bool ?? false
+            }
+        }
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onChatResponsePreferenceChanged(_ sender: Any) {
+        updateDocument(doc: userDoc, category: "verboseResponsePreference", value: verboseChatResponsesSwitch.isOn)
+       
     }
-    */
-
 }
