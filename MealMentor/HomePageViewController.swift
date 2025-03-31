@@ -58,7 +58,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     var todayNutrition: [String: Int] = [:]
     // calendar collection within thisWeekView
     @IBOutlet weak var thisWeekCollectionView: UICollectionView!
-    // TODO tracked days
+    // tracked days
     var trackedDays: [Date] = []
     var daysOfWeek: [Date] = []
     // graphs
@@ -98,6 +98,9 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         return chartView
     }()
+    // graph data TODO rest
+    var proteinData: [BarChartDataEntry] = []
+    var caloriesData: [BarChartDataEntry] = []
     // segue identifiers
     let segueToProteinVisualizationsIdentifier = "SegueToProteinVisualizationsIdentifier"
     let segueToCaloriesVisualizationsIdentifier = "SegueToCaloriesVisualizationsIdentifier"
@@ -108,12 +111,9 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Do any additional setup after loading the view.
         // setup highlights
         NutritionStats.shared.getTrackedDaysOfMonth { daysTracked in
-            print("You have tracked \(daysTracked) days this month.")
-            print("today", Date())
             self.numDaysLoggedThisMonth.text = String(daysTracked)
         }
         NutritionStats.shared.getTrackedDaysStreak { streak in
-            print("home page streak", streak)
             self.numDayStreak.text = String(streak)
         }
         
@@ -138,13 +138,12 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self?.thisWeekCollectionView.reloadData()
             }
         }
-        
+    
         // setup protein bar chart
         weeklyProteinView.addSubview(proteinBarChartView)
         proteinBarChartView.center(in: weeklyProteinView, offset: CGPoint(x: 0, y: 10))
         proteinBarChartView.width(360)
         proteinBarChartView.height(130)
-        setProteinData()
         // make sure protein cell button is still clickable
         weeklyProteinView.bringSubviewToFront(proteinCellButton)
         
@@ -156,6 +155,22 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         setCaloriesDate()
         // make sure calories cell button is still clickable
         weeklyCaloriesView.bringSubviewToFront(caloriesCellButton)
+        
+        // fetch weekly nutrition stats for bar charts
+        // TODO do rest
+        NutritionStats.shared.getWeeklyNutrition{ [weak self] weekStats in
+            // reset data
+            self?.proteinData = []
+            self?.caloriesData = []
+            for dayIdx in 0...(weekStats.count - 1) {
+                // add protein data
+                self?.proteinData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["protein"] ?? 0))))
+                // add calories data
+                self?.caloriesData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["calories"] ?? 0))))
+            }
+            self?.setProteinData()
+            self?.setCaloriesDate()
+        }
         
         
         //bowen edit 3/11 (input name)
@@ -195,9 +210,11 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // repeat a lot of the stuff in viewDidLoad as new logged meals updates this screen
         todayMealsTableView.dataSource = self
         todayMealsTableView.delegate = self
         fetchTodayFoods()
+        // setup highlights
         NutritionStats.shared.getTrackedDaysOfWeek { [weak self] trackedDays in
             self?.trackedDays = trackedDays
             let numDaysTracked = (self?.trackedDays.count)!
@@ -208,6 +225,21 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         NutritionStats.shared.getTrackedDaysStreak { streak in
             self.numDayStreak.text = String(streak)
+        }
+        
+        // fetch weekly nutrition stats for bar charts
+        NutritionStats.shared.getWeeklyNutrition{ [weak self] weekStats in
+            // reset data
+            self?.proteinData = []
+            self?.caloriesData = []
+            for dayIdx in 0...(weekStats.count - 1) {
+                // add protein data
+                self?.proteinData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["protein"] ?? 0))))
+                // add calories data
+                self?.caloriesData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["calories"] ?? 0))))
+            }
+            self?.setProteinData()
+            self?.setCaloriesDate()
         }
     }
 
@@ -244,20 +276,17 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                     return
                 }
                 let documents = snapshot.documents
-                print("in fetch. documents", documents)
                 // get most updated food list and corresponding nutrition
                 self.todayFoods = []
                 self.todayNutritionDescription = []
                 self.todayNutrition = [:]
                 for doc in documents {
                     let data = doc.data()
-                    print("in fetch. data:", data)
                     guard let foodListData = data["foodList"] as? [[String: Any]] else {
                         print("error getting foodlist from meal document")
                         return
                     }
                     let foodList = foodListData.compactMap { Food.fromDictionary($0) }
-                    print("in fetch. foodList:", foodList)
                     for food in foodList {
                         self.todayFoods.append(food.name)
                         // TODO add other nutrition later
@@ -271,7 +300,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                         self.todayNutrition["fiber", default: 0] += food.fiber
                         self.todayNutrition["vitaminA", default: 0] += food.vitaminA
                         self.todayNutrition["vitaminC", default: 0] += food.vitaminC
-                        print("in fetch. updated lists:", self.todayFoods, self.todayNutrition)
                     }
                 }
                 DispatchQueue.main.async {
@@ -315,7 +343,8 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     // set data for protein bar chart
     func setProteinData() {
-        let set = BarChartDataSet(entries: dummyDataPts, label: "Protein")
+        //
+        let set = BarChartDataSet(entries: self.proteinData, label: "Protein")
         set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
         set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
         let data = BarChartData(dataSet: set)
@@ -324,7 +353,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     // set data for calories bar chart
     func setCaloriesDate() {
-        let set = BarChartDataSet(entries: dummyDataPts2, label: "Calories")
+        let set = BarChartDataSet(entries: self.caloriesData, label: "Calories")
         set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "cal")
         set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
         let data = BarChartData(dataSet: set)
@@ -337,10 +366,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
             // set segmented to be on protein
             visualizationsVC.selectedSegmentIndex = 0
             visualizationsVC.delegate = self
-            NutritionStats.shared.loadTotalNutritionForToday {
-                // loadTotalNutritionForToday is complete. can use totalNutritionForToday
-                print("Total nutrition", totalNutritionForToday)
-            }
         }
         else if segue.identifier == segueToCaloriesVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on calories
