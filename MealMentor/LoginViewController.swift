@@ -6,9 +6,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userIDField: UITextField!
  
     @IBOutlet weak var passwordField: UITextField!
-    
-    @IBOutlet weak var statusLabelField: UILabel!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -30,18 +28,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let userName = userIDField.text!
         let password = passwordField.text!
         if userName.isEmpty || password.isEmpty {
-            statusLabelField.text = "Please fill in all fields"
+            present(errorAlertController(title: "Error", message: "Please fill in all fields"), animated: true)
         } else if !isValidEmail(userName) {
-            statusLabelField.text = "Invalid email format"
+            present(errorAlertController(title: "Error", message: "Invalid email format"), animated: true)
         } else if !isValidPassword(password) {
-            statusLabelField.text = "The password is too short"
+            present(errorAlertController(title: "Error", message: "The password is too short"), animated: true)
         } else {
             Auth.auth().signIn(withEmail: userName, password: password) {
                 (authResult, error) in
                 if let error = error as NSError? {
-                    self.statusLabelField.text = "Database error - \(error.localizedDescription)"
-                } else {
-                    self.statusLabelField.text = userName + " successfully logged in"
+                    self.present(errorAlertController(title: "Error", message: "Database error - \(error.localizedDescription)"), animated: true)
                 }
             }
             
@@ -58,8 +54,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
 
     }
-    
-    
+
 
     // Called when 'return' key pressed
 

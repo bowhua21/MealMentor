@@ -18,13 +18,13 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getDocumentData(from: userDoc, category:  "verboseResponsePreference") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else {
-                self.verboseChatResponsesSwitch.isOn = value as? Bool ?? false
-            }
-        }
+//        getDocumentData(from: userDoc, category:  "verboseResponsePreference") { value, error in
+//            if let error = error {
+//                print("Error fetching field: \(error.localizedDescription)")
+//            } else {
+//                self.verboseChatResponsesSwitch.isOn = value as? Bool ?? false
+//            }
+//        }
     }
 
     @IBAction func onChatResponsePreferenceChanged(_ sender: Any) {

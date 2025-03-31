@@ -14,9 +14,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newPasswordTextField: UITextField!
     
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    
-    @IBOutlet weak var statusFieldLabel: UILabel!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         newPasswordTextField.delegate = self
@@ -31,15 +29,14 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         let newPass = newPasswordTextField.text!
         let confirmPass = confirmPasswordTextField.text!
         if newPass.isEmpty || confirmPass.isEmpty {
-            statusFieldLabel.text = "Please fill in all fields"
+            present(errorAlertController(title: "Error", message: "Please fill in all fields"), animated: true)
         } else if !isValidPassword(newPass) {
-            statusFieldLabel.text = "The password is too short"
+            present(errorAlertController(title: "Error", message: "The password is too short"), animated: true)
         } else if newPass != confirmPass {
-            statusFieldLabel.text = "The passwords do not match"
+            present(errorAlertController(title: "Error", message: "The passwords do not match"), animated: true)
         } else {
             let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
             updateDocument(doc: userDoc, category: "password", value: newPass)
-            statusFieldLabel.text = "Successfully changed password"
             self.dismiss(animated: true)
         }
     }
