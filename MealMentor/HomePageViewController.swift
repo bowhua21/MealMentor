@@ -104,14 +104,17 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("home page view didi load")
-        print("viewDidLoad entry")
         username.text = userName
         // Do any additional setup after loading the view.
         // setup highlights
         NutritionStats.shared.getTrackedDaysOfMonth { daysTracked in
             print("You have tracked \(daysTracked) days this month.")
+            print("today", Date())
             self.numDaysLoggedThisMonth.text = String(daysTracked)
+        }
+        NutritionStats.shared.getTrackedDaysStreak { streak in
+            print("home page streak", streak)
+            self.numDayStreak.text = String(streak)
         }
         
         // setup today's meals
@@ -119,9 +122,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         todayMealsTableView.delegate = self
         // fetch today's food data
         fetchTodayFoods()
-        
-        print("here", todayFoods, todayNutrition)
-        
+                
         // setup this week calendar collection view
         thisWeekCollectionView.dataSource = self
         thisWeekCollectionView.delegate = self
@@ -131,7 +132,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         daysOfWeek = getDaysOfWeek(startOfWeek: startOfWeek)
         NutritionStats.shared.getTrackedDaysOfWeek { [weak self] trackedDays in
             self?.trackedDays = trackedDays
-            var numDaysTracked = (self?.trackedDays.count)!
+            let numDaysTracked = (self?.trackedDays.count)!
             self?.numDaysTrackedLabel.text = "\(numDaysTracked)/7 days"
             DispatchQueue.main.async {
                 self?.thisWeekCollectionView.reloadData()
@@ -199,11 +200,14 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         fetchTodayFoods()
         NutritionStats.shared.getTrackedDaysOfWeek { [weak self] trackedDays in
             self?.trackedDays = trackedDays
-            var numDaysTracked = (self?.trackedDays.count)!
+            let numDaysTracked = (self?.trackedDays.count)!
             self?.numDaysTrackedLabel.text = "\(numDaysTracked)/7 days"
             DispatchQueue.main.async {
                 self?.thisWeekCollectionView.reloadData()
             }
+        }
+        NutritionStats.shared.getTrackedDaysStreak { streak in
+            self.numDayStreak.text = String(streak)
         }
     }
 
