@@ -25,7 +25,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     var chatScrollView: UIScrollView!
 
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
-    
+    var profileData = Profile()
     let lightPurple = UIColor(red: 0.9451, green: 0.9255, blue: 0.9804, alpha: 1.0)
     let darkPurple = UIColor(red: 0.4392, green: 0.2588, blue: 0.7882, alpha: 1.0)
     let currentUserId = Auth.auth().currentUser?.uid
@@ -105,7 +105,17 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                 self.generateVerboseResponse = value as? Bool ?? false
             }
         }
+        
+        ProfileLoader().loadProfile { profile in
+            self.profileData.firstName = profile.firstName
+            self.profileData.lastName = profile.lastName
+            self.profileData.gender = profile.gender
+            self.profileData.age = profile.age
+            self.profileData.weight = profile.weight
+            self.profileData.height = profile.height
+        }
     }
+    
 
     func fetchChats() {
         if (currentUserId == nil) { return }
@@ -234,7 +244,6 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         guard let url = URL(string: "https://api.deepseek.com/chat/completions") else { return }
         guard let apiKey = getDeepSeekAPIKey() else { return }
         
-        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
@@ -243,9 +252,16 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         
         let chatLengthPreference = generateVerboseResponse ? "Respond in detailed." : "Respond in a 2-3 sentences."
         
+        let genderText = (profileData.gender != nil) ? "\nGender: \(profileData.gender ?? "N/A")" : ""
+        let heightText = (profileData.heightFormatted != "") ? "\nHeight:  \(profileData.heightFormatted)" : ""
+        let weightText = (profileData.weight != nil) ? "\nWeight:  \(profileData.weight ?? 0)" : ""
+        let ageText = (profileData.age != nil) ? "\nAge: \(profileData.age ?? 0)" : ""
+        
+        let todaysNutritionData = "Today's nutrition intake: \n \(nutritionDataToday["calories", default: 0]) calories \n \(nutritionDataToday["protein", default: 0]) grams of protein \n \(nutritionDataToday["carbohydrates", default: 0]) grams of carbs \n \(nutritionDataToday["fat", default: 0]) grams of fat \n \(nutritionDataToday["vitaminA", default: 0]) mcg of Vitamin A \n  \(nutritionDataToday["vitaminC", default: 0]) mcg of Vitamin C \n"
+        
         let payload: [String: Any] = [
             "messages": [
-                ["role": "system", "content": "You are an assistant for food and nutrition. Please give advice based on today's nutrition intake: \(nutritionDataToday["calories", default: 0]) calories,  \(nutritionDataToday["protein", default: 0]) grams of protein,  \(nutritionDataToday["carbohydrates", default: 0]) grams of carbs,  \(nutritionDataToday["fat", default: 0]) grams of fat,  \(nutritionDataToday["vitaminA", default: 0]) mcg of Vitamin A,  \(nutritionDataToday["vitaminC", default: 0]) mcg of Vitamin C. You may organize the advice into paragraphs and bullet points but do not use astericks or hashtags. \(chatLengthPreference)"]
+                ["role": "system", "content": "You are an assistant for food and nutrition. Please give advice to \(profileData.fullName) based on their data. \(genderText) \(ageText) \(heightText) \(weightText) \n \(todaysNutritionData). You may organize the advice into paragraphs and bullet points but do not use astericks or hashtags. \(chatLengthPreference)"]
                 ,
                 ["role": "user", "content": message]
             ],

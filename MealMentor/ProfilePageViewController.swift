@@ -27,95 +27,13 @@ class ProfilePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getDocumentData(from: userDoc, category: "firstName") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                self.fullName.text = value as? String
-            } else {
-                print("Field does not exist")
-            }
+        ProfileLoader().loadProfile { profile in
+            self.fullName.text = profile.fullName
+            self.gender.text = profile.gender
+            self.age.text = profile.age != nil ? "\(profile.age!)" : ""
+            self.weight.text = profile.weight != nil ? "\(profile.weight!) lbs" : ""
+            self.height.text = profile.heightFormatted
         }
-        
-        getDocumentData(from: userDoc, category: "lastName") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                let last : String = (value as? String)!
-                self.fullName.text = self.fullName.text! +  " " + last
-            } else {
-                print("Field does not exist")
-            }
-        }
-        getDocumentData(from: userDoc, category: "gender") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                self.gender.text = value as? String
-            } else {
-                print("Field does not exist")
-            }
-        }
-        getDocumentData(from: userDoc, category: "age") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                let ageNum : Int = (value as? Int)!
-                if ageNum == 0 {
-                    self.age.text = ""
-                } else {
-                    self.age.text = "\(ageNum)"
-                }
-            } else {
-                print("Field does not exist")
-            }
-        }
-        getDocumentData(from: userDoc, category: "weight") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                let weightNum : Int = (value as? Int)!
-                if weightNum == 0 {
-                    self.weight.text = ""
-                } else {
-                    self.weight.text = "\(weightNum) lbs"
-                }
-            } else {
-                print("Field does not exist")
-            }
-        }
-        getDocumentData(from: userDoc, category: "height") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                let heightNum : Int = (value as? Int)!
-                if heightNum == 0 {
-                    self.height.text = ""
-                } else {
-                    let newHeightFeet:Int = Int(heightNum / 12)
-                    let newHeightInches:Int = heightNum % 12
-                    self.height.text = #"\#(newHeightFeet)' \#(newHeightInches)""#
-                }
-            } else {
-                print("Field does not exist")
-            }
-        }//        print("first name: \(getDocumentData(doc: userDoc, category: "firstName"))")
-//        print("last name: \(getDocumentData(doc: userDoc, category: "lastName"))")
-//        print("age: \(getDocumentData(doc: userDoc, category: "age"))")
-//        print("weight: \(getDocumentData(doc: userDoc, category: "weight"))")
-//        print("height: \(getDocumentData(doc: userDoc, category: "height"))")
-//        print("allergies: \(getDocumentData(doc: userDoc, category: "allergies"))")
-//        print("gender: \(getDocumentData(doc: userDoc, category: "gender"))")
-        //if dataDescription != "" {
-        //    fullName.text = dataDescription[firstName]
-        //}
-
     }
     
 
