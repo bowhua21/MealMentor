@@ -163,7 +163,7 @@ class NutritionStats {
         // fetch all tracked days up to today
         db.collection("meals")
             .whereField("userID", isEqualTo: userID)
-            .whereField("date", isLessThanOrEqualTo: Timestamp(date: today))
+            .whereField("date", isLessThanOrEqualTo: Timestamp(date: calendar.date(byAdding: .day, value: 1, to: today)!))
             .order(by: "date", descending: true) // Get the most recent dates first
             .getDocuments { (querySnapshot, err) in
                 if let err = err {

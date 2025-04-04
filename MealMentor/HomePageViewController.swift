@@ -215,6 +215,12 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         todayMealsTableView.delegate = self
         fetchTodayFoods()
         // setup highlights
+        NutritionStats.shared.getTrackedDaysOfMonth { daysTracked in
+            self.numDaysLoggedThisMonth.text = String(daysTracked)
+        }
+        NutritionStats.shared.getTrackedDaysStreak { streak in
+            self.numDayStreak.text = String(streak)
+        }
         NutritionStats.shared.getTrackedDaysOfWeek { [weak self] trackedDays in
             self?.trackedDays = trackedDays
             let numDaysTracked = (self?.trackedDays.count)!
@@ -222,9 +228,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
             DispatchQueue.main.async {
                 self?.thisWeekCollectionView.reloadData()
             }
-        }
-        NutritionStats.shared.getTrackedDaysStreak { streak in
-            self.numDayStreak.text = String(streak)
         }
         
         // fetch weekly nutrition stats for bar charts
