@@ -132,13 +132,6 @@
                                     <action selector="saveButtonPressed:" destination="Xnn-sc-MEk" eventType="touchUpInside" id="65H-OB-uaE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5j-b7-fSx">
-                                <rect key="frame" x="32" y="453" width="377" height="289"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="18"/>
-                                <color key="textColor" red="0.050980392159999999" green="0.69411764710000001" blue="0.67843137249999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WTE-49-tbP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -146,7 +139,6 @@
                     <connections>
                         <outlet property="confirmPasswordTextField" destination="q8c-Ks-W1A" id="IQN-Yk-EH2"/>
                         <outlet property="newPasswordTextField" destination="1vc-i7-Olw" id="APc-fR-LMq"/>
-                        <outlet property="statusFieldLabel" destination="H5j-b7-fSx" id="x2z-hG-Pm0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zsy-Wx-EMQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

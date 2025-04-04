@@ -8,8 +8,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var confirmPasswordField: UITextField!
-    
-    @IBOutlet weak var statusLabelField: UILabel!
+        
     var delegate: UIViewController!
     
     override func viewDidLoad() {
@@ -37,21 +36,20 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let password = passwordField.text!
         let confirmPass = confirmPasswordField.text!
         if userName.isEmpty || password.isEmpty || confirmPass.isEmpty {
-            statusLabelField.text = "Please fill in all fields"
+            present(errorAlertController(title: "Error", message: "Please fill in all fields"), animated: true)
         } else if !isValidEmail(userName) {
-            statusLabelField.text = "Invalid email format"
+            present(errorAlertController(title: "Error", message: "Invalid email format"), animated: true)
         } else if !isValidPassword(password) {
-            statusLabelField.text = "The password is too short"
+            present(errorAlertController(title: "Error", message: "The password is too short"), animated: true)
         } else if password != confirmPass {
-            statusLabelField.text = "The passwords do not match"
+            present(errorAlertController(title: "Error", message: "The passwords do not match"), animated: true)
         } else {
             Auth.auth().createUser(withEmail: userName, password: password) {
                 (authResult, error) in
                 if let error = error as NSError? {
-                    self.statusLabelField.text = "Database error - \(error.localizedDescription)"
+                    self.present(errorAlertController(title: "Error", message: "Database error - \(error.localizedDescription)"), animated: true)
                 } else {
                     createUserDefaultData(password: password)
-                    self.statusLabelField.text = "Successfully created new account"
                 }
             }
             

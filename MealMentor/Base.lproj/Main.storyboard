@@ -167,20 +167,12 @@
                                     <segue destination="SKn-qc-MiU" kind="presentation" identifier="" id="tPq-5h-p3j"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ND4-oh-mgp">
-                                <rect key="frame" x="32" y="606" width="377" height="280"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="24"/>
-                                <color key="textColor" red="0.050980392156862744" green="0.69411764705882351" blue="0.67843137254901964" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
                         <outlet property="passwordField" destination="lZk-3d-jiG" id="VRm-aq-NSy"/>
-                        <outlet property="statusLabelField" destination="ND4-oh-mgp" id="Vdv-tB-a7m"/>
                         <outlet property="userIDField" destination="6Sd-3E-Bng" id="30c-VP-8jh"/>
                         <segue destination="U3q-3v-Owm" kind="presentation" identifier="LoginToHomePageIdentifier" modalPresentationStyle="fullScreen" id="giI-QV-spA"/>
                     </connections>
@@ -266,13 +258,6 @@
                                     <action selector="createAccountPressed:" destination="SKn-qc-MiU" eventType="touchUpInside" id="SoM-b4-azY"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZrQ-Ba-bdr">
-                                <rect key="frame" x="32" y="595" width="377" height="289"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="18"/>
-                                <color key="textColor" red="0.050980392156862744" green="0.69411764705882351" blue="0.67843137254901964" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1kr-z0-irV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -281,7 +266,6 @@
                     <connections>
                         <outlet property="confirmPasswordField" destination="EQk-Fn-xqp" id="pla-KL-V7v"/>
                         <outlet property="passwordField" destination="24b-Lk-N2w" id="2h1-8A-ict"/>
-                        <outlet property="statusLabelField" destination="ZrQ-Ba-bdr" id="O96-a2-aLO"/>
                         <outlet property="userIDField" destination="lXT-V4-KLq" id="vYk-pf-7x8"/>
                         <segue destination="Ugm-Zy-1Gp" kind="presentation" identifier="OnboardSegueID" modalPresentationStyle="fullScreen" id="Wok-Dx-4m5"/>
                     </connections>
@@ -663,7 +647,7 @@
                                     <color key="baseBackgroundColor" red="0.52384585139999995" green="0.84693413969999998" blue="0.83915966750000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="U3q-3v-Owm" kind="presentation" identifier="OnboardingToHomePageIdentifier" modalPresentationStyle="fullScreen" id="ze9-Ik-IRt"/>
+                                    <action selector="toHomePage:" destination="v15-Zc-O2G" eventType="touchUpInside" id="pHM-g3-N2g"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVd-Mn-aPa">
@@ -709,6 +693,7 @@
                         <outlet property="goalsField" destination="Ma0-hh-HwI" id="Kza-9m-B55"/>
                         <outlet property="lastNameField" destination="9D0-LD-PfL" id="lym-66-v8s"/>
                         <outlet property="nutritionFocusField" destination="xS4-X5-6Aj" id="6IV-it-Z57"/>
+                        <segue destination="U3q-3v-Owm" kind="presentation" identifier="OnboardingToHomePageIdentifier" modalPresentationStyle="fullScreen" id="eXR-Xl-rhM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XDd-Gf-pYJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -718,8 +703,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Wok-Dx-4m5"/>
-        <segue reference="nrQ-9e-UZx"/>
-        <segue reference="DXE-xJ-Yze"/>
+        <segue reference="tPq-5h-p3j"/>
+        <segue reference="giI-QV-spA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="95"/>

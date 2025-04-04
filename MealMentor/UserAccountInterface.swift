@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import UIKit
 
 
 let db = Firestore.firestore()
@@ -102,6 +103,7 @@ internal func createUserDefaultData(password: String) {
         "lastName": "",
         "nutritionfocuses": "",
         "password": password,
+        "verboseResponsePreference": false,
         "weight": 0
     ] as [String : Any]
     
@@ -111,4 +113,10 @@ internal func createUserDefaultData(password: String) {
             return
         }
     }
+}
+
+internal func errorAlertController(title: String, message: String) -> UIAlertController {
+    let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    controller.addAction(UIAlertAction(title: "OK", style: .default))
+    return controller
 }

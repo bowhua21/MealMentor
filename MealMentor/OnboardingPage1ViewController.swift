@@ -15,7 +15,7 @@ class OnboardingPage1ViewController: UIViewController {
     
     let buttonColor : UIColor = hexStringToUIColor(hex: "#0DB1AD", alphaVal: 0.25)
     
-    let lightGrayColor : UIColor = hexStringToUIColor(hex: "#9A9A9A", alphaVal: 0.25)
+    let lightGrayColor : UIColor = hexStringToUIColor(hex: "#F5F5F5", alphaVal: 0.25)
     
     @IBOutlet weak var maleButton: UIButton!
     
@@ -69,33 +69,48 @@ class OnboardingPage1ViewController: UIViewController {
         weightSlider.isContinuous = true
         ageSlider.isContinuous = true
         
+        maleButton.layer.cornerRadius = 10
+        maleButton.backgroundColor = lightGrayColor
+        
+        femaleButton.layer.cornerRadius = 10
+        femaleButton.backgroundColor = lightGrayColor
+        
+        noneButton.layer.cornerRadius = 10
+        noneButton.backgroundColor = buttonColor
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func setBackgroundColor(color: UIColor, button: UIButton) {
+        UIView.animate(withDuration: 0.25, animations: {
+            button.backgroundColor = color
+        })
     }
     
     @IBAction func maleButtonPressed(_ sender: Any) {
         if isUserLoggedIn() {
             updateDocument(doc: userDoc, category: "gender", value: "male")
-            self.maleButton.backgroundColor = self.buttonColor
-            self.femaleButton.backgroundColor = self.lightGrayColor
-            self.noneButton.backgroundColor = self.lightGrayColor
+            setBackgroundColor(color: self.buttonColor, button: maleButton)
+            setBackgroundColor(color: self.lightGrayColor, button: femaleButton)
+            setBackgroundColor(color: self.lightGrayColor, button: noneButton)
         }
     }
     
     @IBAction func femaleButtonPressed(_ sender: Any) {
         if isUserLoggedIn() {
             updateDocument(doc: userDoc, category: "gender", value: "female")
-            self.femaleButton.backgroundColor = self.buttonColor
-            self.maleButton.backgroundColor = self.lightGrayColor
-            self.noneButton.backgroundColor = self.lightGrayColor
+            setBackgroundColor(color: self.buttonColor, button: femaleButton)
+            setBackgroundColor(color: self.lightGrayColor, button: maleButton)
+            setBackgroundColor(color: self.lightGrayColor, button: noneButton)
         }
     }
     
     @IBAction func noneButtonPressed(_ sender: Any) {
         if isUserLoggedIn() {
             updateDocument(doc: userDoc, category: "gender", value: "none")
-            self.noneButton.backgroundColor = self.buttonColor
-            self.femaleButton.backgroundColor = self.lightGrayColor
-            self.maleButton.backgroundColor = self.lightGrayColor
+            setBackgroundColor(color: self.buttonColor, button: noneButton)
+            setBackgroundColor(color: self.lightGrayColor, button: femaleButton)
+            setBackgroundColor(color: self.lightGrayColor, button: maleButton)
         }
     }
     

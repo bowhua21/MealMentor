@@ -24,7 +24,7 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var firstNameField: UITextField!
     
     @IBOutlet weak var lastNameField: UITextField!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         goalsField.delegate = self
@@ -61,6 +61,17 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func nutritionFocusType(_ sender: Any) {
         updateDocument(doc: userDoc, category: "nutritionfocuses", value: nutritionFocusField.text!)
+    }
+    
+    
+    @IBAction func toHomePage(_ sender: Any) {
+        let firstName = firstNameField.text!
+        let lastName = lastNameField.text!
+        if firstName.isEmpty || lastName.isEmpty {
+            present(errorAlertController(title: "Error", message: "Please fill in both first and last name"), animated: true)
+        } else {
+                self.performSegue(withIdentifier: "OnboardingToHomePageIdentifier", sender: nil)
+        }
     }
     
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
