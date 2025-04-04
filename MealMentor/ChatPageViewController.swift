@@ -199,6 +199,17 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             
             chatStackView.addArrangedSubview(messageContainer)
         }
+        scrollToBottom()
+    }
+    
+    func scrollToBottom() {
+        DispatchQueue.main.async {
+            let bottomOffset = CGPoint(
+                x: 0,
+                y: max(0, self.chatScrollView.contentSize.height - self.chatScrollView.bounds.height)
+            )
+            self.chatScrollView.setContentOffset(bottomOffset, animated: true)
+        }
     }
     
     func handleSendMessage() {
@@ -220,7 +231,11 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
 
             self.chatInputBar.text = ""
             self.messages.append(ChatMessage(userId: self.currentUserId!, message: text, sender: "user", createdAt: Date()))
-            self.populateChatUI()
+
+            DispatchQueue.main.async {
+                self.populateChatUI()
+                self.sendButton.isEnabled = false
+            }
         }
         refetchUserData()
         self.getAIResponse(with: text)
@@ -240,7 +255,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     
     func getAIResponse(with message: String) {
         if (currentUserId == nil) { return }
-
+    
         guard let url = URL(string: "https://api.deepseek.com/chat/completions") else { return }
         guard let apiKey = getDeepSeekAPIKey() else { return }
         
@@ -271,17 +286,24 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
         } catch {
+            self.sendButton.isEnabled = true
             print("Error serializing JSON: \(error)")
             return
         }
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
+                DispatchQueue.main.async {
+                    self.sendButton.isEnabled = true
+                }
                 print("DeepSeek request error: \(error)")
                 return
             }
             
             guard let data = data else {
+                DispatchQueue.main.async {
+                    self.sendButton.isEnabled = true
+                }
                 print("No data received from DeepSeek")
                 return
             }
@@ -309,6 +331,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
                         DispatchQueue.main.async {
                             self.messages.append(ChatMessage(userId: self.currentUserId!, message: deepSeekResponse, sender: "ai", createdAt: Date()))
                             self.populateChatUI()
+                            self.sendButton.isEnabled = true
                         }
                     }
                 }

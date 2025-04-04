@@ -24,6 +24,7 @@ class ChatBubble: UILabel {
         layer.cornerRadius = 10
         clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
+        self.lineBreakMode = .byWordWrapping
     }
     
     override func drawText(in rect: CGRect) {
@@ -33,5 +34,10 @@ class ChatBubble: UILabel {
     override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         return CGSize(width: size.width + CGFloat(margins), height: size.height + CGFloat(margins))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.preferredMaxLayoutWidth = self.bounds.width - 16
     }
 }
