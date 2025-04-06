@@ -8,24 +8,26 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import                      FirebaseStorage
 
 protocol LogEntryViewControllerDelegate: AnyObject {
     func didSaveMeal()
 }
 
 
-class LogEntryViewController: UIViewController {
-    var selectedCategory: MealCategory = .breakfast 
+class LogEntryViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    let imagePicker = UIImagePickerController()
+    var selectedCategory: MealCategory = .breakfast
     weak var delegate: LogEntryViewControllerDelegate?
     var foodList: [Food] = []
-    var currentUserId: String? // Replace with actual user ID retrieval logic
+    var currentUserId: String?
     @IBOutlet weak var logTextField: UITextField!
-    
-    @IBOutlet weak var mealHeaderLabel: UILabel?
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mealLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         currentUserId = getUserID()
+        imagePicker.delegate = self
     }
     
     func getUserID() -> String? {
@@ -351,4 +353,94 @@ class LogEntryViewController: UIViewController {
             self?.mealLabel.text = message
         }
     }
+    @IBAction func uploadButtonTapped(_ sender: Any) {
+        presentImagePicker()
+    }
+    
+    func presentImagePicker() {
+            let alert = UIAlertController(title: "Select Photo", message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    self.imagePicker.sourceType = .camera
+                    self.present(self.imagePicker, animated: true)
+                }
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
+                self.imagePicker.sourceType = .photoLibrary
+                self.present(self.imagePicker, animated: true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            present(alert, animated: true)
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let selectedImage = info[.originalImage] as? UIImage {
+                imageView.image = selectedImage
+                uploadImage(selectedImage) // Upload after selecting
+            }
+            dismiss(animated: true)
+        }
+        
+        func uploadImage(_ image: UIImage) {
+            guard let currentUserId = currentUserId else {
+                print("No user signed in.")
+                return
+            }
+
+            let storageRef = Storage.storage().reference()
+            let imageRef = storageRef.child("user_images/\(currentUserId)_\(UUID().uuidString).jpg") // Unique name for the image
+
+            // Convert image to data
+            guard let imageData = image.jpegData(compressionQuality: 0.75) else {
+                print("Error converting image to data")
+                return
+            }
+            
+            let uploadTask = imageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                if let error = error {
+                    print("Error uploading image: \(error.localizedDescription)")
+                    return
+                }
+                
+                // Once upload is successful, get the download URL
+                imageRef.downloadURL { (url, error) in
+                    if let error = error {
+                        print("Error retrieving download URL: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    if let downloadURL = url {
+                        print("Image uploaded successfully. URL: \(downloadURL)")
+                        // Here you can now save the download URL to Firestore if needed
+                        self.saveImageURLToFirestore(url: downloadURL)
+                    }
+                }
+            }
+            
+            // Optional: track upload progress
+            uploadTask.observe(.progress) { snapshot in
+                // Handle progress if needed (e.g., update a progress bar)
+                print("Upload progress: \(snapshot.progress?.fractionCompleted ?? 0)%")
+            }
+        }
+        
+        func saveImageURLToFirestore(url: URL) {
+            guard let currentUserId = currentUserId else { return }
+            
+            let db = Firestore.firestore()
+            let userImagesRef = db.collection("user_images").document(currentUserId)
+            
+            // Assuming you're saving an image reference under the user's document
+            userImagesRef.setData(["imageURL": url.absoluteString], merge: true) { error in
+                if let error = error {
+                    print("Error saving image URL to Firestore: \(error.localizedDescription)")
+                } else {
+                    print("Image URL saved to Firestore successfully")
+                }
+            }
+        }
 }

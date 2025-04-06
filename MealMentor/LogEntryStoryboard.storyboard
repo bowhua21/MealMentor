@@ -277,6 +277,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXU-jL-0md">
+                                <rect key="frame" x="144" y="464" width="106" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Add Image"/>
+                                <connections>
+                                    <action selector="uploadButtonTapped:" destination="c4i-jf-ySt" eventType="touchUpInside" id="fbI-OQ-Q4s"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lhl-oj-hgG">
+                                <rect key="frame" x="59" y="507" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nTa-27-HwW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -303,6 +316,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="NCW-lW-sg9"/>
                     <connections>
+                        <outlet property="imageView" destination="Lhl-oj-hgG" id="m3V-RU-NdM"/>
                         <outlet property="logTextField" destination="wNV-ZE-8x2" id="y52-mp-JvN"/>
                         <outlet property="mealLabel" destination="Rbn-lc-ZKS" id="txq-9F-Up5"/>
                     </connections>
