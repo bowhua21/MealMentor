@@ -156,46 +156,51 @@ class NutritionStats {
             completion(0)
             return
         }
-
+        
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
-
-        // fetch all tracked days up to today
+        
         db.collection("meals")
             .whereField("userID", isEqualTo: userID)
             .whereField("date", isLessThanOrEqualTo: Timestamp(date: calendar.date(byAdding: .day, value: 1, to: today)!))
-            .order(by: "date", descending: true) // Get the most recent dates first
+            .order(by: "date", descending: true)
             .getDocuments { (querySnapshot, err) in
                 if let err = err {
                     print("getTrackedDaysStreak Error fetching tracked days: \(err)")
                     completion(0)
                     return
                 }
+                
                 guard let documents = querySnapshot?.documents else {
                     print("getTrackedDaysStreak No tracked days found.")
                     completion(0)
                     return
                 }
-
-                // get tracked days, sort in descending order
-                let trackedDays: [Date] = documents.compactMap { doc in
+                
+                let allDates = documents.compactMap { doc -> Date? in
                     if let timestamp = doc.data()["date"] as? Timestamp {
                         return calendar.startOfDay(for: timestamp.dateValue())
                     }
                     return nil
-                }.sorted(by: { $0 > $1 }) // sort from most recent to oldest
-
+                }
+                
+                // make sure there's no duplicate dates
+                let uniqueDays = Array(Set(allDates)).sorted(by: { $0 > $1 })
+                
                 var streak = 0
                 var previousDay = today
-                for day in trackedDays {
+                
+                for day in uniqueDays {
                     if calendar.isDate(day, inSameDayAs: previousDay) ||
-                       calendar.isDate(day, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: previousDay)!) {
+                        calendar.isDate(day, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: previousDay)!) {
                         streak += 1
                         previousDay = day
                     } else {
-                        break // streak ends
+                        // streak ends
+                        break
                     }
                 }
+                
                 completion(streak)
             }
     }
@@ -251,5 +256,4 @@ class NutritionStats {
                 completion(weeklyNutrition)
             }
     }
-    
 }
