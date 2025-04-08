@@ -1,3 +1,7 @@
 Config.plist
 MealMentor/Config.plist
 MealMentor/MealMentor/Config.plist
+*.xcuserdata
+*.xcscmblueprint
+*.xccheckout
+*.xcdebugger
