@@ -5,3 +5,4 @@ MealMentor/MealMentor/Config.plist
 *.xcscmblueprint
 *.xccheckout
 *.xcdebugger
+.DS_Store
