@@ -196,6 +196,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
                 print("Field does not exist")
             }
         }
+        Notifications.shared.scheduleMealNotifications()
     }
     
     override func viewDidLayoutSubviews() {

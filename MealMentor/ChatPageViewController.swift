@@ -77,7 +77,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         self.view.sendSubviewToBack(chatScrollView)
 
         fetchChats()
-        refetchUserData()
+        refetchUserData{}
     }
     
     override func viewDidLayoutSubviews() {
@@ -116,26 +116,26 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         handleSendMessage(message: prompt!)
     }
     
-    func refetchUserData() {
+    func refetchUserData(completion: @escaping () -> Void) {
         NutritionStats.shared.loadTotalNutritionForToday {
             self.nutritionDataToday = totalNutritionForToday
-            print("nutritionDataToday: \(self.nutritionDataToday)")
-        }
-        getDocumentData(from: userDoc, category:  "verboseResponsePreference") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else {
-                self.generateVerboseResponse = value as? Bool ?? false
+            
+            getDocumentData(from: self.userDoc, category: "verboseResponsePreference") { value, error in
+                if let error = error {
+                    print("Error fetching field: \(error.localizedDescription)")
+                } else {
+                    self.generateVerboseResponse = value as? Bool ?? false
+                }
+                ProfileLoader().loadProfile { profile in
+                    self.profileData.firstName = profile.firstName
+                    self.profileData.lastName = profile.lastName
+                    self.profileData.gender = profile.gender
+                    self.profileData.age = profile.age
+                    self.profileData.weight = profile.weight
+                    self.profileData.height = profile.height
+                    completion()
+                }
             }
-        }
-        
-        ProfileLoader().loadProfile { profile in
-            self.profileData.firstName = profile.firstName
-            self.profileData.lastName = profile.lastName
-            self.profileData.gender = profile.gender
-            self.profileData.age = profile.age
-            self.profileData.weight = profile.weight
-            self.profileData.height = profile.height
         }
     }
     
@@ -143,10 +143,10 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     func fetchChats() {
         if (currentUserId == nil) { return }
             
-//        let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
-        let yesterday = Date().addingTimeInterval(24 * 60 * 60)
+        let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
+//        let yesterday = Date().addingTimeInterval(-1 * 24 * 60 * 60)
 
-        let timestamp = Timestamp(date: yesterday)
+        let timestamp = Timestamp(date: oneWeekAgo)
         
         db.collection("chats")
             .whereField("userId", isEqualTo: currentUserId!)
@@ -240,10 +240,8 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     func handleSendMessage(message: String) {
         if (currentUserId == nil) { return }
         
-        let text = message
-        
         let newChat = [
-            "message": text,
+            "message": message,
             "userId": currentUserId!,
             "createdAt": Timestamp(date: Date()),
             "sender": "user"
@@ -256,15 +254,16 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
             }
 
             self.chatInputBar.text = ""
-            self.messages.append(ChatMessage(userId: self.currentUserId!, message: text, sender: "user", createdAt: Date()))
+            self.messages.append(ChatMessage(userId: self.currentUserId!, message: message, sender: "user", createdAt: Date()))
 
             DispatchQueue.main.async {
                 self.populateChatUI()
                 self.sendButton.isEnabled = false
             }
         }
-        refetchUserData()
-        self.getAIResponse(with: text)
+        refetchUserData {
+            self.getAIResponse(with: message)
+        }
     }
     
     // this function protects the API key by reading from the Config.plist file
