@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-import                      FirebaseStorage
+import FirebaseStorage
 
 protocol LogEntryViewControllerDelegate: AnyObject {
     func didSaveMeal()

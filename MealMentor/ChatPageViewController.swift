@@ -13,10 +13,10 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var askMealMentorIntroView: UIView!
     @IBOutlet weak var askMealMentorTitleLabel: UILabel!
-    @IBOutlet weak var topExamplePromptLabel: UILabel!
-    @IBOutlet weak var middleExamplePromptLabel: UILabel!
-    @IBOutlet weak var bottomExamplePromptLabel: UILabel!
     @IBOutlet weak var chatInputBar: UITextField!
+    @IBOutlet weak var firstPromptButton: UIButton!
+    @IBOutlet weak var secondPromptButton: UIButton!
+    @IBOutlet weak var thirdPromptButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var chatInputBarBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var sendButtonBottomConstraint: NSLayoutConstraint!
@@ -41,10 +41,7 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         chatInputBar.backgroundColor = lightPurple
         askMealMentorIntroView.backgroundColor = lightPurple
         askMealMentorTitleLabel.textColor = darkPurple
-        topExamplePromptLabel.textColor = darkPurple
-        middleExamplePromptLabel.textColor = darkPurple
-        bottomExamplePromptLabel.textColor = darkPurple
-        
+  
         // setting up the scroll view
         chatScrollView = UIScrollView()
         chatScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +73,9 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
+        self.view.bringSubviewToFront(askMealMentorIntroView)
+        self.view.sendSubviewToBack(chatScrollView)
+
         fetchChats()
         refetchUserData()
     }
@@ -91,6 +91,29 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         if self.messages.count > 0 {
             self.askMealMentorIntroView.isHidden = true
         }
+    }
+    
+    
+    @IBAction func firstPromptButtonPressed(_ sender: Any) {
+        askMealMentorIntroView.isHidden = true
+        
+        let prompt = firstPromptButton.titleLabel?.text
+        handleSendMessage(message: prompt!)
+    }
+    
+    @IBAction func secondPromptButtonPressed(_ sender: Any) {
+        askMealMentorIntroView.isHidden = true
+        
+        let prompt = secondPromptButton.titleLabel?.text
+        handleSendMessage(message: prompt!)
+
+    }
+    
+    @IBAction func thirdPromptButtonPressed(_ sender: Any) {
+        askMealMentorIntroView.isHidden = true
+        
+        let prompt = thirdPromptButton.titleLabel?.text
+        handleSendMessage(message: prompt!)
     }
     
     func refetchUserData() {
@@ -120,8 +143,10 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     func fetchChats() {
         if (currentUserId == nil) { return }
             
-        let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
-        let timestamp = Timestamp(date: oneWeekAgo)
+//        let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
+        let yesterday = Date().addingTimeInterval(24 * 60 * 60)
+
+        let timestamp = Timestamp(date: yesterday)
         
         db.collection("chats")
             .whereField("userId", isEqualTo: currentUserId!)
@@ -212,9 +237,10 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func handleSendMessage() {
+    func handleSendMessage(message: String) {
         if (currentUserId == nil) { return }
-        guard let text = chatInputBar.text, !text.isEmpty else { return }
+        
+        let text = message
         
         let newChat = [
             "message": text,
@@ -342,12 +368,17 @@ class ChatPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func sendButtonTapped(_ sender: UIButton) {
-        handleSendMessage()
+        if chatInputBar.text == nil || chatInputBar.text == "" {
+            return
+        }
+        handleSendMessage(message: chatInputBar.text!)
     }
 
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
         textField.resignFirstResponder()
-        handleSendMessage()
+        if chatInputBar.text != nil && chatInputBar.text != "" {
+            handleSendMessage(message: chatInputBar.text!)
+        }
         return true
     }
         
