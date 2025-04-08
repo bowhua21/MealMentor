@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class ProfilePageViewController: UIViewController {
+class ProfilePageViewController: DarkModeViewController {
 
     
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)

@@ -9,8 +9,11 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: DarkModeViewController {
 
+    
+    @IBOutlet weak var darkModeSwitch: UISwitch!
+    
     @IBOutlet weak var verboseChatResponsesSwitch: UISwitch!
     
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
@@ -26,6 +29,12 @@ class SettingsViewController: UIViewController {
 //            }
 //        }
     }
+    
+    @IBAction func darkModeToggle(_ sender: Any) {
+        UserDefaults.standard.set(darkModeSwitch.isOn, forKey: "prefs_is_dark_mode_on")
+        overrideUserInterfaceStyle = darkModeSwitch.isOn ? .dark : .light
+    }
+    
 
     @IBAction func onChatResponsePreferenceChanged(_ sender: Any) {
         updateDocument(doc: userDoc, category: "verboseResponsePreference", value: verboseChatResponsesSwitch.isOn)

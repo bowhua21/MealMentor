@@ -588,8 +588,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yk3-x0-1os">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="fPB-eO-xTN" kind="relationship" relationship="viewControllers" id="Qs1-vP-0O4"/>
@@ -665,7 +663,7 @@
         <image name="bolt" catalog="system" width="100" height="128"/>
         <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="flame" catalog="system" width="106" height="128"/>
-        <image name="fork.knife" catalog="system" width="94" height="128"/>
+        <image name="fork.knife" catalog="system" width="32" height="32"/>
         <image name="message" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

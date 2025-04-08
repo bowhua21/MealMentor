@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
+class ChangePasswordViewController: DarkModeViewController, UITextFieldDelegate {
     
     @IBOutlet weak var newPasswordTextField: UITextField!
     
