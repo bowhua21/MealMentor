@@ -72,7 +72,9 @@
                         <viewLayoutGuide key="safeArea" id="FhV-vh-bQg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="Settings" selectedImage="Settings" id="dqi-dE-CGo"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape" catalog="system" selectedImage="gearshape" id="dqi-dE-CGo">
+                        <color key="badgeColor" name="black_lightgreen"/>
+                    </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="darkModeSwitch" destination="ExB-ut-z6E" id="Lfc-cA-D0K"/>
@@ -154,7 +156,7 @@
     </scenes>
     <resources>
         <image name="Arrow right transparent" width="50" height="50"/>
-        <image name="Settings" width="25" height="25"/>
+        <image name="gearshape" catalog="system" width="128" height="123"/>
         <namedColor name="black_lightgreen">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>

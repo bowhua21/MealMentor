@@ -92,7 +92,6 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
                 tabBarController.loadViewIfNeeded()
                 tabBarController.selectedIndex = 2
                 if let homeVC = tabBarController.viewControllers?[2] as? HomePageViewController {
-                    homeVC.userName = firstNameField.text!
                 }
             }
         }

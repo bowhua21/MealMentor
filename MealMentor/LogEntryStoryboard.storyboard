@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
@@ -216,7 +217,9 @@
                             <constraint firstItem="u8a-kG-5Ce" firstAttribute="top" secondItem="hPf-ok-610" secondAttribute="bottom" constant="15" id="yik-aq-0Hh"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Log" image="Log" id="2aX-Ni-s86"/>
+                    <tabBarItem key="tabBarItem" title="Log" image="list.bullet.clipboard" catalog="system" id="2aX-Ni-s86">
+                        <color key="badgeColor" name="black_lightgreen"/>
+                    </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="breakfastTableView" destination="So7-5S-Igo" id="qUt-iw-ETB"/>
@@ -327,7 +330,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Log" width="25" height="25"/>
+        <image name="list.bullet.clipboard" catalog="system" width="98" height="128"/>
+        <namedColor name="black_lightgreen">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

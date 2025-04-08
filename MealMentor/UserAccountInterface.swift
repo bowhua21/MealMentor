@@ -104,7 +104,8 @@ internal func createUserDefaultData(password: String) {
         "nutritionfocuses": "",
         "password": password,
         "verboseResponsePreference": false,
-        "weight": 0
+        "weight": 0,
+        "darkMode": false
     ] as [String : Any]
     
     db.collection("users").document(currentUser!.uid).setData(newUserData) { error in

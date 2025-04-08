@@ -43,7 +43,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var numDaysTrackedLabel: UILabel!
     @IBOutlet weak var proteinCellButton: UIButton!
     @IBOutlet weak var caloriesCellButton: UIButton!
-    var userName:String = "Jane Doe"
     // each floating cell
     @IBOutlet weak var highlightsView: UIView!
     @IBOutlet weak var thisWeekView: UIView!
@@ -107,7 +106,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        username.text = userName
         // Do any additional setup after loading the view.
         // setup highlights
         NutritionStats.shared.getTrackedDaysOfMonth { daysTracked in
@@ -174,27 +172,8 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         
         //bowen edit 3/11 (input name)
-        getDocumentData(from: userDoc, category: "firstName") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                self.username.text = value as? String
-            } else {
-                print("Field does not exist")
-            }
-        }
-        
-        getDocumentData(from: userDoc, category: "lastName") { value, error in
-            if let error = error {
-                print("Error fetching field: \(error.localizedDescription)")
-            } else if let value = value {
-                print("Fetched field value: \(value)")
-                let last : String = (value as? String)!
-                self.username.text = self.username.text! +  " " + last
-            } else {
-                print("Field does not exist")
-            }
+        ProfileLoader().loadProfile { profile in
+            self.username.text = profile.fullName
         }
         Notifications.shared.scheduleMealNotifications()
     }

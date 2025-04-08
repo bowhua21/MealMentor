@@ -41,7 +41,6 @@ class ProfilePageViewController: DarkModeViewController {
         do {
             try Auth.auth().signOut()
         } catch {
-            //TODO: error in signing out
             print("Sign out error")
         }
     }

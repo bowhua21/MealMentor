@@ -136,7 +136,9 @@
                         <viewLayoutGuide key="safeArea" id="oRJ-dX-auG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="Profile" landscapeImage="Profile" largeContentSizeImage="Profile" selectedImage="Profile" id="qdH-0Z-ru0"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.crop.circle" catalog="system" selectedImage="person.crop.circle" id="qdH-0Z-ru0">
+                        <color key="badgeColor" name="black_lightgreen"/>
+                    </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="age" destination="TRW-6V-LYt" id="XN4-Ue-Ryl"/>
@@ -268,9 +270,9 @@
     </scenes>
     <resources>
         <image name="Arrow right transparent" width="50" height="50"/>
-        <image name="Profile" width="25" height="25"/>
         <image name="dietrestriction box" width="595" height="292"/>
         <image name="minus" catalog="system" width="128" height="26"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <namedColor name="black_lightgreen">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>

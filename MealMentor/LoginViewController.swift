@@ -49,7 +49,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             tabBarController.selectedIndex = 2
             if let homePageNav = tabBarController.viewControllers?[2] as? UINavigationController,
                let homePageVC = homePageNav.topViewController as? HomePageViewController {
-                homePageVC.userName = userIDField.text!
             }
         }
 

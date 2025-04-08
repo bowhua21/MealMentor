@@ -16,6 +16,6 @@ struct Profile {
         guard let height = height, height > 0 else { return "" }
         let feet = height / 12
         let inches = height % 12
-        return "\(feet)'\(inches)\""
+        return "\(feet)' \(inches)\""
     }
 }
