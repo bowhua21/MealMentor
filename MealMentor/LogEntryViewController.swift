@@ -17,6 +17,7 @@ protocol LogEntryViewControllerDelegate: AnyObject {
 
 class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let imagePicker = UIImagePickerController()
+    let loadingIndicator = LoadingIndicatorView()
     var selectedCategory: MealCategory = .breakfast
     weak var delegate: LogEntryViewControllerDelegate?
     var foodList: [Food] = []
@@ -28,6 +29,34 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         super.viewDidLoad()
         currentUserId = getUserID()
         imagePicker.delegate = self
+        setupLoadingIndicator()
+    }
+    
+    private func setupLoadingIndicator() {
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loadingIndicator)
+        
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingIndicator.widthAnchor.constraint(equalToConstant: 50),
+            loadingIndicator.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        loadingIndicator.isHidden = true
+    }
+    
+    private func showLoading() {
+        view.bringSubviewToFront(loadingIndicator)
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+        logTextField.isEnabled = false // Prevent input while loading
+    }
+    
+    private func hideLoading() {
+        loadingIndicator.isHidden = true
+        loadingIndicator.stopAnimating()
+        logTextField.isEnabled = true
     }
     
     func getUserID() -> String? {
@@ -88,6 +117,7 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
     
     @IBAction func addClicked(_ sender: Any) {
         guard let text = logTextField.text, !text.isEmpty else { return }
+        showLoading()
         let prompt = generateNutritionPrompt(for: text)
         sendToDeepSeek(prompt: prompt)
     }
@@ -142,91 +172,71 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         }.resume()
     }
     private func handleAPIResponse(data: Data) {
+        // Always hide loading indicator when processing completes
+        defer {
+            DispatchQueue.main.async { [weak self] in
+                self?.hideLoading()
+            }
+        }
+        
         do {
-
+            // Debug raw response
             let rawResponse = String(data: data, encoding: .utf8) ?? "Invalid response data"
-            print("RAW API RESPONSE START")
-            print(rawResponse)
-            print("RAW API RESPONSE END")
+            print("API Response Raw:\n\(rawResponse)")
+            
+            // Parse root JSON
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                showError("Invalid root JSON structure")
-                print("FAILED TO PARSE ROOT JSON OBJECT")
-                return
-            }
-            print("Root JSON parsed successfully")
-            print("Root JSON keys: \(json.keys.joined(separator: ", "))")
-            
-            // Extract choices array
-            guard let choices = json["choices"] as? [[String: Any]] else {
-                showError("Missing choices array")
-                print("MISSING CHOICES ARRAY")
+                showError("Invalid API response format")
                 return
             }
             
-            print("Found \(choices.count) choices")
-            guard let firstChoice = choices.first else {
-                showError("Empty choices array")
-                print("EMPTY CHOICES ARRAY")
+            // Check for API errors first
+            if let apiError = json["error"] as? [String: Any] {
+                let errorMessage = apiError["message"] as? String ?? "Unknown API error"
+                showError("API Error: \(errorMessage)")
                 return
             }
             
-            print("First choice contents:", firstChoice)
-            
-            // Extract message content
-            guard let message = firstChoice["message"] as? [String: Any],
+            // Extract response content
+            guard let choices = json["choices"] as? [[String: Any]],
+                  let firstChoice = choices.first,
+                  let message = firstChoice["message"] as? [String: Any],
                   let responseText = message["content"] as? String else {
-                showError("Invalid message format")
-                print("INVALID MESSAGE FORMAT")
+                showError("Invalid response structure")
                 return
             }
             
-            print("Extracted response text:")
-            print("--- RESPONSE TEXT START ---")
-            print(responseText)
-            print("--- RESPONSE TEXT END ---")
+            print("API Response Content:\n\(responseText)")
             
-            // Attempt to find JSON in response text
-            let jsonString = self.extractJSONString(from: responseText)
-            print("Extracted JSON string:", jsonString ?? "nil")
-            
-            guard let jsonData = jsonString?.data(using: .utf8) else {
-                showError("Invalid JSON encoding")
-                print("FAILED TO CONVERT JSON STRING TO DATA")
+            // Extract JSON from response text
+            guard let jsonString = extractJSONString(from: responseText),
+                  let jsonData = jsonString.data(using: .utf8) else {
+                showError("Could not find nutrition data in response")
                 return
             }
             
-            let foodDict = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
-            print("Parsed food dictionary:", foodDict ?? "nil")
-            guard let cleanedDict = cleanNutritionData(foodDict) else {
-                showError("Missing required fields")
-                print("FAILED TO CLEAN NUTRITION DATA")
+            // Parse food data
+            guard let foodDict = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any],
+                  let cleanedDict = cleanNutritionData(foodDict),
+                  let food = Food.fromDictionary(cleanedDict) else {
+                showError("Invalid nutrition data format")
                 return
             }
             
-            print("Cleaned nutrition data:", cleanedDict)
-            guard let food = Food.fromDictionary(cleanedDict) else {
-                showError("Failed to create food item")
-                print("FAILED TO INITIALIZE FOOD OBJECT")
-                print("Problematic dictionary:", cleanedDict)
-                return
-            }
-            
-            print("Successfully created Food object:", food)
+            // Update UI with new food item
             DispatchQueue.main.async { [weak self] in
                 self?.handleNewFoodItem(food)
             }
             
         } catch {
-            showError("Parsing error: \(error.localizedDescription)")
-            print("DETAILED PARSING ERROR:", error)
-            print("Error context:", error)
-            
-            if let jsonStr = String(data: data, encoding: .utf8) {
-                print("PROBLEMATIC JSON CONTENT:")
-                print(jsonStr)
+            showError("Failed to process response: \(error.localizedDescription)")
+            print("Parsing Error: \(error)")
+            if let decodingError = error as? DecodingError {
+                print("Decoding Error Details: \(decodingError)")
             }
         }
     }
+    
     private func extractJSONString(from text: String) -> String? {
         let pattern = "```(?:json)?\\s*([\\s\\S]*?)\\s*```"
         guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
@@ -318,7 +328,6 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         showTemporaryMessage("Meal saved successfully!")
     }
     
-    // Modify JUST the updateMealLabel function:
     private func updateMealLabel() {
         let categoryName: String
         switch selectedCategory {
@@ -338,7 +347,7 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         }.joined(separator: "\n")
         mealLabel.text = labelText
     }
-
+    
     
     private func showTemporaryMessage(_ message: String) {
         let originalText = mealLabel.text ?? ""
@@ -358,89 +367,103 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
     }
     
     func presentImagePicker() {
-            let alert = UIAlertController(title: "Select Photo", message: nil, preferredStyle: .actionSheet)
-            
-            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    self.imagePicker.sourceType = .camera
-                    self.present(self.imagePicker, animated: true)
-                }
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
-                self.imagePicker.sourceType = .photoLibrary
+        let alert = UIAlertController(title: "Select Photo", message: nil, preferredStyle: .actionSheet)
+        
+        // Only show camera option if available
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(UIAlertAction(title: "Camera", style: .default) { _ in
+                self.imagePicker.sourceType = .camera
                 self.present(self.imagePicker, animated: true)
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            
-            present(alert, animated: true)
+            })
         }
         
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let selectedImage = info[.originalImage] as? UIImage {
-                imageView.image = selectedImage
-                uploadImage(selectedImage) // Upload after selecting
-            }
-            dismiss(animated: true)
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default) { _ in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true)
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = self.view
+            popover.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+        present(alert, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            imageView.image = selectedImage
+            uploadImage(selectedImage)
+        }
+        dismiss(animated: true)
+    }
+    
+    func uploadImage(_ image: UIImage) {
+        guard let currentUserId = currentUserId else {
+            showError("Please sign in to upload images")
+            return
+        }
+
+        showLoading()
+        
+        let storageRef = Storage.storage().reference()
+        let imageName = "\(currentUserId)_\(UUID().uuidString).jpg"
+        let imageRef = storageRef.child("user_images/\(imageName)")
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {
+            hideLoading()
+            showError("Failed to process image")
+            return
         }
         
-        func uploadImage(_ image: UIImage) {
-            guard let currentUserId = currentUserId else {
-                print("No user signed in.")
-                return
-            }
-
-            let storageRef = Storage.storage().reference()
-            let imageRef = storageRef.child("user_images/\(currentUserId)_\(UUID().uuidString).jpg") // Unique name for the image
-
-            // Convert image to data
-            guard let imageData = image.jpegData(compressionQuality: 0.75) else {
-                print("Error converting image to data")
-                return
-            }
+        let uploadTask = imageRef.putData(imageData, metadata: nil) { [weak self] metadata, error in
+            guard let self = self else { return }
             
-            let uploadTask = imageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                if let error = error {
-                    print("Error uploading image: \(error.localizedDescription)")
-                    return
-                }
+            DispatchQueue.main.async {
+                self.hideLoading()
+                // not working for now
                 
-                // Once upload is successful, get the download URL
-                imageRef.downloadURL { (url, error) in
+//                if let error = error {
+//                    self.showError("Upload failed: \(error.localizedDescription)")
+//                    return
+//                }
+                
+                imageRef.downloadURL { url, error in
                     if let error = error {
-                        print("Error retrieving download URL: \(error.localizedDescription)")
+                        self.showError("Failed to get URL: \(error.localizedDescription)")
                         return
                     }
                     
-                    if let downloadURL = url {
-                        print("Image uploaded successfully. URL: \(downloadURL)")
-                        // Here you can now save the download URL to Firestore if needed
-                        self.saveImageURLToFirestore(url: downloadURL)
+                    guard let downloadURL = url else {
+                        self.showError("Invalid image URL")
+                        return
                     }
+                    
+                    self.saveImageURLToFirestore(url: downloadURL)
+                    self.showTemporaryMessage("Image uploaded successfully!")
                 }
-            }
-            
-            // Optional: track upload progress
-            uploadTask.observe(.progress) { snapshot in
-                // Handle progress if needed (e.g., update a progress bar)
-                print("Upload progress: \(snapshot.progress?.fractionCompleted ?? 0)%")
             }
         }
         
-        func saveImageURLToFirestore(url: URL) {
-            guard let currentUserId = currentUserId else { return }
-            
-            let db = Firestore.firestore()
-            let userImagesRef = db.collection("user_images").document(currentUserId)
-            
-            // Assuming you're saving an image reference under the user's document
-            userImagesRef.setData(["imageURL": url.absoluteString], merge: true) { error in
-                if let error = error {
-                    print("Error saving image URL to Firestore: \(error.localizedDescription)")
-                } else {
-                    print("Image URL saved to Firestore successfully")
-                }
+        uploadTask.observe(.progress) { snapshot in
+            let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount) / Double(snapshot.progress!.totalUnitCount)
+            print("Upload progress: \(percentComplete)%")
+        }
+    }
+    
+    func saveImageURLToFirestore(url: URL) {
+        guard let currentUserId = currentUserId else { return }
+        
+        let db = Firestore.firestore()
+        let userImagesRef = db.collection("user_images").document(currentUserId)
+        
+        // Assuming you're saving an image reference under the user's document
+        userImagesRef.setData(["imageURL": url.absoluteString], merge: true) { error in
+            if let error = error {
+                print("Error saving image URL to Firestore: \(error.localizedDescription)")
+            } else {
+                print("Image URL saved to Firestore successfully")
             }
         }
+    }
 }
