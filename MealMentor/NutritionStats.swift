@@ -19,14 +19,12 @@ class NutritionStats {
     func loadTotalNutritionForToday(completion: @escaping () -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
-            completion() // call completion immediately if the user is not authenticated
+            completion()
             return
         }
-
         let today = Date()
         let startOfDay = Calendar.current.startOfDay(for: today)
         let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
-
         db.collection("meals")
             .whereField("userID", isEqualTo: userID)
             .whereField("date", isGreaterThanOrEqualTo: Timestamp(date: startOfDay))
@@ -35,14 +33,12 @@ class NutritionStats {
             .getDocuments() { (querySnapshot, err) in
                 guard let snapshot = querySnapshot else {
                     print("Error getting snapshot: \(String(describing: err))")
-                    completion() // call completion even if there's an error
+                    completion()
                     return
                 }
-
                 let documents = snapshot.documents
                 // clear previous data before updating
                 totalNutritionForToday = [:]
-                
                 for doc in documents {
                     let data = doc.data()
                     guard let foodListData = data["foodList"] as? [[String: Any]] else {
@@ -69,7 +65,7 @@ class NutritionStats {
     func getTrackedDaysOfWeek(completion: @escaping ([Date]) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
-            completion([]) // return empty array if no user is authenticated
+            completion([])
             return
         }
         let today = Date()
@@ -77,7 +73,6 @@ class NutritionStats {
         let endOfWeek = Calendar.current.date(byAdding: .day, value: 6, to: startOfWeek)!
         let startTimestamp = Timestamp(date: startOfWeek)
         let endTimestamp = Timestamp(date: Calendar.current.date(byAdding: .day, value: 1, to: endOfWeek)!)
-
         db.collection("meals")
             .whereField("userID", isEqualTo: userID)
             .whereField("date", isGreaterThanOrEqualTo: startTimestamp)
@@ -91,11 +86,11 @@ class NutritionStats {
                 }
                 var trackedDaysSet = Set<Date>()
                 let calendar = Calendar.current
-                
                 for doc in snapshot.documents {
                     if let timestamp = doc.data()["date"] as? Timestamp {
                         let mealDate = timestamp.dateValue()
-                        let normalizedDate = calendar.startOfDay(for: mealDate) // normalize to remove time
+                        // normalize to remove time
+                        let normalizedDate = calendar.startOfDay(for: mealDate)
                         trackedDaysSet.insert(normalizedDate)
                     }
                 }
@@ -173,7 +168,6 @@ class NutritionStats {
                     }
                     return nil
                 }
-                
                 // make sure there's no duplicate dates
                 let uniqueDays = Array(Set(allDates)).sorted(by: { $0 > $1 })
                 
@@ -198,10 +192,9 @@ class NutritionStats {
     func getWeeklyNutrition(completion: @escaping ([[String: Int]]) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
-            completion([]) // return an empty array if the user is not authenticated
+            completion([])
             return
         }
-
         let today = Date()
         let startOfWeek = Calendar.current.startOfWeek(for: today)
         let endOfWeek = Calendar.current.date(byAdding: .day, value: 7, to: startOfWeek)!
@@ -213,13 +206,10 @@ class NutritionStats {
             .getDocuments { (querySnapshot, err) in
                 guard let snapshot = querySnapshot else {
                     print("Error getting snapshot: \(String(describing: err))")
-                    // return an empty array for each day
                     completion(Array(repeating: [:], count: 7))
                     return
                 }
-
                 var weeklyNutrition = Array(repeating: [String: Int](), count: 7)
-
                 // for each meal, add the nutrition for the corresponding day
                 for doc in snapshot.documents {
                     let data = doc.data()
@@ -227,12 +217,10 @@ class NutritionStats {
                     let mealDate = timestamp.dateValue()
                     // since it's 0-based indexing 
                     let dayIndex = Calendar.current.component(.weekday, from: mealDate) - 1
-
                     guard let foodListData = data["foodList"] as? [[String: Any]] else { continue }
                     let foodList = foodListData.compactMap { Food.fromDictionary($0) }
-
                     for food in foodList {
-                        // Aggregate total nutrition for each day
+                        // aggregate total nutrition for each day
                         weeklyNutrition[dayIndex]["calories", default: 0] += food.calories
                         weeklyNutrition[dayIndex]["protein", default: 0] += food.protein
                         weeklyNutrition[dayIndex]["carbohydrates", default: 0] += food.carbohydrates

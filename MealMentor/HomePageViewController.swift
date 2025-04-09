@@ -172,7 +172,6 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
             self?.setCaloriesDate()
         }
         
-        
         //bowen edit 3/11 (input name)
         ProfileLoader().loadProfile { profile in
             self.username.text = profile.fullName
