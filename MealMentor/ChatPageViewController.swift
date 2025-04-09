@@ -201,7 +201,12 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
                 bubbleLabel.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .right
             } else if chat.sender == "ai" {
-                bubbleLabel.backgroundColor = lightPurple
+                getDocumentData(from: userDoc, category: "darkMode") { value, error in
+                    if let darkMode = value as? Bool {
+                        bubbleLabel.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
+                    }
+                }
+                //bubbleLabel.backgroundColor = lightPurple
                 bubbleLabel.textAlignment = .left
             } else if chat.sender == "error" {
                 bubbleLabel.backgroundColor = UIColor.red.withAlphaComponent(0.3)

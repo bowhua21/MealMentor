@@ -12,25 +12,46 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
 
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     
+    var nutritionList : Set = Set<String>()
     
     @IBOutlet weak var goalsField: UITextField!
     
     @IBOutlet weak var allergiesField: UITextField!
     
     @IBOutlet weak var dietRestrictionsField: UITextField!
-    
-    @IBOutlet weak var nutritionFocusField: UITextField!
-    
+        
     @IBOutlet weak var firstNameField: UITextField!
     
     @IBOutlet weak var lastNameField: UITextField!
         
+    @IBOutlet weak var vitaminClabel: UILabel!
+    @IBOutlet weak var caloriesLabel: UILabel!
+    
+    @IBOutlet weak var fatLabel: UILabel!
+    
+    @IBOutlet weak var proteinLabel: UILabel!
+    
+    @IBOutlet weak var fiberLabel: UILabel!
+    @IBOutlet weak var vitaminALabel: UILabel!
+    @IBOutlet weak var carbsLabel: UILabel!
+    
+    
+    @IBOutlet weak var caloriesSwitch: UISwitch!
+    
+    @IBOutlet weak var proteinSwitch: UISwitch!
+    @IBOutlet weak var vitaminCSwitch: UISwitch!
+    
+    @IBOutlet weak var vitaminASwitch: UISwitch!
+    @IBOutlet weak var fatSwitch: UISwitch!
+    
+    @IBOutlet weak var fiberSwitch: UISwitch!
+    @IBOutlet weak var carbsSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         goalsField.delegate = self
         allergiesField.delegate = self
         dietRestrictionsField.delegate = self
-        nutritionFocusField.delegate = self
         firstNameField.delegate = self
         lastNameField.delegate = self
 
@@ -59,9 +80,6 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
         updateDocument(doc: userDoc, category: "dietaryRestrictions", value: dietRestrictionsField.text!)
     }
     
-    @IBAction func nutritionFocusType(_ sender: Any) {
-        updateDocument(doc: userDoc, category: "nutritionfocuses", value: nutritionFocusField.text!)
-    }
     
     
     @IBAction func toHomePage(_ sender: Any) {
@@ -84,8 +102,44 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-
-
+    @IBAction func fiberAction(_ sender: Any) {
+        updateNutrition(conditionSwitch: fiberSwitch, nutrition: "fiber", conditionLabel: fiberLabel)
+    }
+    
+    @IBAction func caloriesAction(_ sender: Any) {
+        updateNutrition(conditionSwitch: caloriesSwitch, nutrition: "calories", conditionLabel: caloriesLabel)
+    }
+    @IBAction func vitaminAAction(_ sender: Any) {
+        updateNutrition(conditionSwitch: vitaminASwitch, nutrition: "vitamin A", conditionLabel: vitaminALabel)
+    }
+    @IBAction func carbsAction(_ sender: Any) {
+        updateNutrition(conditionSwitch: carbsSwitch, nutrition: "carbohydrates", conditionLabel: carbsLabel)
+    }
+    
+    @IBAction func vitaminCAction(_ sender: Any) {
+        updateNutrition(conditionSwitch: vitaminCSwitch, nutrition: "vitamin C", conditionLabel: vitaminClabel)
+    }
+    
+    @IBAction func proteinAction(_ sender: Any) {
+        updateNutrition(conditionSwitch: proteinSwitch, nutrition: "protein", conditionLabel: proteinLabel)
+    }
+    
+    @IBAction func fatAction(_ sender: Any) {
+        updateNutrition(conditionSwitch: fatSwitch, nutrition: "fat", conditionLabel: fatLabel)
+    }
+    
+    
+    private func updateNutrition(conditionSwitch : UISwitch, nutrition : String, conditionLabel : UILabel) {
+        if conditionSwitch.isOn {
+            conditionLabel.textColor = UIColor.black
+            nutritionList.insert(nutrition)
+        } else {
+            conditionLabel.textColor = UIColor.lightGray
+            nutritionList.remove(nutrition)
+        }
+        updateDocument(doc: userDoc, category: "nutritionfocuses", value: nutritionList.description)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "OnboardingToHomePageIdentifier" {
             if let tabBarController = segue.destination as? UITabBarController {
