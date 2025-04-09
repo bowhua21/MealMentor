@@ -21,6 +21,8 @@
 			</array>
 		</dict>
 	</dict>
+    <key>NSCameraUsageDescription</key>
+	<string>We need camera access to take photos of your meals</string>
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSExceptionDomains</key>

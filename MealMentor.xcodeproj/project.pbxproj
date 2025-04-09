@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35B75C632DA2561E00BD90F0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 35B75C622DA2561E00BD90F0 /* FirebaseStorage */; };
 		37425AC22D5D5CC1004DE8CA /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 37425AC12D5D5CC1004DE8CA /* FirebaseCore */; };
 		37425AC42D5D5DD3004DE8CA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 37425AC32D5D5DD3004DE8CA /* FirebaseAuth */; };
 		37425AC62D5D5DE0004DE8CA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 37425AC52D5D5DE0004DE8CA /* FirebaseFirestore */; };
@@ -49,6 +50,7 @@
 				37425AC22D5D5CC1004DE8CA /* FirebaseCore in Frameworks */,
 				37425AC42D5D5DD3004DE8CA /* FirebaseAuth in Frameworks */,
 				37425AC82D5D5DEC004DE8CA /* FirebaseAnalytics in Frameworks */,
+				35B75C632DA2561E00BD90F0 /* FirebaseStorage in Frameworks */,
 				405983862D7CC9C00016FBBD /* DGCharts in Frameworks */,
 				37425AC62D5D5DE0004DE8CA /* FirebaseFirestore in Frameworks */,
 			);
@@ -107,6 +109,7 @@
 				37425AC72D5D5DEC004DE8CA /* FirebaseAnalytics */,
 				40BE2D3F2D7CC6C40023997D /* TinyConstraints */,
 				405983852D7CC9C00016FBBD /* DGCharts */,
+				35B75C622DA2561E00BD90F0 /* FirebaseStorage */,
 			);
 			productName = "HuangBowen-HW2";
 			productReference = 444548162D52C41C00CCDEBE /* MealMentor.app */;
@@ -179,7 +182,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 75UD52FQF7;
+				DEVELOPMENT_TEAM = CXCZ5Y36X6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MealMentor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -207,7 +210,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 75UD52FQF7;
+				DEVELOPMENT_TEAM = CXCZ5Y36X6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MealMentor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -398,6 +401,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		35B75C622DA2561E00BD90F0 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37425AA92D5D59A9004DE8CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		37425AC12D5D5CC1004DE8CA /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 37425AA92D5D59A9004DE8CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
