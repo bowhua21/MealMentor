@@ -75,6 +75,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         chartView.xAxis.axisMaximum = 7.5
         chartView.xAxis.labelCount = 7
         chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelTextColor = .black
         chartView.legend.enabled = false
         
         return chartView
@@ -93,6 +94,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         chartView.xAxis.axisMaximum = 7.5
         chartView.xAxis.labelCount = 7
         chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelTextColor = .black
         chartView.legend.enabled = false
         
         return chartView
@@ -330,6 +332,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         let set = BarChartDataSet(entries: self.proteinData, label: "Protein")
         set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
         set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        set.valueTextColor = .black
         let data = BarChartData(dataSet: set)
         proteinBarChartView.data = data
     }
@@ -339,6 +342,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         let set = BarChartDataSet(entries: self.caloriesData, label: "Calories")
         set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "cal")
         set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        set.valueTextColor = .black
         let data = BarChartData(dataSet: set)
         caloriesBarChartView.data = data
     }

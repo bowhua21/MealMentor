@@ -27,7 +27,7 @@ class ThisWeekDayCell: UICollectionViewCell {
         else {
             contentView.backgroundColor = .white
             dayLabel.textColor = UIColor(red: 0.2509, green: 0.4588, blue: 0.1764, alpha: 1.0)
-            checkMarkIcon.tintColor = .systemGray4
+            checkMarkIcon.tintColor = .gray
         }
         contentView.layer.cornerRadius = 20
     }

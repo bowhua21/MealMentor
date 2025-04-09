@@ -89,7 +89,6 @@ class NutritionStats {
                     completion([])
                     return
                 }
-                
                 var trackedDaysSet = Set<Date>()
                 let calendar = Calendar.current
                 
@@ -100,7 +99,6 @@ class NutritionStats {
                         trackedDaysSet.insert(normalizedDate)
                     }
                 }
-                
                 // convert set to sorted array
                 let trackedDays = trackedDaysSet.sorted()
                 completion(trackedDays)
@@ -114,16 +112,12 @@ class NutritionStats {
             completion(0)
             return
         }
-
         let today = Date()
         let calendar = Calendar.current
-        
         let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: today))!
         let startOfNextMonth = calendar.date(byAdding: .month, value: 1, to: startOfMonth)!
-
         let startTimestamp = Timestamp(date: startOfMonth)
         let endTimestamp = Timestamp(date: startOfNextMonth)
-        
         db.collection("meals")
             .whereField("userID", isEqualTo: userID)
             .whereField("date", isGreaterThanOrEqualTo: startTimestamp)
@@ -156,10 +150,8 @@ class NutritionStats {
             completion(0)
             return
         }
-        
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
-        
         db.collection("meals")
             .whereField("userID", isEqualTo: userID)
             .whereField("date", isLessThanOrEqualTo: Timestamp(date: calendar.date(byAdding: .day, value: 1, to: today)!))
@@ -170,13 +162,11 @@ class NutritionStats {
                     completion(0)
                     return
                 }
-                
                 guard let documents = querySnapshot?.documents else {
                     print("getTrackedDaysStreak No tracked days found.")
                     completion(0)
                     return
                 }
-                
                 let allDates = documents.compactMap { doc -> Date? in
                     if let timestamp = doc.data()["date"] as? Timestamp {
                         return calendar.startOfDay(for: timestamp.dateValue())
@@ -200,7 +190,6 @@ class NutritionStats {
                         break
                     }
                 }
-                
                 completion(streak)
             }
     }
