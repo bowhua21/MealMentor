@@ -9,7 +9,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class ChatPageViewController: UIViewController, UITextFieldDelegate {
+class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
 
     @IBOutlet weak var askMealMentorIntroView: UIView!
     @IBOutlet weak var askMealMentorTitleLabel: UILabel!

@@ -15,7 +15,7 @@ protocol LogEntryViewControllerDelegate: AnyObject {
 }
 
 
-class LogEntryViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let imagePicker = UIImagePickerController()
     var selectedCategory: MealCategory = .breakfast
     weak var delegate: LogEntryViewControllerDelegate?

@@ -45,12 +45,12 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highlights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKf-Dv-exH">
                                                                 <rect key="frame" x="42" y="10.999999999999998" width="73" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="bolt" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GxD-H4-WKY">
                                                                 <rect key="frame" x="8" y="8.0000000000000107" width="25" height="26.000000000000004"/>
-                                                                <color key="tintColor" systemColor="labelColor"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="25" id="imB-Af-eKy"/>
                                                                     <constraint firstAttribute="height" constant="25" id="lxZ-BQ-f9S"/>
@@ -117,7 +117,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="XFD-1I-86S" firstAttribute="top" secondItem="wY2-6z-CYV" secondAttribute="top" constant="8" id="3Xw-00-mxV"/>
                                                     <constraint firstAttribute="height" constant="120" id="Dbk-Py-n7H"/>
@@ -135,7 +135,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdv-DD-LrA">
                                                                 <rect key="frame" x="11" y="10.999999999999998" width="76.333333333333329" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t6j-V3-OEc">
@@ -197,7 +197,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5/7 days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGY-Rj-Ogh">
                                                                 <rect key="frame" x="293" y="10.999999999999998" width="60.666666666666686" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Arrow right transparent" translatesAutoresizingMaskIntoConstraints="NO" id="xqZ-od-X9W">
@@ -225,7 +225,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="tlS-pC-W3k" firstAttribute="leading" secondItem="Lbb-Qk-jkb" secondAttribute="leading" constant="20" id="1zR-bZ-yFW"/>
                                                     <constraint firstAttribute="bottom" secondItem="tlS-pC-W3k" secondAttribute="bottom" constant="8" id="8Ec-wg-Wpc"/>
@@ -251,7 +251,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIy-Dt-WQG">
                                                                 <rect key="frame" x="42" y="10.999999999999998" width="102" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="4" estimatedSectionHeaderHeight="-1" sectionFooterHeight="4" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rk3-8a-kEr">
@@ -316,7 +316,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly Protein" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-p8-Vjh">
                                                                 <rect key="frame" x="11.000000000000007" y="10.999999999999998" width="108.66666666666669" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="47u-TM-XeX">
@@ -368,7 +368,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly Calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2e-ic-76U">
                                                                 <rect key="frame" x="11.000000000000007" y="10.999999999999998" width="115.66666666666669" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hz1-wp-Hgn">
@@ -402,7 +402,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="NY7-Se-j6N" firstAttribute="top" secondItem="jV9-sg-j9g" secondAttribute="top" constant="8" id="3a0-7o-UBj"/>
                                                     <constraint firstItem="NY7-Se-j6N" firstAttribute="leading" secondItem="jV9-sg-j9g" secondAttribute="leading" constant="20" id="7Br-PN-BgA"/>
@@ -434,7 +434,7 @@
                             <constraint firstItem="O85-1K-mIL" firstAttribute="top" secondItem="0wd-nB-JG3" secondAttribute="bottom" constant="4" id="srK-zO-3Xa"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="Home" selectedImage="Home" id="TR6-7I-2US"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house" id="TR6-7I-2US"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
@@ -477,7 +477,6 @@
                                     <segment title="Protein"/>
                                     <segment title="Calories"/>
                                 </segments>
-                                <color key="selectedSegmentTintColor" red="0.93333333333333335" green="0.95294117647058818" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="onSegmentedChanged:" destination="KMb-la-iC5" eventType="valueChanged" id="FL7-xH-l1X"/>
                                 </connections>
@@ -588,6 +587,8 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yk3-x0-1os">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" systemColor="systemBackgroundColor"/>
+                        <color key="selectedImageTintColor" red="0.72941176470000002" green="0.85490196080000003" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="fPB-eO-xTN" kind="relationship" relationship="viewControllers" id="Qs1-vP-0O4"/>
@@ -659,15 +660,12 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow right transparent" width="50" height="50"/>
-        <image name="Home" width="25" height="25"/>
         <image name="bolt" catalog="system" width="100" height="128"/>
         <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="flame" catalog="system" width="106" height="128"/>
-        <image name="fork.knife" catalog="system" width="32" height="32"/>
+        <image name="fork.knife" catalog="system" width="94" height="128"/>
+        <image name="house" catalog="system" width="128" height="104"/>
         <image name="message" catalog="system" width="128" height="116"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

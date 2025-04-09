@@ -22,7 +22,7 @@ enum MealCategory: String, CaseIterable {
 
 
 
-class LogDisplayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var breakfastTableView: UITableView!
     @IBOutlet weak var lunchTableView: UITableView!

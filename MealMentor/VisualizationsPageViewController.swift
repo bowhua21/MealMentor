@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VisualizationsPageViewController: UIViewController {
+class VisualizationsPageViewController: DarkModeViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     var selectedSegmentIndex = 0

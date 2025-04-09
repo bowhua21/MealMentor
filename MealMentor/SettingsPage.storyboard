@@ -108,6 +108,7 @@
                                 <state key="normal" title="Save"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Save">
                                     <fontDescription key="titleFontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="24"/>
+                                    <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
                                     <color key="baseBackgroundColor" name="black_lightgreen"/>
                                 </buttonConfiguration>
                                 <connections>

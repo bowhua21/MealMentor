@@ -32,7 +32,7 @@ let dummyDataPts2: [BarChartDataEntry] = [
     BarChartDataEntry(x: 7.0, y: 1530.0)
 ]
 
-class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
     //user firestore document
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     

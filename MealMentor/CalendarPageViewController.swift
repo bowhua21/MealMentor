@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarPageViewController: UIViewController {
+class CalendarPageViewController: DarkModeViewController {
     let segueToCalendarPageIdentifier = "SegueToCalendarPageIdentifier"
     let calendarViewColor = UIColor(red: 0.2509, green: 0.4588, blue: 0.1764, alpha: 1.0)
 

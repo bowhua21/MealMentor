@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class DietaryRestrictionsViewController: UIViewController, UITextViewDelegate {
+class DietaryRestrictionsViewController: DarkModeViewController, UITextViewDelegate {
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     
     @IBOutlet weak var goalsTextField: UITextView!
