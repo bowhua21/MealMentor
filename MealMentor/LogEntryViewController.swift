@@ -428,20 +428,20 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
 //                    return
 //                }
                 
-                imageRef.downloadURL { url, error in
-                    if let error = error {
-                        self.showError("Failed to get URL: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    guard let downloadURL = url else {
-                        self.showError("Invalid image URL")
-                        return
-                    }
-                    
-                    self.saveImageURLToFirestore(url: downloadURL)
-                    self.showTemporaryMessage("Image uploaded successfully!")
-                }
+//                imageRef.downloadURL { url, error in
+//                    if let error = error {
+//                        self.showError("Failed to get URL: \(error.localizedDescription)")
+//                        return
+//                    }
+//                    
+//                    guard let downloadURL = url else {
+//                        self.showError("Invalid image URL")
+//                        return
+//                    }
+//                    
+//                    self.saveImageURLToFirestore(url: downloadURL)
+//                    self.showTemporaryMessage("Image uploaded successfully!")
+//                }
             }
         }
         
