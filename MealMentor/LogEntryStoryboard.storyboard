@@ -302,7 +302,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lhl-oj-hgG">
-                                <rect key="frame" x="30" y="578" width="333" height="244"/>
+                                <rect key="frame" x="30" y="650" width="333" height="172"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nTa-27-HwW"/>
@@ -317,7 +317,7 @@
                             <constraint firstItem="nTa-27-HwW" firstAttribute="trailing" secondItem="ee6-vj-HPd" secondAttribute="trailing" constant="100" id="Sb9-ds-kdb"/>
                             <constraint firstItem="nTa-27-HwW" firstAttribute="trailing" secondItem="wNV-ZE-8x2" secondAttribute="trailing" constant="20" id="WEI-dx-gis"/>
                             <constraint firstItem="wNV-ZE-8x2" firstAttribute="leading" secondItem="nTa-27-HwW" secondAttribute="leading" constant="20" id="WFF-Uy-Efa"/>
-                            <constraint firstItem="Lhl-oj-hgG" firstAttribute="top" secondItem="wNV-ZE-8x2" secondAttribute="bottom" constant="350" id="ZlP-Ys-MZN"/>
+                            <constraint firstItem="Lhl-oj-hgG" firstAttribute="top" secondItem="wNV-ZE-8x2" secondAttribute="bottom" constant="422" id="ZlP-Ys-MZN"/>
                             <constraint firstItem="kcf-bE-Dim" firstAttribute="top" secondItem="nTa-27-HwW" secondAttribute="top" constant="164.66666666666666" id="agF-ay-NbT"/>
                             <constraint firstItem="kcf-bE-Dim" firstAttribute="leading" secondItem="nTa-27-HwW" secondAttribute="leading" constant="20" id="fHx-9W-cDn"/>
                             <constraint firstItem="nTa-27-HwW" firstAttribute="trailing" secondItem="Lhl-oj-hgG" secondAttribute="trailing" constant="30" id="gj2-jk-uPj"/>
