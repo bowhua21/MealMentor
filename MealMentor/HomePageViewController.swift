@@ -43,12 +43,23 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     @IBOutlet weak var numDaysTrackedLabel: UILabel!
     @IBOutlet weak var proteinCellButton: UIButton!
     @IBOutlet weak var caloriesCellButton: UIButton!
+    @IBOutlet weak var carbsCellButton: UIButton!
+    @IBOutlet weak var fatCellButton: UIButton!
+    @IBOutlet weak var fiberCellButton: UIButton!
+    @IBOutlet weak var vitACellButton: UIButton!
+    @IBOutlet weak var vitCCellButton: UIButton!
     // each floating cell
     @IBOutlet weak var highlightsView: UIView!
     @IBOutlet weak var thisWeekView: UIView!
     @IBOutlet weak var todayMealsView: UIView!
     @IBOutlet weak var weeklyProteinView: UIView!
     @IBOutlet weak var weeklyCaloriesView: UIView!
+    @IBOutlet weak var weeklyCarbsView: UIView!
+    @IBOutlet weak var weeklyFatView: UIView!
+    @IBOutlet weak var weeklyFiberView: UIView!
+    @IBOutlet weak var weeklyVitAView: UIView!
+    @IBOutlet weak var weeklyVitCView: UIView!
+    
     // today's meals table view within todayMealsView
     let tableViewCellIdentifier = "TableViewCellIdentifier"
     @IBOutlet weak var todayMealsTableView: UITableView!
@@ -60,6 +71,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     // tracked days
     var trackedDays: [Date] = []
     var daysOfWeek: [Date] = []
+    
     // graphs
     lazy var proteinBarChartView: BarChartView = {
         let chartView = BarChartView()
@@ -77,7 +89,6 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         chartView.xAxis.drawGridLinesEnabled = false
         chartView.xAxis.labelTextColor = .black
         chartView.legend.enabled = false
-        
         return chartView
     }()
     lazy var caloriesBarChartView: BarChartView = {
@@ -96,15 +107,114 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         chartView.xAxis.drawGridLinesEnabled = false
         chartView.xAxis.labelTextColor = .black
         chartView.legend.enabled = false
-        
+        return chartView
+    }()
+    lazy var carbsBarChartView: BarChartView = {
+        let chartView = BarChartView()
+        chartView.backgroundColor = .clear
+        chartView.rightAxis.enabled = false
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.leftAxis.enabled = false
+        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
+        chartView.xAxis.granularity = 1
+        chartView.xAxis.labelPosition = .bottom
+        chartView.xAxis.axisMinimum = 0.5
+        chartView.xAxis.axisMaximum = 7.5
+        chartView.xAxis.labelCount = 7
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelTextColor = .black
+        chartView.legend.enabled = false
+        return chartView
+    }()
+    lazy var fatBarChartView: BarChartView = {
+        let chartView = BarChartView()
+        chartView.backgroundColor = .clear
+        chartView.rightAxis.enabled = false
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.leftAxis.enabled = false
+        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
+        chartView.xAxis.granularity = 1
+        chartView.xAxis.labelPosition = .bottom
+        chartView.xAxis.axisMinimum = 0.5
+        chartView.xAxis.axisMaximum = 7.5
+        chartView.xAxis.labelCount = 7
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelTextColor = .black
+        chartView.legend.enabled = false
+        return chartView
+    }()
+    lazy var fiberBarChartView: BarChartView = {
+        let chartView = BarChartView()
+        chartView.backgroundColor = .clear
+        chartView.rightAxis.enabled = false
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.leftAxis.enabled = false
+        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
+        chartView.xAxis.granularity = 1
+        chartView.xAxis.labelPosition = .bottom
+        chartView.xAxis.axisMinimum = 0.5
+        chartView.xAxis.axisMaximum = 7.5
+        chartView.xAxis.labelCount = 7
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelTextColor = .black
+        chartView.legend.enabled = false
+        return chartView
+    }()
+    lazy var vitABarChartView: BarChartView = {
+        let chartView = BarChartView()
+        chartView.backgroundColor = .clear
+        chartView.rightAxis.enabled = false
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.leftAxis.enabled = false
+        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
+        chartView.xAxis.granularity = 1
+        chartView.xAxis.labelPosition = .bottom
+        chartView.xAxis.axisMinimum = 0.5
+        chartView.xAxis.axisMaximum = 7.5
+        chartView.xAxis.labelCount = 7
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelTextColor = .black
+        chartView.legend.enabled = false
+        return chartView
+    }()
+    lazy var vitCBarChartView: BarChartView = {
+        let chartView = BarChartView()
+        chartView.backgroundColor = .clear
+        chartView.rightAxis.enabled = false
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.leftAxis.enabled = false
+        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
+        chartView.xAxis.granularity = 1
+        chartView.xAxis.labelPosition = .bottom
+        chartView.xAxis.axisMinimum = 0.5
+        chartView.xAxis.axisMaximum = 7.5
+        chartView.xAxis.labelCount = 7
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelTextColor = .black
+        chartView.legend.enabled = false
         return chartView
     }()
     // graph data TODO rest
     var proteinData: [BarChartDataEntry] = []
     var caloriesData: [BarChartDataEntry] = []
+    var carbsData: [BarChartDataEntry] = []
+    var fatData: [BarChartDataEntry] = []
+    var fiberData: [BarChartDataEntry] = []
+    var vitAData: [BarChartDataEntry] = []
+    var vitCData: [BarChartDataEntry] = []
     // segue identifiers
     let segueToProteinVisualizationsIdentifier = "SegueToProteinVisualizationsIdentifier"
     let segueToCaloriesVisualizationsIdentifier = "SegueToCaloriesVisualizationsIdentifier"
+    let segueTocarbsVisualizationsIdentifier = "SegueTocarbsVisualizationsIdentifier"
+    let segueToFatVisualizationsIdentifier = "SegueToFatVisualizationsIdentifier"
+    let segueToFiberVisualizationsIdentifier = "SegueToFiberVisualizationsIdentifier"
+    let segueToVitAVisualizationsIdentifier = "SegueToVitAVisualizationsIdentifier"
+    let segueToVitCVisualizationsIdentifier = "SegueToVitCVisualizationsIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,9 +262,48 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         caloriesBarChartView.center(in: weeklyCaloriesView, offset: CGPoint(x: 0, y: 10))
         caloriesBarChartView.width(360)
         caloriesBarChartView.height(130)
-        setCaloriesDate()
         // make sure calories cell button is still clickable
         weeklyCaloriesView.bringSubviewToFront(caloriesCellButton)
+        
+        // setup carbs bar chart
+        weeklyCarbsView.addSubview(carbsBarChartView)
+        carbsBarChartView.center(in: weeklyCarbsView, offset: CGPoint(x: 0, y: 10))
+        carbsBarChartView.width(360)
+        carbsBarChartView.height(130)
+        // make sure carbs cell button is still clickable
+        weeklyCarbsView.bringSubviewToFront(carbsCellButton)
+        
+        // setup fat bar chart
+        weeklyFatView.addSubview(fatBarChartView)
+        fatBarChartView.center(in: weeklyFatView, offset: CGPoint(x: 0, y: 10))
+        fatBarChartView.width(360)
+        fatBarChartView.height(130)
+        // make sure fat cell button is still clickable
+        weeklyFatView.bringSubviewToFront(fatCellButton)
+        
+        // setup fiber bar chart
+        weeklyFiberView.addSubview(fiberBarChartView)
+        fiberBarChartView.center(in: weeklyFiberView, offset: CGPoint(x: 0, y: 10))
+        fiberBarChartView.width(360)
+        fiberBarChartView.height(130)
+        // make sure fiber cell button is still clickable
+        weeklyFiberView.bringSubviewToFront(fiberCellButton)
+        
+        // setup vitamin A bar chart
+        weeklyVitAView.addSubview(vitABarChartView)
+        vitABarChartView.center(in: weeklyVitAView, offset: CGPoint(x: 0, y: 10))
+        vitABarChartView.width(360)
+        vitABarChartView.height(130)
+        // make sure vitamin A cell button is still clickable
+        weeklyVitAView.bringSubviewToFront(vitACellButton)
+        
+        // setup vitamin C bar chart
+        weeklyVitCView.addSubview(vitCBarChartView)
+        vitCBarChartView.center(in: weeklyVitCView, offset: CGPoint(x: 0, y: 10))
+        vitCBarChartView.width(360)
+        vitCBarChartView.height(130)
+        // make sure vitamin A cell button is still clickable
+        weeklyVitCView.bringSubviewToFront(vitCCellButton)
         
         // fetch weekly nutrition stats for bar charts
         // TODO do rest
@@ -162,14 +311,34 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
             // reset data
             self?.proteinData = []
             self?.caloriesData = []
+            self?.carbsData = []
+            self?.fatData = []
+            self?.fiberData = []
+            self?.vitAData = []
+            self?.vitCData = []
             for dayIdx in 0...(weekStats.count - 1) {
                 // add protein data
                 self?.proteinData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["protein"] ?? 0))))
                 // add calories data
                 self?.caloriesData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["calories"] ?? 0))))
+                // add carbs data
+                self?.carbsData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["carbohydrates"] ?? 0))))
+                // add fat data
+                self?.fatData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["fat"] ?? 0))))
+                // add fiber data
+                self?.fiberData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["fiber"] ?? 0))))
+                // add vitamin A data
+                self?.vitAData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminA"] ?? 0))))
+                // add vitamin C data
+                self?.vitCData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminC"] ?? 0))))
             }
             self?.setProteinData()
-            self?.setCaloriesDate()
+            self?.setCaloriesData()
+            self?.setCarbsData()
+            self?.setFatData()
+            self?.setFiberData()
+            self?.setVitAData()
+            self?.setVitCData()
         }
         
         //bowen edit 3/11 (input name)
@@ -187,6 +356,11 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         todayMealsView.layer.cornerRadius = 20
         weeklyProteinView.layer.cornerRadius = 20
         weeklyCaloriesView.layer.cornerRadius = 20
+        weeklyCarbsView.layer.cornerRadius = 20
+        weeklyFatView.layer.cornerRadius = 20
+        weeklyFiberView.layer.cornerRadius = 20
+        weeklyVitAView.layer.cornerRadius = 20
+        weeklyVitCView.layer.cornerRadius = 20
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -216,14 +390,34 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
             // reset data
             self?.proteinData = []
             self?.caloriesData = []
+            self?.carbsData = []
+            self?.fatData = []
+            self?.fiberData = []
+            self?.vitAData = []
+            self?.vitCData = []
             for dayIdx in 0...(weekStats.count - 1) {
                 // add protein data
                 self?.proteinData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["protein"] ?? 0))))
                 // add calories data
                 self?.caloriesData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["calories"] ?? 0))))
+                // add carbs data
+                self?.carbsData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["carbohydrates"] ?? 0))))
+                // add fat data
+                self?.fatData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["fat"] ?? 0))))
+                // add fiber data
+                self?.fiberData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["fiber"] ?? 0))))
+                // add vitamin A data
+                self?.vitAData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminA"] ?? 0))))
+                // add vitamin C data
+                self?.vitCData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminC"] ?? 0))))
             }
             self?.setProteinData()
-            self?.setCaloriesDate()
+            self?.setCaloriesData()
+            self?.setCarbsData()
+            self?.setFatData()
+            self?.setFiberData()
+            self?.setVitAData()
+            self?.setVitCData()
         }
     }
 
@@ -337,13 +531,63 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     }
     
     // set data for calories bar chart
-    func setCaloriesDate() {
+    func setCaloriesData() {
         let set = BarChartDataSet(entries: self.caloriesData, label: "Calories")
         set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "cal")
         set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
         set.valueTextColor = .black
         let data = BarChartData(dataSet: set)
         caloriesBarChartView.data = data
+    }
+    
+    // set data for carbs bar chart
+    func setCarbsData() {
+        let set = BarChartDataSet(entries: self.carbsData, label: "Carbohydrates")
+        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
+        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        set.valueTextColor = .black
+        let data = BarChartData(dataSet: set)
+        carbsBarChartView.data = data
+    }
+    
+    // set data for Fat bar chart
+    func setFatData() {
+        let set = BarChartDataSet(entries: self.fatData, label: "Fat")
+        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
+        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        set.valueTextColor = .black
+        let data = BarChartData(dataSet: set)
+        fatBarChartView.data = data
+    }
+    
+    // set data for Fiber bar chart
+    func setFiberData() {
+        let set = BarChartDataSet(entries: self.fiberData, label: "Fiber")
+        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
+        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        set.valueTextColor = .black
+        let data = BarChartData(dataSet: set)
+        fiberBarChartView.data = data
+    }
+    
+    // set data for vitamin A bar chart
+    func setVitAData() {
+        let set = BarChartDataSet(entries: self.vitAData, label: "Vitamin A")
+        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "%")
+        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        set.valueTextColor = .black
+        let data = BarChartData(dataSet: set)
+        vitABarChartView.data = data
+    }
+    
+    // set data for vitamin C bar chart
+    func setVitCData() {
+        let set = BarChartDataSet(entries: self.vitCData, label: "Vitamin C")
+        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "%")
+        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
+        set.valueTextColor = .black
+        let data = BarChartData(dataSet: set)
+        vitCBarChartView.data = data
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
