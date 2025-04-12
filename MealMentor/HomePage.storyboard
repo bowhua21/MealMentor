@@ -432,7 +432,7 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title=""/>
                                                                 <connections>
-                                                                    <segue destination="KMb-la-iC5" kind="show" id="LAF-VQ-A0O"/>
+                                                                    <segue destination="KMb-la-iC5" kind="show" identifier="SegueToCarbsVisualizationsIdentifier" id="LAF-VQ-A0O"/>
                                                                 </connections>
                                                             </button>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Arrow right transparent" translatesAutoresizingMaskIntoConstraints="NO" id="XpZ-da-bzd">
@@ -742,10 +742,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bhQ-q3-o6P">
-                                <rect key="frame" x="150.66666666666666" y="124.33333333333331" width="138.99999999999997" height="32"/>
+                                <rect key="frame" x="17.666666666666657" y="124.33333333333331" width="405" height="32"/>
                                 <segments>
                                     <segment title="Protein"/>
                                     <segment title="Calories"/>
+                                    <segment title="Carbs" width="56"/>
+                                    <segment title="Fat" width="43"/>
+                                    <segment title="Fiber" width="54"/>
+                                    <segment title="Vit A" width="54"/>
+                                    <segment title="Vit C" width="54"/>
                                 </segments>
                                 <connections>
                                     <action selector="onSegmentedChanged:" destination="KMb-la-iC5" eventType="valueChanged" id="FL7-xH-l1X"/>

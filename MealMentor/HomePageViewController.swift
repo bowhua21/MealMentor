@@ -210,7 +210,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     // segue identifiers
     let segueToProteinVisualizationsIdentifier = "SegueToProteinVisualizationsIdentifier"
     let segueToCaloriesVisualizationsIdentifier = "SegueToCaloriesVisualizationsIdentifier"
-    let segueTocarbsVisualizationsIdentifier = "SegueTocarbsVisualizationsIdentifier"
+    let segueToCarbsVisualizationsIdentifier = "SegueToCarbsVisualizationsIdentifier"
     let segueToFatVisualizationsIdentifier = "SegueToFatVisualizationsIdentifier"
     let segueToFiberVisualizationsIdentifier = "SegueToFiberVisualizationsIdentifier"
     let segueToVitAVisualizationsIdentifier = "SegueToVitAVisualizationsIdentifier"
@@ -600,6 +600,31 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         else if segue.identifier == segueToCaloriesVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on calories
             visualizationsVC.selectedSegmentIndex = 1
+            visualizationsVC.delegate = self
+        }
+        else if segue.identifier == segueToCarbsVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
+            // set segmented to be on carbs
+            visualizationsVC.selectedSegmentIndex = 2
+            visualizationsVC.delegate = self
+        }
+        else if segue.identifier == segueToFatVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
+            // set segmented to be on fat
+            visualizationsVC.selectedSegmentIndex = 3
+            visualizationsVC.delegate = self
+        }
+        else if segue.identifier == segueToFiberVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
+            // set segmented to be on fiber
+            visualizationsVC.selectedSegmentIndex = 4
+            visualizationsVC.delegate = self
+        }
+        else if segue.identifier == segueToVitAVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
+            // set segmented to be on vitamin a
+            visualizationsVC.selectedSegmentIndex = 5
+            visualizationsVC.delegate = self
+        }
+        else if segue.identifier == segueToVitCVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
+            // set segmented to be on vitamin c
+            visualizationsVC.selectedSegmentIndex = 6
             visualizationsVC.delegate = self
         }
     }
