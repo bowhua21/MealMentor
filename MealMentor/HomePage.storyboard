@@ -785,11 +785,29 @@
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V13-tF-X4k">
                                                         <rect key="frame" x="20" y="8" width="400" height="184"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Nutrition)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiW-bf-DyS">
+                                                                <rect key="frame" x="68" y="9.666666666666627" width="73.666666666666686" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
                                                         <color key="backgroundColor" red="0.93333333330000001" green="0.95294117649999999" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89l-Yh-LJS">
+                                                        <rect key="frame" x="30" y="17.666666666666629" width="53" height="23.333333333333329"/>
+                                                        <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstItem="89l-Yh-LJS" firstAttribute="top" secondItem="ADG-I6-XWn" secondAttribute="top" constant="17.666666666666629" id="8sw-vT-QdM"/>
+                                                    <constraint firstItem="qiW-bf-DyS" firstAttribute="centerY" secondItem="89l-Yh-LJS" secondAttribute="centerY" id="P3f-r5-DPy"/>
+                                                    <constraint firstItem="qiW-bf-DyS" firstAttribute="leading" secondItem="89l-Yh-LJS" secondAttribute="trailing" constant="5" id="Ueb-ev-P1B"/>
+                                                    <constraint firstItem="89l-Yh-LJS" firstAttribute="leading" secondItem="ADG-I6-XWn" secondAttribute="leading" constant="30" id="VcA-fQ-GQG"/>
                                                     <constraint firstAttribute="bottom" secondItem="V13-tF-X4k" secondAttribute="bottom" constant="8" id="Wa3-UH-swj"/>
                                                     <constraint firstAttribute="trailing" secondItem="V13-tF-X4k" secondAttribute="trailing" constant="20" id="apY-Xb-VE8"/>
                                                     <constraint firstAttribute="height" constant="200" id="dg5-vI-qAs"/>
@@ -848,6 +866,7 @@
                         <outlet property="monthlyDataView" destination="Yek-Dg-3xv" id="6EI-hb-4qU"/>
                         <outlet property="segmentedControl" destination="bhQ-q3-o6P" id="zVZ-T7-CPp"/>
                         <outlet property="weeklyDataView" destination="V13-tF-X4k" id="J9o-ed-Dnv"/>
+                        <outlet property="weeklyNutritionLabel" destination="qiW-bf-DyS" id="ECH-Pp-41a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YAk-Nz-onr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -11,27 +11,6 @@ import TinyConstraints
 import FirebaseAuth
 import FirebaseFirestore
 
-// TODO delete later
-let dummyDataPts: [BarChartDataEntry] = [
-    BarChartDataEntry(x: 1.0, y: 50.0),
-    BarChartDataEntry(x: 2.0, y: 25.0),
-    BarChartDataEntry(x: 3.0, y: 30.0),
-    BarChartDataEntry(x: 4.0, y: 0.0),
-    BarChartDataEntry(x: 5.0, y: 10.0),
-    BarChartDataEntry(x: 6.0, y: 0.0),
-    BarChartDataEntry(x: 7.0, y: 40.0)
-]
-
-let dummyDataPts2: [BarChartDataEntry] = [
-    BarChartDataEntry(x: 1.0, y: 1500.0),
-    BarChartDataEntry(x: 2.0, y: 2000.0),
-    BarChartDataEntry(x: 3.0, y: 1700.0),
-    BarChartDataEntry(x: 4.0, y: 0.0),
-    BarChartDataEntry(x: 5.0, y: 1975.0),
-    BarChartDataEntry(x: 6.0, y: 0.0),
-    BarChartDataEntry(x: 7.0, y: 1530.0)
-]
-
 class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
     //user firestore document
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
@@ -74,130 +53,25 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     
     // graphs
     lazy var proteinBarChartView: BarChartView = {
-        let chartView = BarChartView()
-        chartView.backgroundColor = .clear
-        chartView.rightAxis.enabled = false
-        chartView.leftAxis.axisMinimum = 0
-        chartView.leftAxis.drawGridLinesEnabled = false
-        chartView.leftAxis.enabled = false
-        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
-        chartView.xAxis.granularity = 1
-        chartView.xAxis.labelPosition = .bottom
-        chartView.xAxis.axisMinimum = 0.5
-        chartView.xAxis.axisMaximum = 7.5
-        chartView.xAxis.labelCount = 7
-        chartView.xAxis.drawGridLinesEnabled = false
-        chartView.xAxis.labelTextColor = .black
-        chartView.legend.enabled = false
-        return chartView
+        return makeBaseBarChartView()
     }()
     lazy var caloriesBarChartView: BarChartView = {
-        let chartView = BarChartView()
-        chartView.backgroundColor = .clear
-        chartView.rightAxis.enabled = false
-        chartView.leftAxis.axisMinimum = 0
-        chartView.leftAxis.drawGridLinesEnabled = false
-        chartView.leftAxis.enabled = false
-        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
-        chartView.xAxis.granularity = 1
-        chartView.xAxis.labelPosition = .bottom
-        chartView.xAxis.axisMinimum = 0.5
-        chartView.xAxis.axisMaximum = 7.5
-        chartView.xAxis.labelCount = 7
-        chartView.xAxis.drawGridLinesEnabled = false
-        chartView.xAxis.labelTextColor = .black
-        chartView.legend.enabled = false
-        return chartView
+        return makeBaseBarChartView()
     }()
     lazy var carbsBarChartView: BarChartView = {
-        let chartView = BarChartView()
-        chartView.backgroundColor = .clear
-        chartView.rightAxis.enabled = false
-        chartView.leftAxis.axisMinimum = 0
-        chartView.leftAxis.drawGridLinesEnabled = false
-        chartView.leftAxis.enabled = false
-        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
-        chartView.xAxis.granularity = 1
-        chartView.xAxis.labelPosition = .bottom
-        chartView.xAxis.axisMinimum = 0.5
-        chartView.xAxis.axisMaximum = 7.5
-        chartView.xAxis.labelCount = 7
-        chartView.xAxis.drawGridLinesEnabled = false
-        chartView.xAxis.labelTextColor = .black
-        chartView.legend.enabled = false
-        return chartView
+        return makeBaseBarChartView()
     }()
     lazy var fatBarChartView: BarChartView = {
-        let chartView = BarChartView()
-        chartView.backgroundColor = .clear
-        chartView.rightAxis.enabled = false
-        chartView.leftAxis.axisMinimum = 0
-        chartView.leftAxis.drawGridLinesEnabled = false
-        chartView.leftAxis.enabled = false
-        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
-        chartView.xAxis.granularity = 1
-        chartView.xAxis.labelPosition = .bottom
-        chartView.xAxis.axisMinimum = 0.5
-        chartView.xAxis.axisMaximum = 7.5
-        chartView.xAxis.labelCount = 7
-        chartView.xAxis.drawGridLinesEnabled = false
-        chartView.xAxis.labelTextColor = .black
-        chartView.legend.enabled = false
-        return chartView
+        return makeBaseBarChartView()
     }()
     lazy var fiberBarChartView: BarChartView = {
-        let chartView = BarChartView()
-        chartView.backgroundColor = .clear
-        chartView.rightAxis.enabled = false
-        chartView.leftAxis.axisMinimum = 0
-        chartView.leftAxis.drawGridLinesEnabled = false
-        chartView.leftAxis.enabled = false
-        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
-        chartView.xAxis.granularity = 1
-        chartView.xAxis.labelPosition = .bottom
-        chartView.xAxis.axisMinimum = 0.5
-        chartView.xAxis.axisMaximum = 7.5
-        chartView.xAxis.labelCount = 7
-        chartView.xAxis.drawGridLinesEnabled = false
-        chartView.xAxis.labelTextColor = .black
-        chartView.legend.enabled = false
-        return chartView
+        return makeBaseBarChartView()
     }()
     lazy var vitABarChartView: BarChartView = {
-        let chartView = BarChartView()
-        chartView.backgroundColor = .clear
-        chartView.rightAxis.enabled = false
-        chartView.leftAxis.axisMinimum = 0
-        chartView.leftAxis.drawGridLinesEnabled = false
-        chartView.leftAxis.enabled = false
-        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
-        chartView.xAxis.granularity = 1
-        chartView.xAxis.labelPosition = .bottom
-        chartView.xAxis.axisMinimum = 0.5
-        chartView.xAxis.axisMaximum = 7.5
-        chartView.xAxis.labelCount = 7
-        chartView.xAxis.drawGridLinesEnabled = false
-        chartView.xAxis.labelTextColor = .black
-        chartView.legend.enabled = false
-        return chartView
+        return makeBaseBarChartView()
     }()
     lazy var vitCBarChartView: BarChartView = {
-        let chartView = BarChartView()
-        chartView.backgroundColor = .clear
-        chartView.rightAxis.enabled = false
-        chartView.leftAxis.axisMinimum = 0
-        chartView.leftAxis.drawGridLinesEnabled = false
-        chartView.leftAxis.enabled = false
-        chartView.xAxis.valueFormatter = BarChartXAxisWeekdayValueFormatter()
-        chartView.xAxis.granularity = 1
-        chartView.xAxis.labelPosition = .bottom
-        chartView.xAxis.axisMinimum = 0.5
-        chartView.xAxis.axisMaximum = 7.5
-        chartView.xAxis.labelCount = 7
-        chartView.xAxis.drawGridLinesEnabled = false
-        chartView.xAxis.labelTextColor = .black
-        chartView.legend.enabled = false
-        return chartView
+        return makeBaseBarChartView()
     }()
     // graph data TODO rest
     var proteinData: [BarChartDataEntry] = []
@@ -332,13 +206,14 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
                 // add vitamin C data
                 self?.vitCData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminC"] ?? 0))))
             }
-            self?.setProteinData()
-            self?.setCaloriesData()
-            self?.setCarbsData()
-            self?.setFatData()
-            self?.setFiberData()
-            self?.setVitAData()
-            self?.setVitCData()
+            setBarChartData(nutritionData: self!.proteinData, label: "Protein", unit: "g", barChartView: self!.proteinBarChartView)
+            setBarChartData(nutritionData: self!.caloriesData, label: "Calories", unit: "kcal", barChartView: self!.caloriesBarChartView)
+            setBarChartData(nutritionData: self!.carbsData, label: "Carbohydrates", unit: "g", barChartView: self!.carbsBarChartView)
+            setBarChartData(nutritionData: self!.fatData, label: "Fat", unit: "g", barChartView: self!.fatBarChartView)
+            setBarChartData(nutritionData: self!.fiberData, label: "Fiber", unit: "g", barChartView: self!.fiberBarChartView)
+            setBarChartData(nutritionData: self!.vitAData, label: "Vitamin A", unit: "%", barChartView: self!.vitABarChartView)
+            setBarChartData(nutritionData: self!.vitCData, label: "Vitamin C", unit: "%", barChartView: self!.vitCBarChartView)
+            
         }
         
         //bowen edit 3/11 (input name)
@@ -411,13 +286,13 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
                 // add vitamin C data
                 self?.vitCData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminC"] ?? 0))))
             }
-            self?.setProteinData()
-            self?.setCaloriesData()
-            self?.setCarbsData()
-            self?.setFatData()
-            self?.setFiberData()
-            self?.setVitAData()
-            self?.setVitCData()
+            setBarChartData(nutritionData: self!.proteinData, label: "Protein", unit: "g", barChartView: self!.proteinBarChartView)
+            setBarChartData(nutritionData: self!.caloriesData, label: "Calories", unit: "kcal", barChartView: self!.caloriesBarChartView)
+            setBarChartData(nutritionData: self!.carbsData, label: "Carbohydrates", unit: "g", barChartView: self!.proteinBarChartView)
+            setBarChartData(nutritionData: self!.fatData, label: "Fat", unit: "g", barChartView: self!.fatBarChartView)
+            setBarChartData(nutritionData: self!.fiberData, label: "Fiber", unit: "g", barChartView: self!.fiberBarChartView)
+            setBarChartData(nutritionData: self!.vitAData, label: "Vitamin A", unit: "%", barChartView: self!.vitABarChartView)
+            setBarChartData(nutritionData: self!.vitCData, label: "Vitamin C", unit: "%", barChartView: self!.vitCBarChartView)
         }
     }
 
@@ -519,113 +394,98 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // set data for protein bar chart
-    func setProteinData() {
-        //
-        let set = BarChartDataSet(entries: self.proteinData, label: "Protein")
-        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
-        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
-        set.valueTextColor = .black
-        let data = BarChartData(dataSet: set)
-        proteinBarChartView.data = data
-    }
-    
-    // set data for calories bar chart
-    func setCaloriesData() {
-        let set = BarChartDataSet(entries: self.caloriesData, label: "Calories")
-        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "cal")
-        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
-        set.valueTextColor = .black
-        let data = BarChartData(dataSet: set)
-        caloriesBarChartView.data = data
-    }
-    
-    // set data for carbs bar chart
-    func setCarbsData() {
-        let set = BarChartDataSet(entries: self.carbsData, label: "Carbohydrates")
-        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
-        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
-        set.valueTextColor = .black
-        let data = BarChartData(dataSet: set)
-        carbsBarChartView.data = data
-    }
-    
-    // set data for Fat bar chart
-    func setFatData() {
-        let set = BarChartDataSet(entries: self.fatData, label: "Fat")
-        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
-        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
-        set.valueTextColor = .black
-        let data = BarChartData(dataSet: set)
-        fatBarChartView.data = data
-    }
-    
-    // set data for Fiber bar chart
-    func setFiberData() {
-        let set = BarChartDataSet(entries: self.fiberData, label: "Fiber")
-        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "g")
-        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
-        set.valueTextColor = .black
-        let data = BarChartData(dataSet: set)
-        fiberBarChartView.data = data
-    }
-    
-    // set data for vitamin A bar chart
-    func setVitAData() {
-        let set = BarChartDataSet(entries: self.vitAData, label: "Vitamin A")
-        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "%")
-        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
-        set.valueTextColor = .black
-        let data = BarChartData(dataSet: set)
-        vitABarChartView.data = data
-    }
-    
-    // set data for vitamin C bar chart
-    func setVitCData() {
-        let set = BarChartDataSet(entries: self.vitCData, label: "Vitamin C")
-        set.valueFormatter = BarChartYValueUnitValueFormatter(unit: "%")
-        set.colors = [UIColor(red: 0.1019, green: 0.4823, blue: 0.8235, alpha: 1.0)]
-        set.valueTextColor = .black
-        let data = BarChartData(dataSet: set)
-        vitCBarChartView.data = data
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // have a different segment selected depending on which segue was triggered
         if segue.identifier == segueToProteinVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on protein
             visualizationsVC.selectedSegmentIndex = 0
             visualizationsVC.delegate = self
+            // send all chart data
+            visualizationsVC.proteinBarChartData = self.proteinData
+            visualizationsVC.caloriesBarChartData = self.caloriesData
+            visualizationsVC.carbsBarChartData = self.carbsData
+            visualizationsVC.fatBarChartData = self.fatData
+            visualizationsVC.fiberBarChartData = self.fiberData
+            visualizationsVC.vitABarChartData = self.vitAData
+            visualizationsVC.vitCBarChartData = self.vitCData
         }
         else if segue.identifier == segueToCaloriesVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on calories
             visualizationsVC.selectedSegmentIndex = 1
             visualizationsVC.delegate = self
+            // send all chart data
+            visualizationsVC.proteinBarChartData = self.proteinData
+            visualizationsVC.caloriesBarChartData = self.caloriesData
+            visualizationsVC.carbsBarChartData = self.carbsData
+            visualizationsVC.fatBarChartData = self.fatData
+            visualizationsVC.fiberBarChartData = self.fiberData
+            visualizationsVC.vitABarChartData = self.vitAData
+            visualizationsVC.vitCBarChartData = self.vitCData
         }
         else if segue.identifier == segueToCarbsVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on carbs
             visualizationsVC.selectedSegmentIndex = 2
             visualizationsVC.delegate = self
+            // send all chart data
+            visualizationsVC.proteinBarChartData = self.proteinData
+            visualizationsVC.caloriesBarChartData = self.caloriesData
+            visualizationsVC.carbsBarChartData = self.carbsData
+            visualizationsVC.fatBarChartData = self.fatData
+            visualizationsVC.fiberBarChartData = self.fiberData
+            visualizationsVC.vitABarChartData = self.vitAData
+            visualizationsVC.vitCBarChartData = self.vitCData
         }
         else if segue.identifier == segueToFatVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on fat
             visualizationsVC.selectedSegmentIndex = 3
             visualizationsVC.delegate = self
+            // send all chart data
+            visualizationsVC.proteinBarChartData = self.proteinData
+            visualizationsVC.caloriesBarChartData = self.caloriesData
+            visualizationsVC.carbsBarChartData = self.carbsData
+            visualizationsVC.fatBarChartData = self.fatData
+            visualizationsVC.fiberBarChartData = self.fiberData
+            visualizationsVC.vitABarChartData = self.vitAData
+            visualizationsVC.vitCBarChartData = self.vitCData
         }
         else if segue.identifier == segueToFiberVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on fiber
             visualizationsVC.selectedSegmentIndex = 4
             visualizationsVC.delegate = self
+            // send all chart data
+            visualizationsVC.proteinBarChartData = self.proteinData
+            visualizationsVC.caloriesBarChartData = self.caloriesData
+            visualizationsVC.carbsBarChartData = self.carbsData
+            visualizationsVC.fatBarChartData = self.fatData
+            visualizationsVC.fiberBarChartData = self.fiberData
+            visualizationsVC.vitABarChartData = self.vitAData
+            visualizationsVC.vitCBarChartData = self.vitCData
         }
         else if segue.identifier == segueToVitAVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on vitamin a
             visualizationsVC.selectedSegmentIndex = 5
             visualizationsVC.delegate = self
+            // send all chart data
+            visualizationsVC.proteinBarChartData = self.proteinData
+            visualizationsVC.caloriesBarChartData = self.caloriesData
+            visualizationsVC.carbsBarChartData = self.carbsData
+            visualizationsVC.fatBarChartData = self.fatData
+            visualizationsVC.fiberBarChartData = self.fiberData
+            visualizationsVC.vitABarChartData = self.vitAData
+            visualizationsVC.vitCBarChartData = self.vitCData
         }
         else if segue.identifier == segueToVitCVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on vitamin c
             visualizationsVC.selectedSegmentIndex = 6
             visualizationsVC.delegate = self
+            // send all chart data
+            visualizationsVC.proteinBarChartData = self.proteinData
+            visualizationsVC.caloriesBarChartData = self.caloriesData
+            visualizationsVC.carbsBarChartData = self.carbsData
+            visualizationsVC.fatBarChartData = self.fatData
+            visualizationsVC.fiberBarChartData = self.fiberData
+            visualizationsVC.vitABarChartData = self.vitAData
+            visualizationsVC.vitCBarChartData = self.vitCData
         }
     }
 }
