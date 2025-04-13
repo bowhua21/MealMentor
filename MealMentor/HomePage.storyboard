@@ -284,11 +284,19 @@
                                                                     </tableViewCell>
                                                                 </prototypes>
                                                             </tableView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log a meal for today!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfn-mo-OIt">
+                                                                <rect key="frame" x="126.00000000000001" y="155.33333333333337" width="148.33333333333337" height="23.333333333333343"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.75294117650000003" green="0.87843137250000003" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
+                                                            <constraint firstItem="Zfn-mo-OIt" firstAttribute="centerY" secondItem="SBw-l7-5uO" secondAttribute="centerY" id="5d4-0C-CfS"/>
                                                             <constraint firstAttribute="bottom" secondItem="Rk3-8a-kEr" secondAttribute="bottom" constant="8" id="OIf-ds-KuQ"/>
                                                             <constraint firstItem="tIy-Dt-WQG" firstAttribute="leading" secondItem="hAz-Qj-WDI" secondAttribute="trailing" constant="9" id="bHs-th-3cH"/>
+                                                            <constraint firstItem="Zfn-mo-OIt" firstAttribute="centerX" secondItem="SBw-l7-5uO" secondAttribute="centerX" id="gOi-2B-F2V"/>
                                                             <constraint firstItem="tIy-Dt-WQG" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="11" id="gum-as-My3"/>
                                                             <constraint firstAttribute="trailing" secondItem="Rk3-8a-kEr" secondAttribute="trailing" id="mIo-ew-Ka6"/>
                                                             <constraint firstItem="hAz-Qj-WDI" firstAttribute="top" secondItem="SBw-l7-5uO" secondAttribute="top" constant="8" id="pdl-2g-NHt"/>
@@ -703,6 +711,7 @@
                         <outlet property="fatCellButton" destination="BXa-Of-mGn" id="enQ-l9-ng5"/>
                         <outlet property="fiberCellButton" destination="Kib-sQ-Lfu" id="tmB-mn-dGQ"/>
                         <outlet property="highlightsView" destination="XFD-1I-86S" id="ZdX-Le-CHK"/>
+                        <outlet property="logMealLabel" destination="Zfn-mo-OIt" id="TY3-ep-CDa"/>
                         <outlet property="numDayStreak" destination="7gd-NF-c9N" id="RSu-X4-nMW"/>
                         <outlet property="numDaysLoggedThisMonth" destination="cEK-RA-uBS" id="va7-se-ZzI"/>
                         <outlet property="numDaysTrackedLabel" destination="oGY-Rj-Ogh" id="vc1-qD-qGO"/>

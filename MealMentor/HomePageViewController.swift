@@ -50,6 +50,8 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     // tracked days
     var trackedDays: [Date] = []
     var daysOfWeek: [Date] = []
+    // message to log a meals
+    @IBOutlet weak var logMealLabel: UILabel!
     
     // graphs
     lazy var proteinBarChartView: BarChartView = {
@@ -241,6 +243,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // repeat a lot of the stuff in viewDidLoad as new logged meals updates this screen
+        print("viewWillAppear triggered")
         todayMealsTableView.dataSource = self
         todayMealsTableView.delegate = self
         fetchTodayFoods()
@@ -357,6 +360,13 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
                 }
                 DispatchQueue.main.async {
                     self.todayMealsTableView.reloadData()
+                    // if there's no foods today, show button to log a meal
+                    if self.todayFoods.isEmpty {
+                        self.logMealLabel.isHidden = false
+                    }
+                    else {
+                        self.logMealLabel.isHidden = true
+                    }
                 }
             }
     }
