@@ -208,7 +208,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
                 // add vitamin C data
                 self?.vitCData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminC"] ?? 0))))
             }
-            setBarChartData(nutritionData: self!.proteinData, label: "Protein", unit: "g", barChartView: self!.proteinBarChartView)
+            setBarChartData(nutritionData: self!.proteinData, label: "Protein", unit: "g protein", barChartView: self!.proteinBarChartView)
             setBarChartData(nutritionData: self!.caloriesData, label: "Calories", unit: "kcal", barChartView: self!.caloriesBarChartView)
             setBarChartData(nutritionData: self!.carbsData, label: "Carbohydrates", unit: "g", barChartView: self!.carbsBarChartView)
             setBarChartData(nutritionData: self!.fatData, label: "Fat", unit: "g", barChartView: self!.fatBarChartView)
@@ -291,7 +291,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
             }
             setBarChartData(nutritionData: self!.proteinData, label: "Protein", unit: "g", barChartView: self!.proteinBarChartView)
             setBarChartData(nutritionData: self!.caloriesData, label: "Calories", unit: "kcal", barChartView: self!.caloriesBarChartView)
-            setBarChartData(nutritionData: self!.carbsData, label: "Carbohydrates", unit: "g", barChartView: self!.proteinBarChartView)
+            setBarChartData(nutritionData: self!.carbsData, label: "Carbohydrates", unit: "g", barChartView: self!.carbsBarChartView)
             setBarChartData(nutritionData: self!.fatData, label: "Fat", unit: "g", barChartView: self!.fatBarChartView)
             setBarChartData(nutritionData: self!.fiberData, label: "Fiber", unit: "g", barChartView: self!.fiberBarChartView)
             setBarChartData(nutritionData: self!.vitAData, label: "Vitamin A", unit: "%", barChartView: self!.vitABarChartView)
