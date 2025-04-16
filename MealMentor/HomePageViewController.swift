@@ -75,7 +75,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     lazy var vitCBarChartView: BarChartView = {
         return makeBaseBarChartView()
     }()
-    // graph data TODO rest
+    // graph data
     var proteinData: [BarChartDataEntry] = []
     var caloriesData: [BarChartDataEntry] = []
     var carbsData: [BarChartDataEntry] = []
@@ -208,7 +208,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
                 // add vitamin C data
                 self?.vitCData.append(BarChartDataEntry(x: Double(dayIdx + 1), y: (Double(weekStats[dayIdx]["vitaminC"] ?? 0))))
             }
-            setBarChartData(nutritionData: self!.proteinData, label: "Protein", unit: "g protein", barChartView: self!.proteinBarChartView)
+            setBarChartData(nutritionData: self!.proteinData, label: "Protein", unit: "g", barChartView: self!.proteinBarChartView)
             setBarChartData(nutritionData: self!.caloriesData, label: "Calories", unit: "kcal", barChartView: self!.caloriesBarChartView)
             setBarChartData(nutritionData: self!.carbsData, label: "Carbohydrates", unit: "g", barChartView: self!.carbsBarChartView)
             setBarChartData(nutritionData: self!.fatData, label: "Fat", unit: "g", barChartView: self!.fatBarChartView)
@@ -243,7 +243,6 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // repeat a lot of the stuff in viewDidLoad as new logged meals updates this screen
-        print("viewWillAppear triggered")
         todayMealsTableView.dataSource = self
         todayMealsTableView.delegate = self
         fetchTodayFoods()

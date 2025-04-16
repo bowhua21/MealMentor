@@ -829,7 +829,26 @@
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yek-Dg-3xv">
                                                         <rect key="frame" x="20" y="8" width="400" height="184"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXl-8h-w93">
+                                                                <rect key="frame" x="10.000000000000004" y="7.9999999999999982" width="58.333333333333343" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Nutrition)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfz-AJ-QA4">
+                                                                <rect key="frame" x="73.333333333333314" y="7.9999999999999982" width="73.666666666666686" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
                                                         <color key="backgroundColor" red="0.93333333330000001" green="0.95294117649999999" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="zfz-AJ-QA4" firstAttribute="leading" secondItem="mXl-8h-w93" secondAttribute="trailing" constant="5" id="6bP-Oi-orJ"/>
+                                                            <constraint firstItem="mXl-8h-w93" firstAttribute="top" secondItem="Yek-Dg-3xv" secondAttribute="top" constant="8" id="VaV-Zw-yNR"/>
+                                                            <constraint firstItem="zfz-AJ-QA4" firstAttribute="centerY" secondItem="mXl-8h-w93" secondAttribute="centerY" id="bfw-LC-vFQ"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -838,6 +857,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="Yek-Dg-3xv" secondAttribute="bottom" constant="8" id="3WU-TZ-khX"/>
                                                     <constraint firstAttribute="trailing" secondItem="Yek-Dg-3xv" secondAttribute="trailing" constant="20" id="I3n-lb-gIk"/>
                                                     <constraint firstItem="Yek-Dg-3xv" firstAttribute="leading" secondItem="900-6e-UeR" secondAttribute="leading" constant="20" id="Lxm-QK-iqs"/>
+                                                    <constraint firstItem="mXl-8h-w93" firstAttribute="leading" secondItem="900-6e-UeR" secondAttribute="leading" constant="30" id="o6D-7S-cXQ"/>
                                                     <constraint firstItem="Yek-Dg-3xv" firstAttribute="top" secondItem="900-6e-UeR" secondAttribute="top" constant="8" id="ogf-EC-Wwi"/>
                                                     <constraint firstAttribute="bottom" secondItem="Yek-Dg-3xv" secondAttribute="bottom" constant="8" id="ovc-bs-X2f"/>
                                                 </constraints>
@@ -873,6 +893,7 @@
                     <connections>
                         <outlet property="dataTodayView" destination="pCN-Ux-puk" id="kdf-QD-HkJ"/>
                         <outlet property="monthlyDataView" destination="Yek-Dg-3xv" id="6EI-hb-4qU"/>
+                        <outlet property="monthlyNutritionLabel" destination="zfz-AJ-QA4" id="xIq-Ud-4Wf"/>
                         <outlet property="segmentedControl" destination="bhQ-q3-o6P" id="zVZ-T7-CPp"/>
                         <outlet property="weeklyDataView" destination="V13-tF-X4k" id="J9o-ed-Dnv"/>
                         <outlet property="weeklyNutritionLabel" destination="qiW-bf-DyS" id="ECH-Pp-41a"/>
