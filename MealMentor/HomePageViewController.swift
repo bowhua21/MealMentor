@@ -404,6 +404,7 @@ class HomePageViewController: DarkModeViewController, UICollectionViewDelegate, 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var nutrition: [String: Int] = [:]
         // have a different segment selected depending on which segue was triggered
         if segue.identifier == segueToProteinVisualizationsIdentifier, let visualizationsVC = segue.destination as? VisualizationsPageViewController {
             // set segmented to be on protein

@@ -769,20 +769,56 @@
                                 <rect key="frame" x="0.0" y="163.33333333333337" width="440" height="780"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AjQ-U9-cca">
-                                        <rect key="frame" x="0.0" y="0.0" width="440" height="750"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="716"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ko-Yv-KU7">
-                                                <rect key="frame" x="0.0" y="0.0" width="440" height="350"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="440" height="316"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCN-Ux-puk">
-                                                        <rect key="frame" x="20" y="8" width="400" height="334"/>
+                                                        <rect key="frame" x="20" y="8" width="400" height="300"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nk-tJ-w0h">
+                                                                <rect key="frame" x="10" y="7.9999999999999982" width="39.666666666666664" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Nutrition)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu2-yL-hIi">
+                                                                <rect key="frame" x="54.666666666666664" y="7.9999999999999982" width="73.666666666666686" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utr-89-HkQ">
+                                                                <rect key="frame" x="136.33333333333334" y="173.33333333333334" width="127.66666666666666" height="101.66666666666666"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="75"/>
+                                                                <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-YT-Hev">
+                                                                <rect key="frame" x="117.33333333333333" y="25" width="165.33333333333337" height="203.33333333333334"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="150"/>
+                                                                <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
                                                         <color key="backgroundColor" red="0.93333333330000001" green="0.95294117649999999" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="tintColor" red="0.93333333330000001" green="0.95294117649999999" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="2nk-tJ-w0h" firstAttribute="top" secondItem="pCN-Ux-puk" secondAttribute="top" constant="8" id="7xN-ku-qSr"/>
+                                                            <constraint firstItem="Pu2-yL-hIi" firstAttribute="centerY" secondItem="2nk-tJ-w0h" secondAttribute="centerY" id="GR7-ST-6bs"/>
+                                                            <constraint firstItem="Pu2-yL-hIi" firstAttribute="leading" secondItem="2nk-tJ-w0h" secondAttribute="trailing" constant="5" id="KYm-jJ-Wbc"/>
+                                                            <constraint firstAttribute="bottom" secondItem="utr-89-HkQ" secondAttribute="bottom" constant="25" id="ORQ-PN-053"/>
+                                                            <constraint firstItem="A7Z-YT-Hev" firstAttribute="centerX" secondItem="pCN-Ux-puk" secondAttribute="centerX" id="Slo-pD-LEl"/>
+                                                            <constraint firstItem="A7Z-YT-Hev" firstAttribute="top" secondItem="pCN-Ux-puk" secondAttribute="top" constant="25" id="UW9-MR-Brk"/>
+                                                            <constraint firstItem="utr-89-HkQ" firstAttribute="centerX" secondItem="pCN-Ux-puk" secondAttribute="centerX" id="peA-Xy-nCc"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="350" id="C1M-aa-v4T"/>
+                                                    <constraint firstItem="2nk-tJ-w0h" firstAttribute="leading" secondItem="6Ko-Yv-KU7" secondAttribute="leading" constant="30" id="2Fi-qR-dtF"/>
+                                                    <constraint firstAttribute="height" constant="316" id="C1M-aa-v4T"/>
                                                     <constraint firstItem="pCN-Ux-puk" firstAttribute="top" secondItem="6Ko-Yv-KU7" secondAttribute="top" constant="8" id="MIi-hS-8U6"/>
                                                     <constraint firstAttribute="trailing" secondItem="pCN-Ux-puk" secondAttribute="trailing" constant="20" id="ZU6-Sk-D0G"/>
                                                     <constraint firstAttribute="bottom" secondItem="pCN-Ux-puk" secondAttribute="bottom" constant="8" id="g01-Ol-Aig"/>
@@ -790,13 +826,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ADG-I6-XWn">
-                                                <rect key="frame" x="0.0" y="350" width="440" height="200"/>
+                                                <rect key="frame" x="0.0" y="316" width="440" height="200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V13-tF-X4k">
                                                         <rect key="frame" x="20" y="8" width="400" height="184"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Nutrition)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiW-bf-DyS">
-                                                                <rect key="frame" x="68" y="9.666666666666627" width="73.666666666666686" height="23.333333333333329"/>
+                                                                <rect key="frame" x="68" y="9.6666666666666838" width="73.666666666666686" height="23.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -805,7 +841,7 @@
                                                         <color key="backgroundColor" red="0.93333333330000001" green="0.95294117649999999" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89l-Yh-LJS">
-                                                        <rect key="frame" x="30" y="17.666666666666629" width="53" height="23.333333333333329"/>
+                                                        <rect key="frame" x="30" y="17.666666666666686" width="53" height="23.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -825,7 +861,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="900-6e-UeR">
-                                                <rect key="frame" x="0.0" y="550" width="440" height="200"/>
+                                                <rect key="frame" x="0.0" y="516" width="440" height="200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yek-Dg-3xv">
                                                         <rect key="frame" x="20" y="8" width="400" height="184"/>
@@ -891,6 +927,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="aV2-U8-oBA"/>
                     <connections>
+                        <outlet property="dailyNutritionLabel" destination="Pu2-yL-hIi" id="Vj3-MT-mo4"/>
+                        <outlet property="dailyNutritionUnit" destination="utr-89-HkQ" id="hjv-lq-1Rg"/>
+                        <outlet property="dailyNutritionValue" destination="A7Z-YT-Hev" id="YsU-Jj-SkQ"/>
                         <outlet property="dataTodayView" destination="pCN-Ux-puk" id="kdf-QD-HkJ"/>
                         <outlet property="monthlyDataView" destination="Yek-Dg-3xv" id="6EI-hb-4qU"/>
                         <outlet property="monthlyNutritionLabel" destination="zfz-AJ-QA4" id="xIq-Ud-4Wf"/>
