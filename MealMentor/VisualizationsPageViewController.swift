@@ -82,9 +82,9 @@ class VisualizationsPageViewController: DarkModeViewController {
     @IBAction func onSegmentedChanged(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            print("case 0")
             weeklyNutritionLabel.text = "Protein"
             monthlyNutritionLabel.text = "Protein"
+            dailyNutritionLabel.text = "Protein"
             setBarChartData(nutritionData: self.proteinBarChartData, label: "Protein", unit: "g", barChartView: self.barChartView)
             setLineChartData(nutritionData: dummyMonthlyProteinDataPts, label: "Protein", unit: "g", lineChartView: self.lineChartView)
             self.dailyNutritionUnit.text = "g"
@@ -92,6 +92,7 @@ class VisualizationsPageViewController: DarkModeViewController {
         case 1:
             weeklyNutritionLabel.text = "Calories"
             monthlyNutritionLabel.text = "Calories"
+            dailyNutritionLabel.text = "Calories"
             setBarChartData(nutritionData: self.caloriesBarChartData, label: "Calories", unit: "kcal", barChartView: self.barChartView)
             setLineChartData(nutritionData: dummyMonthlyCaloriesDataPts, label: "Calories", unit: "kcal", lineChartView: self.lineChartView)
             self.dailyNutritionUnit.text = "kcal"
@@ -99,6 +100,7 @@ class VisualizationsPageViewController: DarkModeViewController {
         case 2:
             weeklyNutritionLabel.text = "Carbohydrates"
             monthlyNutritionLabel.text = "Carbohydrates"
+            dailyNutritionLabel.text = "Carbohydrates"
             setBarChartData(nutritionData: self.carbsBarChartData, label: "Carbohydrates", unit: "g", barChartView: self.barChartView)
             setLineChartData(nutritionData: dummyMonthlyCarbsDataPts, label: "Carbohydrates", unit: "g", lineChartView: self.lineChartView)
             self.dailyNutritionUnit.text = "g"
@@ -106,6 +108,7 @@ class VisualizationsPageViewController: DarkModeViewController {
         case 3:
             weeklyNutritionLabel.text = "Fat"
             monthlyNutritionLabel.text = "Fat"
+            dailyNutritionLabel.text = "Fat"
             setBarChartData(nutritionData: self.fatBarChartData, label: "Fat", unit: "g", barChartView: self.barChartView)
             setLineChartData(nutritionData: dummyMonthlyFatDataPts, label: "Fat", unit: "g", lineChartView: self.lineChartView)
             self.dailyNutritionUnit.text = "g"
@@ -113,6 +116,7 @@ class VisualizationsPageViewController: DarkModeViewController {
         case 4:
             weeklyNutritionLabel.text = "Fiber"
             monthlyNutritionLabel.text = "Fiber"
+            dailyNutritionLabel.text = "Fiber"
             setBarChartData(nutritionData: self.fiberBarChartData, label: "Fiber", unit: "g", barChartView: self.barChartView)
             setLineChartData(nutritionData: dummyMonthlyFiberDataPts, label: "Fiber", unit: "g", lineChartView: self.lineChartView)
             self.dailyNutritionUnit.text = "g"
@@ -120,6 +124,7 @@ class VisualizationsPageViewController: DarkModeViewController {
         case 5:
             weeklyNutritionLabel.text = "Vitamin A"
             monthlyNutritionLabel.text = "Vitamin A"
+            dailyNutritionLabel.text = "Vitamin A"
             setBarChartData(nutritionData: self.vitABarChartData, label: "Vitamin A", unit: "%", barChartView: self.barChartView)
             setLineChartData(nutritionData: dummyMonthlyVitADataPts, label: "Vitamin A", unit: "%", lineChartView: self.lineChartView)
             self.dailyNutritionUnit.text = "%"
@@ -127,6 +132,7 @@ class VisualizationsPageViewController: DarkModeViewController {
         case 6:
             weeklyNutritionLabel.text = "Vitamin C"
             monthlyNutritionLabel.text = "Vitamin C"
+            dailyNutritionLabel.text = "Vitamin C"
             setBarChartData(nutritionData: self.vitCBarChartData, label: "Vitamin C", unit: "%", barChartView: self.barChartView)
             setLineChartData(nutritionData: dummyMonthlyVitCDataPts, label: "Vitamin C", unit: "%", lineChartView: self.lineChartView)
             self.dailyNutritionUnit.text = "%"

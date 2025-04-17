@@ -783,10 +783,10 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Nutrition)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu2-yL-hIi">
-                                                                <rect key="frame" x="54.666666666666664" y="7.9999999999999982" width="73.666666666666686" height="23.333333333333329"/>
-                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
-                                                                <nil key="textColor"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-YT-Hev">
+                                                                <rect key="frame" x="117.33333333333333" y="25" width="165.33333333333337" height="203.33333333333334"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="150"/>
+                                                                <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utr-89-HkQ">
@@ -795,10 +795,10 @@
                                                                 <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-YT-Hev">
-                                                                <rect key="frame" x="117.33333333333333" y="25" width="165.33333333333337" height="203.33333333333334"/>
-                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="150"/>
-                                                                <color key="textColor" red="0.1019607843" green="0.4823529412" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Nutrition)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu2-yL-hIi">
+                                                                <rect key="frame" x="50" y="8" width="73.666666666666686" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="17"/>
+                                                                <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -807,11 +807,11 @@
                                                         <constraints>
                                                             <constraint firstItem="2nk-tJ-w0h" firstAttribute="top" secondItem="pCN-Ux-puk" secondAttribute="top" constant="8" id="7xN-ku-qSr"/>
                                                             <constraint firstItem="Pu2-yL-hIi" firstAttribute="centerY" secondItem="2nk-tJ-w0h" secondAttribute="centerY" id="GR7-ST-6bs"/>
-                                                            <constraint firstItem="Pu2-yL-hIi" firstAttribute="leading" secondItem="2nk-tJ-w0h" secondAttribute="trailing" constant="5" id="KYm-jJ-Wbc"/>
                                                             <constraint firstAttribute="bottom" secondItem="utr-89-HkQ" secondAttribute="bottom" constant="25" id="ORQ-PN-053"/>
                                                             <constraint firstItem="A7Z-YT-Hev" firstAttribute="centerX" secondItem="pCN-Ux-puk" secondAttribute="centerX" id="Slo-pD-LEl"/>
                                                             <constraint firstItem="A7Z-YT-Hev" firstAttribute="top" secondItem="pCN-Ux-puk" secondAttribute="top" constant="25" id="UW9-MR-Brk"/>
                                                             <constraint firstItem="utr-89-HkQ" firstAttribute="centerX" secondItem="pCN-Ux-puk" secondAttribute="centerX" id="peA-Xy-nCc"/>
+                                                            <constraint firstItem="Pu2-yL-hIi" firstAttribute="leading" secondItem="2nk-tJ-w0h" secondAttribute="trailing" id="sqU-lP-mWB"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
