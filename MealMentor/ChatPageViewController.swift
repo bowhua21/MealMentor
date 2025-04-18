@@ -419,13 +419,15 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getDocumentData(from: userDoc, category: "darkMode") { value, error in
-            if let darkMode = value as? Bool {
-                self.chatInputBar.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
-                self.askMealMentorIntroView.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
-                self.askMealMentorTitleLabel.textColor = darkMode ? self.lightPurple : self.darkPurple
-                self.chatBubbleColorAI = darkMode ? self.darkPurple : self.lightPurple
-            }
-        }
+        self.chatInputBar.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
+        self.askMealMentorIntroView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
+//        getDocumentData(from: userDoc, category: "darkMode") { value, error in
+//            if let darkMode = value as? Bool {
+////                self.chatInputBar.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
+//                self.askMealMentorIntroView.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
+//                self.askMealMentorTitleLabel.textColor = darkMode ? self.lightPurple : self.darkPurple
+//                self.chatBubbleColorAI = darkMode ? self.darkPurple : self.lightPurple
+//            }
+//        }
     }
 }
