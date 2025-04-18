@@ -338,6 +338,7 @@
                     <connections>
                         <outlet property="imageView" destination="Lhl-oj-hgG" id="m3V-RU-NdM"/>
                         <outlet property="logTextField" destination="wNV-ZE-8x2" id="y52-mp-JvN"/>
+                        <outlet property="mealLabel" destination="Rbn-lc-ZKS" id="tKu-r6-1iV"/>
                         <outlet property="mealTitleLabel" destination="lcc-lL-Aic" id="RVq-QS-Wr9"/>
                     </connections>
                 </viewController>

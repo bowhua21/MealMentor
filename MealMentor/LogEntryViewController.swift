@@ -42,13 +42,12 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         } else {
             mealTitleLabel.text = "Snack"
         }
-        
         setupLoadingIndicator()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        logTextField.layer.cornerRadius = logTextField.frame.height / 2
+         logTextField.layer.cornerRadius = logTextField.frame.height / 2
         logTextField.clipsToBounds = true
     }
     
