@@ -42,8 +42,8 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenu()
-
         setupTableView()
+        setupTableViewConstraints() 
         fetchTodaysMeals()
     }
     
@@ -96,7 +96,47 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         snackTableView.layer.cornerRadius = 12
     }
     
-    
+    private func setupTableViewConstraints() {
+            // Disable autoresizing masks
+            breakfastTableView.translatesAutoresizingMaskIntoConstraints = false
+            lunchTableView.translatesAutoresizingMaskIntoConstraints = false
+            dinnerTableView.translatesAutoresizingMaskIntoConstraints = false
+            snackTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+            let tablesStackView = UIStackView(arrangedSubviews: [
+                breakfastTableView,
+                lunchTableView,
+                dinnerTableView,
+                snackTableView
+            ])
+            tablesStackView.axis = .vertical
+            tablesStackView.distribution = .fillEqually
+            tablesStackView.spacing = 16
+            tablesStackView.translatesAutoresizingMaskIntoConstraints = false
+            
+            view.addSubview(tablesStackView)
+            
+            // Set constraints
+            NSLayoutConstraint.activate([
+                // Position the stack view below the nutrition menu button
+                tablesStackView.topAnchor.constraint(equalTo: nutritionMenuButton.bottomAnchor, constant: 20),
+                tablesStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                tablesStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                tablesStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+                
+                breakfastTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+                lunchTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+                dinnerTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+                snackTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
+            ])
+            
+            // Apply visual styling
+            [breakfastTableView, lunchTableView, dinnerTableView, snackTableView].forEach { tableView in
+                tableView.layer.cornerRadius = 12
+                tableView.rowHeight = 65
+                tableView.backgroundColor = UIColor(hex: "BADAAF")
+            }
+        }
     
     @IBAction func addMealClicked(_ sender: UIButton) {
         guard let buttonTitle = sender.titleLabel?.text,

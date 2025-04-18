@@ -18,8 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXV-D0-faW">
-                                <rect key="frame" x="150" y="59" width="93" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXV-D0-faW">
+                                <rect key="frame" x="177" y="59" width="66" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <menu key="menu" id="TPZ-JJ-BjX">
@@ -33,8 +34,9 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="So7-5S-Igo">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="So7-5S-Igo">
                                 <rect key="frame" x="50" y="119" width="293" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="green_black"/>
                                 <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="jCu-mJ-wME">
                                     <rect key="frame" x="0.0" y="0.0" width="293" height="40"/>
@@ -77,8 +79,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oru-qD-Lts">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oru-qD-Lts">
                                 <rect key="frame" x="50" y="289" width="293" height="113"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="green_black"/>
                                 <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="LYL-JY-q7v">
                                     <rect key="frame" x="0.0" y="0.0" width="293" height="35"/>
@@ -120,8 +123,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hPf-ok-610">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hPf-ok-610">
                                 <rect key="frame" x="50" y="412" width="293" height="167"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="green_black"/>
                                 <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="IC3-OG-D6e">
                                     <rect key="frame" x="0.0" y="0.0" width="293" height="35"/>
@@ -162,8 +166,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u8a-kG-5Ce">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u8a-kG-5Ce">
                                 <rect key="frame" x="50" y="589" width="293" height="170"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="green_black"/>
                                 <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="H2v-2z-Qbx">
                                     <rect key="frame" x="0.0" y="0.0" width="293" height="28"/>
@@ -207,28 +212,6 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="So7-5S-Igo" secondAttribute="bottom" constant="490" id="129-PT-f6k"/>
-                            <constraint firstItem="u8a-kG-5Ce" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="6cF-hi-ehn"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="hPf-ok-610" secondAttribute="bottom" constant="190" id="7Wb-pg-Ofs"/>
-                            <constraint firstItem="Oru-qD-Lts" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="8FZ-eR-bDG"/>
-                            <constraint firstItem="u8a-kG-5Ce" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Dx7-bB-xJr"/>
-                            <constraint firstItem="DXV-D0-faW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Hc2-Jn-leN"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="u8a-kG-5Ce" secondAttribute="bottom" constant="10" id="Ipp-zp-eL9"/>
-                            <constraint firstItem="So7-5S-Igo" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="NeL-bR-TdC"/>
-                            <constraint firstItem="So7-5S-Igo" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="60" id="OCT-LL-vtD"/>
-                            <constraint firstItem="Oru-qD-Lts" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="RgZ-J4-luE"/>
-                            <constraint firstItem="So7-5S-Igo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="f1n-e4-6DU"/>
-                            <constraint firstItem="Oru-qD-Lts" firstAttribute="top" secondItem="So7-5S-Igo" secondAttribute="bottom" constant="10" id="fO8-7e-pp7"/>
-                            <constraint firstItem="DXV-D0-faW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="150" id="fcp-zz-Fg9"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DXV-D0-faW" secondAttribute="trailing" constant="150" id="i1j-ul-275"/>
-                            <constraint firstItem="DXV-D0-faW" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="kPT-di-Mue"/>
-                            <constraint firstItem="hPf-ok-610" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="mYC-FR-UKL"/>
-                            <constraint firstItem="hPf-ok-610" firstAttribute="top" secondItem="Oru-qD-Lts" secondAttribute="bottom" constant="10" id="qXl-nY-3Ju"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Oru-qD-Lts" secondAttribute="bottom" constant="367" id="uIp-7w-OlG"/>
-                            <constraint firstItem="hPf-ok-610" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="xwt-0h-DqF"/>
-                            <constraint firstItem="u8a-kG-5Ce" firstAttribute="top" secondItem="hPf-ok-610" secondAttribute="bottom" constant="10" id="yik-aq-0Hh"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Log" image="list.bullet.clipboard" catalog="system" id="2aX-Ni-s86">
                         <color key="badgeColor" name="black_lightgreen"/>

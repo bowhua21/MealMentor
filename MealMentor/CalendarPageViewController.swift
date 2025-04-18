@@ -1,44 +1,39 @@
-//
-//  CalendarPageViewController.swift
-//  MealMentor
-//
-//  Created by Yingting Cao on 3/1/25.
-//
-
 import UIKit
 
-class CalendarPageViewController: DarkModeViewController {
-    let segueToCalendarPageIdentifier = "SegueToCalendarPageIdentifier"
-    let calendarViewColor = UIColor(red: 0.2509, green: 0.4588, blue: 0.1764, alpha: 1.0)
-
+class CalendarPageViewController: UIViewController, UICalendarSelectionSingleDateDelegate {
+    
+    let calendarViewColor = UIColor(red: 0.776, green: 0.878, blue: 0.745, alpha: 1.0)
     override func viewDidLoad() {
         super.viewDidLoad()
-        createCalendar()
-        // Do any additional setup after loading the view.
+        setupCalendar()
     }
-    func createCalendar() {
+    
+    private func setupCalendar() {
         let calendarView = UICalendarView()
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.calendar = .current
-        calendarView.locale = .current
-        calendarView.fontDesign = .rounded
-        calendarView.delegate = self
-        calendarView.layer.cornerRadius = 10
+        calendarView.selectionBehavior = UICalendarSelectionSingleDate(delegate: self)
+        calendarView.layer.cornerRadius = 12
         calendarView.backgroundColor = calendarViewColor
         view.addSubview(calendarView)
-        NSLayoutConstraint.activate([calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-                                     calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-                                     calendarView.heightAnchor.constraint(equalToConstant: 300),
-                                     calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-                                     calendarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+        
+        NSLayoutConstraint.activate([
+            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            calendarView.topAnchor.constraint(equalTo: view.topAnchor),
+            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        
-    }
-}
-extension CalendarPageViewController: UICalendarViewDelegate {
-    func calendarView (_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-        return nil
     }
     
+    func dateSelection(_ selection: UICalendarSelectionSingleDate,
+                      didSelectDate dateComponents: DateComponents?) {
+        guard let date = dateComponents?.date else { return }
+        showLogHistory(for: date)
+    }
+    
+    private func showLogHistory(for date: Date) {
+        let logHistoryVC = LogHistoryViewController()
+        logHistoryVC.selectedDate = date
+        present(logHistoryVC, animated: true)
+    }
 }
