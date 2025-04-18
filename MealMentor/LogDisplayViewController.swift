@@ -4,11 +4,9 @@
 //
 //  Created by by Yingting Cao on 3/9/25.
 //
-
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
-
 enum MealCategory: String, CaseIterable {
     case breakfast = "Add Breakfast"
     case lunch = "Add Lunch"
@@ -19,9 +17,11 @@ enum MealCategory: String, CaseIterable {
         return self.rawValue
     }
 }
-
-
-
+enum NutritionType: String {
+    case calories = "Calories"
+    case fat = "Fat"
+    case protein = "Protein"
+}
 class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var nutritionMenuButton: UIButton!
@@ -38,12 +38,17 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
             fetchTodaysMeals()
         }
     }
+    private var selectedNutritionType: NutritionType = .calories {
+        didSet {
+            [breakfastTableView, lunchTableView, dinnerTableView, snackTableView].forEach { $0?.reloadData() }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenu()
         setupTableView()
-        setupTableViewConstraints() 
+        setupTableViewConstraints()
         fetchTodaysMeals()
     }
     
@@ -55,19 +60,21 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
     private func setupMenu() {
         let calorieOption = UIAction(title: "Calories") { action in
             self.nutritionMenuButton.setTitle(action.title, for: .normal)
-
+            self.selectedNutritionType = .calories
         }
         let fatOption = UIAction(title: "Fat") { action in
             self.nutritionMenuButton.setTitle(action.title, for: .normal)
+            self.selectedNutritionType = .fat
         }
         let proteinOption = UIAction(title: "Protein") { action in
             self.nutritionMenuButton.setTitle(action.title, for: .normal)
+            self.selectedNutritionType = .protein
         }
         let nutritionMenu = UIMenu(title: "Nutrition choices", children: [calorieOption, fatOption, proteinOption])
-
         nutritionMenuButton.menu = nutritionMenu
         nutritionMenuButton.showsMenuAsPrimaryAction = true
     }
+    
     
     private func setupTableView() {
         breakfastTableView.delegate = self
@@ -81,7 +88,6 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         lunchTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
         lunchTableView.rowHeight = 65
         lunchTableView.layer.cornerRadius = 12
-
         
         dinnerTableView.delegate = self
         dinnerTableView.dataSource = self
@@ -97,7 +103,6 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
     }
     
     private func setupTableViewConstraints() {
-            // Disable autoresizing masks
             breakfastTableView.translatesAutoresizingMaskIntoConstraints = false
             lunchTableView.translatesAutoresizingMaskIntoConstraints = false
             dinnerTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -115,10 +120,7 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
             tablesStackView.translatesAutoresizingMaskIntoConstraints = false
             
             view.addSubview(tablesStackView)
-            
-            // Set constraints
             NSLayoutConstraint.activate([
-                // Position the stack view below the nutrition menu button
                 tablesStackView.topAnchor.constraint(equalTo: nutritionMenuButton.bottomAnchor, constant: 20),
                 tablesStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
                 tablesStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -129,8 +131,6 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
                 dinnerTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
                 snackTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
             ])
-            
-            // Apply visual styling
             [breakfastTableView, lunchTableView, dinnerTableView, snackTableView].forEach { tableView in
                 tableView.layer.cornerRadius = 12
                 tableView.rowHeight = 65
@@ -189,7 +189,15 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         let food = allFoods[indexPath.row]
         var content = cell.defaultContentConfiguration()
         content.text = "\(food.name) (\(food.quantity)g)"
-        content.secondaryText = "Calories: \(food.calories)"
+        switch selectedNutritionType {
+        case .calories:
+            content.secondaryText = "Calories: \(food.calories)"
+        case .fat:
+            content.secondaryText = "Fat: \(food.fat)g"
+        case .protein:
+            content.secondaryText = "Protein: \(food.protein)g"
+        }
+        
         cell.contentConfiguration = content
         return cell
     }
@@ -290,20 +298,16 @@ extension LogDisplayViewController: LogEntryViewControllerDelegate {
         fetchTodaysMeals()
     }
 }
-
 extension UIColor {
     convenience init(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
-
         var rgb: UInt64 = 0
-
         Scanner(string: hexSanitized).scanHexInt64(&rgb)
-
         let red = CGFloat((rgb >> 16) & 0xFF) / 255.0
         let green = CGFloat((rgb >> 8) & 0xFF) / 255.0
         let blue = CGFloat(rgb & 0xFF) / 255.0
-
         self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
+
