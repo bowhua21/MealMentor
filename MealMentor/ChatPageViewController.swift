@@ -21,6 +21,7 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
     @IBOutlet weak var chatInputBarBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var sendButtonBottomConstraint: NSLayoutConstraint!
     
+    var chatBubbleColorAI: UIColor!
     var chatStackView: UIStackView!
     var chatScrollView: UIScrollView!
 
@@ -38,9 +39,9 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
         chatInputBar.delegate = self
         
         askMealMentorIntroView.layer.cornerRadius = 10
-        chatInputBar.backgroundColor = lightPurple
-        askMealMentorIntroView.backgroundColor = lightPurple
-        askMealMentorTitleLabel.textColor = darkPurple
+//        chatInputBar.backgroundColor = lightPurple
+//        askMealMentorIntroView.backgroundColor = lightPurple
+//        askMealMentorTitleLabel.textColor = darkPurple
   
         // setting up the scroll view
         chatScrollView = UIScrollView()
@@ -201,12 +202,12 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
                 bubbleLabel.backgroundColor = UIColor.systemGray.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .right
             } else if chat.sender == "ai" {
-                getDocumentData(from: userDoc, category: "darkMode") { value, error in
-                    if let darkMode = value as? Bool {
-                        bubbleLabel.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
-                    }
-                }
-                //bubbleLabel.backgroundColor = lightPurple
+//                getDocumentData(from: userDoc, category: "darkMode") { value, error in
+//                    if let darkMode = value as? Bool {
+//                        bubbleLabel.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
+//                    }
+//                }
+                bubbleLabel.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .left
             } else if chat.sender == "error" {
                 bubbleLabel.backgroundColor = UIColor.red.withAlphaComponent(0.3)
@@ -414,5 +415,17 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
 
         chatInputBarBottomConstraint.constant = 10
         sendButtonBottomConstraint.constant = 10
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getDocumentData(from: userDoc, category: "darkMode") { value, error in
+            if let darkMode = value as? Bool {
+                self.chatInputBar.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
+                self.askMealMentorIntroView.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
+                self.askMealMentorTitleLabel.textColor = darkMode ? self.lightPurple : self.darkPurple
+                self.chatBubbleColorAI = darkMode ? self.darkPurple : self.lightPurple
+            }
+        }
     }
 }
