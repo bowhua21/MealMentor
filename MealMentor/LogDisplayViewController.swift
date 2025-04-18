@@ -24,6 +24,7 @@ enum MealCategory: String, CaseIterable {
 
 class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var nutritionMenuButton: UIButton!
     @IBOutlet weak var breakfastTableView: UITableView!
     @IBOutlet weak var lunchTableView: UITableView!
     @IBOutlet weak var dinnerTableView: UITableView!
@@ -40,6 +41,8 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupMenu()
+
         setupTableView()
         fetchTodaysMeals()
     }
@@ -49,27 +52,51 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         fetchTodaysMeals()
     }
     
+    private func setupMenu() {
+        let calorieOption = UIAction(title: "Calories") { action in
+            self.nutritionMenuButton.setTitle(action.title, for: .normal)
+
+        }
+        let fatOption = UIAction(title: "Fat") { action in
+            self.nutritionMenuButton.setTitle(action.title, for: .normal)
+        }
+        let proteinOption = UIAction(title: "Protein") { action in
+            self.nutritionMenuButton.setTitle(action.title, for: .normal)
+        }
+        let nutritionMenu = UIMenu(title: "Nutrition choices", children: [calorieOption, fatOption, proteinOption])
+
+        nutritionMenuButton.menu = nutritionMenu
+        nutritionMenuButton.showsMenuAsPrimaryAction = true
+    }
+    
     private func setupTableView() {
         breakfastTableView.delegate = self
         breakfastTableView.dataSource = self
         breakfastTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
         breakfastTableView.rowHeight = 65
+        breakfastTableView.layer.cornerRadius = 12
         
         lunchTableView.delegate = self
         lunchTableView.dataSource = self
         lunchTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
         lunchTableView.rowHeight = 65
+        lunchTableView.layer.cornerRadius = 12
+
         
         dinnerTableView.delegate = self
         dinnerTableView.dataSource = self
         dinnerTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
         dinnerTableView.rowHeight = 65
+        dinnerTableView.layer.cornerRadius = 12
         
         snackTableView.delegate = self
         snackTableView.dataSource = self
         snackTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
         snackTableView.rowHeight = 65
+        snackTableView.layer.cornerRadius = 12
     }
+    
+    
     
     @IBAction func addMealClicked(_ sender: UIButton) {
         guard let buttonTitle = sender.titleLabel?.text,
@@ -216,6 +243,7 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
+   
 }
 extension LogDisplayViewController: LogEntryViewControllerDelegate {
     func didSaveMeal() {

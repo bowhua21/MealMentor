@@ -22,7 +22,6 @@ class LoadingIndicatorView: UIView {
     }
     
     private func setup() {
-        // Set up the circular path
         let circularPath = UIBezierPath(
             arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
             radius: min(bounds.width, bounds.height) / 2 - 5,
@@ -34,7 +33,7 @@ class LoadingIndicatorView: UIView {
         // Configure the shape layer
         circleLayer.path = circularPath.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor
-        circleLayer.strokeColor = UIColor.systemBlue.cgColor
+        circleLayer.strokeColor = UIColor.systemGray.cgColor
         circleLayer.lineWidth = 4
         circleLayer.lineCap = .round
         circleLayer.strokeEnd = 0.8

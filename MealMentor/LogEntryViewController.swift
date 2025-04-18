@@ -16,6 +16,9 @@ protocol LogEntryViewControllerDelegate: AnyObject {
 
 
 class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBOutlet weak var mealTitleLabel: UILabel!
+    
     let imagePicker = UIImagePickerController()
     let loadingIndicator = LoadingIndicatorView()
     var selectedCategory: MealCategory = .breakfast
@@ -29,7 +32,24 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         super.viewDidLoad()
         currentUserId = getUserID()
         imagePicker.delegate = self
+        
+        if (selectedCategory == .breakfast) {
+            mealTitleLabel.text = "Breakfast"
+        } else if (selectedCategory == .lunch) {
+            mealTitleLabel.text = "Lunch"
+        } else if (selectedCategory == .dinner) {
+            mealTitleLabel.text = "Dinner"
+        } else {
+            mealTitleLabel.text = "Snack"
+        }
+        
         setupLoadingIndicator()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        logTextField.layer.cornerRadius = logTextField.frame.height / 2
+        logTextField.clipsToBounds = true
     }
     
     private func setupLoadingIndicator() {
