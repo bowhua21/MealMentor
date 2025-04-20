@@ -85,7 +85,7 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews()
         chatInputBar.layer.cornerRadius = chatInputBar.frame.height / 2
         chatInputBar.clipsToBounds = true
-        sendButton.backgroundColor = darkPurple
+        sendButton.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
         sendButton.layer.cornerRadius = sendButton.frame.height / 2
         sendButton.clipsToBounds = true
         
