@@ -78,6 +78,31 @@ class OnboardingPage1ViewController: UIViewController {
         noneButton.layer.cornerRadius = 10
         noneButton.backgroundColor = buttonColor
         
+        if isUserLoggedIn() {
+            ProfileLoader().loadProfile { profile in
+                if profile.gender == "male" {
+                    self.maleButton.backgroundColor = self.buttonColor
+                    self.noneButton.backgroundColor = self.lightGrayColor
+                } else if profile.gender == "female" {
+                    self.femaleButton.backgroundColor = self.buttonColor
+                    self.noneButton.backgroundColor = self.lightGrayColor
+                }
+                if profile.age != nil && profile.age != 0 {
+                    self.ageSlider.value = Float(profile.age!)
+                    self.ageLabel.text = "\(Int(self.ageSlider.value))"
+                    
+                }
+                if profile.weight != nil && profile.weight != 0 {
+                    self.weightSlider.value = Float(profile.weight!)
+                    self.weightLabel.text = "\(Int(self.weightSlider.value))lbs"
+                }
+                if profile.height != nil && profile.height != 0 {
+                    self.heightSlider.value = Float(profile.height!)
+                    self.heightLabel.text = profile.heightFormatted
+                }
+                
+            }
+        }
         // Do any additional setup after loading the view.
     }
     

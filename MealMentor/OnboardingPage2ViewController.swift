@@ -54,7 +54,50 @@ class OnboardingPage2ViewController: UIViewController, UITextFieldDelegate {
         dietRestrictionsField.delegate = self
         firstNameField.delegate = self
         lastNameField.delegate = self
-
+        
+        if isUserLoggedIn() {
+            ProfileLoader().loadProfile { profile in
+                
+                if profile.firstName != nil && profile.firstName != "" {
+                    self.firstNameField.text = profile.firstName
+                }
+                if profile.lastName != nil && profile.lastName != "" {
+                    self.lastNameField.text = profile.lastName
+                }
+                
+            }
+            
+            getDocumentData(from: userDoc, category: "goals") { value, error in
+                if let error = error {
+                    print("Error fetching field: \(error.localizedDescription)")
+                } else if let value = value {
+                    print("Fetched field value: \(value)")
+                    self.goalsField.text = value as? String
+                } else {
+                    print("Field does not exist")
+                }
+            }
+            getDocumentData(from: userDoc, category: "dietaryRestrictions") { value, error in
+                if let error = error {
+                    print("Error fetching field: \(error.localizedDescription)")
+                } else if let value = value {
+                    print("Fetched field value: \(value)")
+                    self.dietRestrictionsField.text = value as? String
+                } else {
+                    print("Field does not exist")
+                }
+            }
+            getDocumentData(from: userDoc, category: "allergies") { value, error in
+                if let error = error {
+                    print("Error fetching field: \(error.localizedDescription)")
+                } else if let value = value {
+                    print("Fetched field value: \(value)")
+                    self.allergiesField.text = value as? String
+                } else {
+                    print("Field does not exist")
+                }
+            }
+        }
         // Do any additional setup after loading the view.
     }
     // Called when 'return' key pressed
