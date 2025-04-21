@@ -17,8 +17,10 @@ protocol LogEntryViewControllerDelegate: AnyObject {
 
 class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet weak var mealLabelView: UIView!
     @IBOutlet weak var mealTitleLabel: UILabel!
-    
+    @IBOutlet weak var showHistoryButton: UIButton!
+    @IBOutlet weak var addPhotoButton: UIButton!
     let imagePicker = UIImagePickerController()
     let loadingIndicator = LoadingIndicatorView()
     var selectedCategory: MealCategory = .breakfast
@@ -26,6 +28,8 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
     var foodList: [Food] = []
     var currentUserId: String?
     @IBOutlet weak var logTextField: UITextField!
+    @IBOutlet weak var addFoodButton: UIButton!
+    @IBOutlet weak var finishLogButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mealLabel: UILabel!
     override func viewDidLoad() {
@@ -43,12 +47,22 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
             mealTitleLabel.text = "Snack"
         }
         setupLoadingIndicator()
+        mealLabelView.clipsToBounds = true
+        addPhotoButton.layer.cornerRadius = 20
+        showHistoryButton.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 20
+        addFoodButton.layer.cornerRadius = 10
+        finishLogButton.layer.cornerRadius = 10
+        mealLabelView.layer.cornerRadius = 10
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-         logTextField.layer.cornerRadius = logTextField.frame.height / 2
+        logTextField.layer.cornerRadius = logTextField.frame.height / 2
+        showHistoryButton.layer.cornerRadius = 20
         logTextField.clipsToBounds = true
+        mealLabelView.layer.cornerRadius = 10
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
