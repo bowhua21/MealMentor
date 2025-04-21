@@ -51,6 +51,14 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         logTextField.clipsToBounds = true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FoodGallerySegue",
+           let destinationVC = segue.destination as? FoodGalleryViewController,
+           let category = sender as? MealCategory {
+            destinationVC.selectedCategory = category
+        }
+    }
+    
     private func setupLoadingIndicator() {
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loadingIndicator)
@@ -418,70 +426,64 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         dismiss(animated: true)
     }
     
-    func uploadImage(_ image: UIImage) {
-        guard let currentUserId = currentUserId else {
-            showError("Please sign in to upload images")
+    private func uploadImage(_ image: UIImage) {
+        guard let uid = currentUserId else {
+            showError("Sign in to upload images.")
             return
         }
-
         showLoading()
-        
         let storageRef = Storage.storage().reference()
-        let imageName = "\(currentUserId)_\(UUID().uuidString).jpg"
-        let imageRef = storageRef.child("user_images/\(imageName)")
-        guard let imageData = image.jpegData(compressionQuality: 0.75) else {
+        let filename = "\(uid)_\(UUID().uuidString).jpg"
+        let imgRef = storageRef.child("user_images/\(filename)")
+        guard let data = image.jpegData(compressionQuality: 0.75) else {
             hideLoading()
-            showError("Failed to process image")
+            showError("Image processing failed.")
             return
         }
         
-        let uploadTask = imageRef.putData(imageData, metadata: nil) { [weak self] metadata, error in
+        let _ = imgRef.putData(data, metadata: nil) { [weak self] _, error in
             guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                self.hideLoading()
-                // not working for now
-                
-//                if let error = error {
-//                    self.showError("Upload failed: \(error.localizedDescription)")
-//                    return
-//                }
-                
-//                imageRef.downloadURL { url, error in
-//                    if let error = error {
-//                        self.showError("Failed to get URL: \(error.localizedDescription)")
-//                        return
-//                    }
-//                    
-//                    guard let downloadURL = url else {
-//                        self.showError("Invalid image URL")
-//                        return
-//                    }
-//                    
-//                    self.saveImageURLToFirestore(url: downloadURL)
-//                    self.showTemporaryMessage("Image uploaded successfully!")
-//                }
+            DispatchQueue.main.async { self.hideLoading() }
+
+            if let err = error {
+                self.showError("Upload failed: \(err.localizedDescription)")
+                return
             }
-        }
-        
-        uploadTask.observe(.progress) { snapshot in
-            let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount) / Double(snapshot.progress!.totalUnitCount)
-            print("Upload progress: \(percentComplete)%")
+            
+            imgRef.downloadURL { url, error in
+                if let err = error {
+                    self.showError("URL retrieve failed: \(err.localizedDescription)")
+                    return
+                }
+                guard let url = url else {
+                    self.showError("Invalid download URL.")
+                    return
+                }
+                self.saveImageURLToFirestore(url)
+                self.showTemporaryMessage("Image uploaded!")
+            }
         }
     }
     
-    func saveImageURLToFirestore(url: URL) {
-        guard let currentUserId = currentUserId else { return }
-        
-        let db = Firestore.firestore()
-        let userImagesRef = db.collection("user_images").document(currentUserId)
-        
-        // Assuming you're saving an image reference under the user's document
-        userImagesRef.setData(["imageURL": url.absoluteString], merge: true) { error in
+    private func saveImageURLToFirestore(_ url: URL) {
+        guard let uid = currentUserId else {
+            return
+        }
+
+        let photoDoc: [String: Any] = [
+            "imageUrl":   url.absoluteString,
+            "uploadedAt": Timestamp(date: Date()),
+            "userId":     uid,
+            "category":   selectedCategory.rawValue,
+        ]
+
+        Firestore.firestore()
+          .collection("user_photos")
+          .addDocument(data: photoDoc) { error in
             if let error = error {
-                print("Error saving image URL to Firestore: \(error.localizedDescription)")
+              print("Firestore error saving URL:", error.localizedDescription)
             } else {
-                print("Image URL saved to Firestore successfully")
+              print("Saved image URL to Firestore as a new meal doc")
             }
         }
     }

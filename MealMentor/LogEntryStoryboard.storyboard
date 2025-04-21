@@ -293,7 +293,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show History" cornerStyle="capsule"/>
                                 <connections>
-                                    <segue destination="YX4-yk-2X6" kind="presentation" id="KhR-Za-Amd"/>
+                                    <segue destination="YX4-yk-2X6" kind="presentation" identifier="FoodGallerySegue" id="KhR-Za-Amd"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lhl-oj-hgG">
@@ -363,7 +363,7 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="720" image="IMG_4997" translatesAutoresizingMaskIntoConstraints="NO" id="wDd-R8-JFa">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="720" translatesAutoresizingMaskIntoConstraints="NO" id="wDd-R8-JFa">
                                         <rect key="frame" x="0.0" y="20.333333333333314" width="393" height="787.33333333333348"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="770" translatesAutoresizingMaskIntoConstraints="NO" id="dNZ-yR-lDD">
@@ -421,7 +421,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IMG_4997" width="3024" height="4032"/>
         <image name="list.bullet.clipboard" catalog="system" width="98" height="128"/>
         <namedColor name="black_lightgreen">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -436,7 +435,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
