@@ -45,7 +45,7 @@
                                     <color key="backgroundColor" systemColor="systemGreenColor"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Add Breakfast"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="breakfast" title="Add Breakfast" imagePadding="250"/>
                                     <connections>
                                         <action selector="addMealClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mIt-OT-LWm"/>
                                         <segue destination="c4i-jf-ySt" kind="show" identifier="showMealEntry" id="Y4c-5w-7Sv"/>
@@ -90,7 +90,7 @@
                                     <color key="backgroundColor" systemColor="systemGreenColor"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Add Lunch"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="lunch" imagePlacement="leading" title="Add Lunch" imagePadding="270"/>
                                     <connections>
                                         <action selector="addMealClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Nca-tQ-JOs"/>
                                     </connections>
@@ -129,19 +129,19 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="green_black"/>
                                 <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="IC3-OG-D6e">
-                                    <rect key="frame" x="0.0" y="0.0" width="293" height="35"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="293" height="36"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemGreenColor"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Add Dinner"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="dinner" title="Add Dinner" imagePadding="270"/>
                                     <connections>
                                         <action selector="addMealClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="22t-N8-pdM"/>
                                     </connections>
                                 </button>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mealCell" textLabel="1Vg-e1-Epj" detailTextLabel="zuk-hL-raE" style="IBUITableViewCellStyleSubtitle" id="3A6-FR-Rqk">
-                                        <rect key="frame" x="0.0" y="85" width="293" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="86" width="293" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3A6-FR-Rqk" id="jTM-2G-Tic">
                                             <rect key="frame" x="0.0" y="0.0" width="293" height="43.666667938232422"/>
@@ -177,7 +177,7 @@
                                     <color key="backgroundColor" systemColor="systemGreenColor"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Add Snack"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="snacks" title="Add Snack" imagePadding="270"/>
                                     <connections>
                                         <action selector="addMealClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="zhj-Yu-hvf"/>
                                     </connections>
@@ -456,9 +456,13 @@
     </scenes>
     <resources>
         <image name="book" catalog="system" width="128" height="99"/>
+        <image name="breakfast" width="24" height="22"/>
         <image name="camera" catalog="system" width="128" height="93"/>
+        <image name="dinner" width="22" height="22"/>
         <image name="image3" width="4032" height="3024"/>
         <image name="list.bullet.clipboard" catalog="system" width="98" height="128"/>
+        <image name="lunch" width="22" height="22"/>
+        <image name="snacks" width="20" height="22"/>
         <namedColor name="black_lightgreen">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
