@@ -1,4 +1,3 @@
-//
 //  LogDisplayViewController.swift
 //  MealMentor
 //
@@ -7,6 +6,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+
 enum MealCategory: String, CaseIterable {
     case breakfast = "Add Breakfast"
     case lunch = "Add Lunch"
@@ -17,11 +17,13 @@ enum MealCategory: String, CaseIterable {
         return self.rawValue
     }
 }
+
 enum NutritionType: String {
     case calories = "Calories"
     case fat = "Fat"
     case protein = "Protein"
 }
+
 class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var nutritionMenuButton: UIButton!
@@ -29,15 +31,18 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
     @IBOutlet weak var lunchTableView: UITableView!
     @IBOutlet weak var dinnerTableView: UITableView!
     @IBOutlet weak var snackTableView: UITableView!
+    
     private var breakfastMeals: [Meal] = []
     private var lunchMeals: [Meal] = []
     private var dinnerMeals: [Meal] = []
     private var snackMeals: [Meal] = []
+    
     private var selectedCategory: MealCategory = .breakfast {
         didSet {
             fetchTodaysMeals()
         }
     }
+    
     private var selectedNutritionType: NutritionType = .calories {
         didSet {
             [breakfastTableView, lunchTableView, dinnerTableView, snackTableView].forEach { $0?.reloadData() }
@@ -75,133 +80,95 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         nutritionMenuButton.showsMenuAsPrimaryAction = true
     }
     
-    
     private func setupTableView() {
-        breakfastTableView.delegate = self
-        breakfastTableView.dataSource = self
-        breakfastTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
-        breakfastTableView.rowHeight = 65
-        breakfastTableView.layer.cornerRadius = 12
-        
-        lunchTableView.delegate = self
-        lunchTableView.dataSource = self
-        lunchTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
-        lunchTableView.rowHeight = 65
-        lunchTableView.layer.cornerRadius = 12
-        
-        dinnerTableView.delegate = self
-        dinnerTableView.dataSource = self
-        dinnerTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
-        dinnerTableView.rowHeight = 65
-        dinnerTableView.layer.cornerRadius = 12
-        
-        snackTableView.delegate = self
-        snackTableView.dataSource = self
-        snackTableView.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
-        snackTableView.rowHeight = 65
-        snackTableView.layer.cornerRadius = 12
+        [breakfastTableView, lunchTableView, dinnerTableView, snackTableView].forEach {
+            $0?.delegate = self
+            $0?.dataSource = self
+            $0?.register(UITableViewCell.self, forCellReuseIdentifier: "mealCell")
+            $0?.rowHeight = 65
+            $0?.layer.cornerRadius = 12
+        }
     }
     
     private func setupTableViewConstraints() {
-            breakfastTableView.translatesAutoresizingMaskIntoConstraints = false
-            lunchTableView.translatesAutoresizingMaskIntoConstraints = false
-            dinnerTableView.translatesAutoresizingMaskIntoConstraints = false
-            snackTableView.translatesAutoresizingMaskIntoConstraints = false
+        let tablesStackView = UIStackView(arrangedSubviews: [
+            breakfastTableView, lunchTableView, dinnerTableView, snackTableView
+        ])
+        tablesStackView.axis = .vertical
+        tablesStackView.distribution = .fillEqually
+        tablesStackView.spacing = 16
+        tablesStackView.translatesAutoresizingMaskIntoConstraints = false
         
-            let tablesStackView = UIStackView(arrangedSubviews: [
-                breakfastTableView,
-                lunchTableView,
-                dinnerTableView,
-                snackTableView
-            ])
-            tablesStackView.axis = .vertical
-            tablesStackView.distribution = .fillEqually
-            tablesStackView.spacing = 16
-            tablesStackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tablesStackView)
+        NSLayoutConstraint.activate([
+            tablesStackView.topAnchor.constraint(equalTo: nutritionMenuButton.bottomAnchor, constant: 20),
+            tablesStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tablesStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            tablesStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
-            view.addSubview(tablesStackView)
-            NSLayoutConstraint.activate([
-                tablesStackView.topAnchor.constraint(equalTo: nutritionMenuButton.bottomAnchor, constant: 20),
-                tablesStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                tablesStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                tablesStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-                
-                breakfastTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
-                lunchTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
-                dinnerTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
-                snackTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
-            ])
-            [breakfastTableView, lunchTableView, dinnerTableView, snackTableView].forEach { tableView in
-                tableView.layer.cornerRadius = 12
-                tableView.rowHeight = 65
-                tableView.backgroundColor = UIColor(hex: "BADAAF")
-            }
-        }
-    
-    @IBAction func addMealClicked(_ sender: UIButton) {
-        guard let buttonTitle = sender.titleLabel?.text,
-              let category = MealCategory(rawValue: buttonTitle) else {
-            showError(message: "Invalid meal category selection")
-            return
-        }
-        selectedCategory = category
-        performSegue(withIdentifier: "showMealEntry", sender: category)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showMealEntry",
-           let destinationVC = segue.destination as? LogEntryViewController,
-           let category = sender as? MealCategory {
-            destinationVC.selectedCategory = category
-            destinationVC.delegate = self
+            breakfastTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            lunchTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            dinnerTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            snackTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
+        ])
+        
+        [breakfastTableView, lunchTableView, dinnerTableView, snackTableView].forEach {
+            $0?.backgroundColor = UIColor(hex: "BADAAF")
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == breakfastTableView {
-            return breakfastMeals.flatMap { $0.foodList }.count
-        } else if tableView == lunchTableView {
-            return lunchMeals.flatMap { $0.foodList }.count
-        } else if tableView == dinnerTableView {
-            return dinnerMeals.flatMap { $0.foodList }.count
-        } else if tableView == snackTableView {
-            return snackMeals.flatMap { $0.foodList }.count
+        switch tableView {
+        case breakfastTableView: return breakfastMeals.flatMap { $0.foodList }.count
+        case lunchTableView: return lunchMeals.flatMap { $0.foodList }.count
+        case dinnerTableView: return dinnerMeals.flatMap { $0.foodList }.count
+        case snackTableView: return snackMeals.flatMap { $0.foodList }.count
+        default: return 0
         }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealCell", for: indexPath)
         cell.backgroundColor = UIColor(hex: "BADAAF")
         cell.contentView.backgroundColor = UIColor(hex: "BADAAF")
-        var allFoods: [Food] = []
-        
-        if tableView == breakfastTableView {
-            allFoods = breakfastMeals.flatMap { $0.foodList }
-        } else if tableView == lunchTableView {
-            allFoods = lunchMeals.flatMap { $0.foodList }
-        } else if tableView == dinnerTableView {
-            allFoods = dinnerMeals.flatMap { $0.foodList }
-        } else if tableView == snackTableView {
-            allFoods = snackMeals.flatMap { $0.foodList }
-        }
-        
-        let food = allFoods[indexPath.row]
+        let food = getFoodItem(for: tableView, at: indexPath)
         var content = cell.defaultContentConfiguration()
         content.text = "\(food.name) (\(food.quantity)g)"
         switch selectedNutritionType {
-        case .calories:
-            content.secondaryText = "Calories: \(food.calories)"
-        case .fat:
-            content.secondaryText = "Fat: \(food.fat)g"
-        case .protein:
-            content.secondaryText = "Protein: \(food.protein)g"
+        case .calories: content.secondaryText = "Calories: \(food.calories)"
+        case .fat: content.secondaryText = "Fat: \(food.fat)g"
+        case .protein: content.secondaryText = "Protein: \(food.protein)g"
         }
         
         cell.contentConfiguration = content
         return cell
     }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        
+        let (meal, foodIndex) = getMealAndFoodIndex(for: tableView, at: indexPath)
+        guard let meal = meal, let foodIndex = foodIndex else {
+            showError(message: "Could not find item to delete")
+            return
+        }
+        
+        var updatedMeal = meal
+        updatedMeal.foodList.remove(at: foodIndex)
+        
+        if updatedMeal.foodList.isEmpty {
+            deleteMealDocument(meal) { [weak self] success in
+                self?.handleDeletionResult(success: success, tableView: tableView, indexPath: indexPath)
+            }
+        } else {
+            updateMealFoodList(meal, newFoodList: updatedMeal.foodList) { [weak self] success in
+                self?.handleDeletionResult(success: success, tableView: tableView, indexPath: indexPath)
+            }
+        }
+    }
     private func fetchTodaysMeals() {
         guard let userID = Auth.auth().currentUser?.uid else {
             showError(message: "User not authenticated")
@@ -223,44 +190,39 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
                 .order(by: "date", descending: true)
                 .getDocuments { [weak self] snapshot, error in
                     guard let self = self else { return }
+                    
                     if let error = error {
                         self.showError(message: "Fetch error: \(error.localizedDescription)")
                         return
                     }
-                    guard let documents = snapshot?.documents else {
-                        self.updateMeals(for: category, with: [])
-                        return
-                    }
-                    let meals = documents.compactMap { document in
-                        try? self.parseMeal(document: document)
-                    }
+                    
+                    let meals = snapshot?.documents.compactMap { try? self.parseMeal(document: $0) } ?? []
                     self.updateMeals(for: category, with: meals)
                 }
         }
     }
     
-    private func updateMeals(for category: MealCategory, with meals: [Meal]) {
-        switch category {
-        case .breakfast:
-            breakfastMeals = meals
-            DispatchQueue.main.async {
-                self.breakfastTableView.reloadData()
-            }
-        case .lunch:
-            lunchMeals = meals
-            DispatchQueue.main.async {
-                self.lunchTableView.reloadData()
-            }
-        case .dinner:
-            dinnerMeals = meals
-            DispatchQueue.main.async {
-                self.dinnerTableView.reloadData()
-            }
-        case .snack:
-            snackMeals = meals
-            DispatchQueue.main.async {
-                self.snackTableView.reloadData()
-            }
+    private func deleteMealDocument(_ meal: Meal, completion: @escaping (Bool) -> Void) {
+        guard let documentID = meal.documentID else {
+            completion(false)
+            return
+        }
+        
+        Firestore.firestore().collection("meals").document(documentID).delete { error in
+            completion(error == nil)
+        }
+    }
+    
+    private func updateMealFoodList(_ meal: Meal, newFoodList: [Food], completion: @escaping (Bool) -> Void) {
+        guard let documentID = meal.documentID else {
+            completion(false)
+            return
+        }
+        
+        Firestore.firestore().collection("meals").document(documentID).updateData([
+            "foodList": newFoodList.map { $0.toDictionary() }
+        ]) { error in
+            completion(error == nil)
         }
     }
     
@@ -275,6 +237,7 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         
         let foodList = foodListData.compactMap { Food.fromDictionary($0) }
         return Meal(
+            documentID: document.documentID,
             date: date.dateValue(),
             userID: userID,
             category: category,
@@ -282,22 +245,102 @@ class LogDisplayViewController: DarkModeViewController, UITableViewDelegate, UIT
         )
     }
     
+    private func getFoodItem(for tableView: UITableView, at indexPath: IndexPath) -> Food {
+        let meals: [Meal]
+        switch tableView {
+        case breakfastTableView: meals = breakfastMeals
+        case lunchTableView: meals = lunchMeals
+        case dinnerTableView: meals = dinnerMeals
+        case snackTableView: meals = snackMeals
+        default: meals = breakfastMeals
+        }
+        
+        return meals.flatMap { $0.foodList }[indexPath.row]
+    }
+    
+    private func getMealAndFoodIndex(for tableView: UITableView, at indexPath: IndexPath) -> (Meal?, Int?) {
+        var meals: [Meal]
+        switch tableView {
+        case breakfastTableView: meals = breakfastMeals
+        case lunchTableView: meals = lunchMeals
+        case dinnerTableView: meals = dinnerMeals
+        case snackTableView: meals = snackMeals
+        default: return (nil, nil)
+        }
+        
+        var cumulativeCount = 0
+        for meal in meals {
+            for (foodIndex, _) in meal.foodList.enumerated() {
+                if cumulativeCount == indexPath.row {
+                    return (meal, foodIndex)
+                }
+                cumulativeCount += 1
+            }
+        }
+        return (nil, nil)
+    }
+    
+    private func handleDeletionResult(success: Bool, tableView: UITableView, indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            if success {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.fetchTodaysMeals()
+            } else {
+                self.showError(message: "Failed to delete item")
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    private func updateMeals(for category: MealCategory, with meals: [Meal]) {
+        switch category {
+        case .breakfast:
+            breakfastMeals = meals
+            breakfastTableView.reloadData()
+        case .lunch:
+            lunchMeals = meals
+            lunchTableView.reloadData()
+        case .dinner:
+            dinnerMeals = meals
+            dinnerTableView.reloadData()
+        case .snack:
+            snackMeals = meals
+            snackTableView.reloadData()
+        }
+    }
+    
     private func showError(message: String) {
-        let alert = UIAlertController(
-            title: "Error",
-            message: message,
-            preferredStyle: .alert
-        )
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-   
+
+    @IBAction func addMealClicked(_ sender: UIButton) {
+        guard let buttonTitle = sender.titleLabel?.text,
+              let category = MealCategory(rawValue: buttonTitle) else {
+            showError(message: "Invalid meal category selection")
+            return
+        }
+        selectedCategory = category
+        performSegue(withIdentifier: "showMealEntry", sender: category)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMealEntry",
+           let destinationVC = segue.destination as? LogEntryViewController,
+           let category = sender as? MealCategory {
+            destinationVC.selectedCategory = category
+            destinationVC.delegate = self
+        }
+    }
 }
+
 extension LogDisplayViewController: LogEntryViewControllerDelegate {
     func didSaveMeal() {
         fetchTodaysMeals()
     }
 }
+
 extension UIColor {
     convenience init(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -310,4 +353,3 @@ extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
-
