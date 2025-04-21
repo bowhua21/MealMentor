@@ -32,6 +32,8 @@ class FoodGalleryViewController: UIViewController {
             return
         }
         
+        label.text = String(selectedCategory.rawValue.dropFirst(4))
+        
         let db = Firestore.firestore()
         let startOfDay = Calendar.current.startOfDay(for: Date())
         let today = Timestamp(date: startOfDay)
@@ -58,7 +60,7 @@ class FoodGalleryViewController: UIViewController {
             }
     }
     
-    private func downloadAllImages() {
+    func downloadAllImages() {
             let group = DispatchGroup()
             for urlString in imageURLs {
                 group.enter()
@@ -119,5 +121,13 @@ class FoodGalleryViewController: UIViewController {
             }
         }
     }
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        images.removeAll()
+        imageURLs.removeAll()
+        currentIndex = 0
+        imageView.image = nil
+        label.text = ""
+    }
 }

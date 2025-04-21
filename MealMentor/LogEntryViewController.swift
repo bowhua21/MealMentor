@@ -138,6 +138,10 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         return deepSeekAPIKey
     }
     
+    
+    @IBAction func onClickHistoryButton(_ sender: Any) {
+        performSegue(withIdentifier: "FoodGallerySegue", sender: selectedCategory)
+    }
     @IBAction func finishLogClicked(_ sender: Any) {
         saveCompleteMeal()
     }

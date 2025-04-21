@@ -293,6 +293,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show History" cornerStyle="capsule"/>
                                 <connections>
+                                    <action selector="onClickHistoryButton:" destination="c4i-jf-ySt" eventType="touchUpInside" id="Fet-0X-97H"/>
                                     <segue destination="YX4-yk-2X6" kind="presentation" identifier="FoodGallerySegue" id="KhR-Za-Amd"/>
                                 </connections>
                             </button>
