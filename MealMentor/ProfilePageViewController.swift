@@ -9,8 +9,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class ProfilePageViewController: DarkModeViewController {
-
+class ProfilePageViewController: ImagePicker {
+    
     
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     
@@ -24,9 +24,12 @@ class ProfilePageViewController: DarkModeViewController {
     
     @IBOutlet weak var height: UILabel!
     
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        imagePicker.delegate = self
+        currentUserId = getUserID()
         ProfileLoader().loadProfile { profile in
             self.fullName.text = profile.fullName
             self.gender.text = profile.gender
@@ -36,7 +39,7 @@ class ProfilePageViewController: DarkModeViewController {
         }
     }
     
-
+    
     @IBAction func logoutButtonPressed(_ sender: Any) {
         do {
             try Auth.auth().signOut()
@@ -45,5 +48,15 @@ class ProfilePageViewController: DarkModeViewController {
         }
     }
     
-
+    @IBAction func uploadButtonTapped(_ sender: Any) {
+        presentImagePicker()
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            imageView.image = selectedImage
+            //uploadImage(selectedImage)
+        }
+        dismiss(animated: true)
+    }
 }

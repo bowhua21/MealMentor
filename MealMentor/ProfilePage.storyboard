@@ -132,6 +132,22 @@
                                 <imageReference key="image" image="minus" catalog="system" symbolScale="large"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pn3-TY-TTp">
+                                <rect key="frame" x="106" y="143" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7d-tT-aHh">
+                                <rect key="frame" x="96" y="725" width="248" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Upload Profile Picture">
+                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="24"/>
+                                    <color key="baseForegroundColor" name="black_lightgreen"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="uploadButtonTapped:" destination="7PR-Gb-Oh5" eventType="touchUpInside" id="I4E-eU-2Of"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oRJ-dX-auG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -145,6 +161,7 @@
                         <outlet property="fullName" destination="4Jk-ID-bkN" id="1DO-NT-RPF"/>
                         <outlet property="gender" destination="54d-JM-Ib9" id="xgz-dr-q6P"/>
                         <outlet property="height" destination="eJz-ZB-vQm" id="UPx-ws-lNF"/>
+                        <outlet property="imageView" destination="pn3-TY-TTp" id="waB-gB-sDV"/>
                         <outlet property="weight" destination="nEP-TF-NaY" id="ud5-4V-Avh"/>
                     </connections>
                 </viewController>
