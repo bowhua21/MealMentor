@@ -85,7 +85,7 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews()
         chatInputBar.layer.cornerRadius = chatInputBar.frame.height / 2
         chatInputBar.clipsToBounds = true
-        sendButton.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
+        sendButton.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.3)
         sendButton.layer.cornerRadius = sendButton.frame.height / 2
         sendButton.clipsToBounds = true
         
@@ -207,7 +207,7 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
 //                        bubbleLabel.backgroundColor = darkMode ? self.darkPurple : self.lightPurple
 //                    }
 //                }
-                bubbleLabel.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
+                bubbleLabel.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.3)
                 bubbleLabel.textAlignment = .left
             } else if chat.sender == "error" {
                 bubbleLabel.backgroundColor = UIColor.red.withAlphaComponent(0.3)
@@ -419,8 +419,8 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.chatInputBar.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
-        self.askMealMentorIntroView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.3)
+        self.chatInputBar.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.3)
+        self.askMealMentorIntroView.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.3)
 //        getDocumentData(from: userDoc, category: "darkMode") { value, error in
 //            if let darkMode = value as? Bool {
 ////                self.chatInputBar.backgroundColor = darkMode ? self.darkPurple : self.lightPurple

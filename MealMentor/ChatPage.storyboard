@@ -26,7 +26,8 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ask MealMentor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b9w-se-5oA">
                                 <rect key="frame" x="10" y="813" width="360" height="50"/>
-                                <color key="backgroundColor" red="0.93333333330000001" green="0.90588235289999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="360" id="KGd-Fb-Xus"/>
                                     <constraint firstAttribute="height" constant="50" id="xz2-cA-X7E"/>
@@ -41,7 +42,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ask MealMentor" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWu-d0-ULD">
                                         <rect key="frame" x="38" y="38" width="305" height="44"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="38"/>
-                                        <color key="textColor" name="indigo_pink"/>
+                                        <color key="textColor" name="black_lightgreen"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fu0-RH-yLp">
@@ -96,8 +97,8 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" name="darkgreen_lightgreen"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="lWu-d0-ULD" secondAttribute="trailing" constant="37" id="8RO-f3-Vzg"/>
                                     <constraint firstAttribute="trailing" secondItem="fu0-RH-yLp" secondAttribute="trailing" constant="11" id="DrO-dE-GRi"/>
@@ -123,7 +124,7 @@
                                     <constraint firstAttribute="width" constant="50" id="FPZ-sK-JeM"/>
                                     <constraint firstAttribute="height" constant="50" id="Phh-w3-VQT"/>
                                 </constraints>
-                                <color key="tintColor" red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="" cornerStyle="capsule">
                                     <imageReference key="image" image="paperplane.fill" catalog="system" renderingMode="template"/>
@@ -134,7 +135,8 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="lightgreen_black"/>
+                        <color key="tintColor" name="lightgreen_black"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="LxN-YD-yKH" secondAttribute="bottom" constant="213.5" id="3yn-ga-HXA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tJB-KC-rLf" secondAttribute="trailing" constant="10" id="7yl-HK-HXu"/>
@@ -178,12 +180,12 @@
         <namedColor name="black_lightgreen">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
-        <namedColor name="indigo_pink">
-            <color red="0.3449999988079071" green="0.33700001239776611" blue="0.83899998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="darkgreen_lightgreen">
+            <color red="0.050999999046325684" green="0.6940000057220459" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="lightgreen_black">
+            <color red="0.75300002098083496" green="0.87800002098083496" blue="0.70999997854232788" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemGrayColor">
             <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

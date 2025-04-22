@@ -121,3 +121,19 @@ internal func errorAlertController(title: String, message: String) -> UIAlertCon
     controller.addAction(UIAlertAction(title: "OK", style: .default))
     return controller
 }
+
+internal func docExists(docName: String, docId: String) async -> Bool{
+    let docRef = db.collection(docName).document(docId)
+
+    do {
+      let document = try await docRef.getDocument()
+      if document.exists {
+        return true
+      } else {
+        return false
+      }
+    } catch {
+      return false
+    }
+    
+}

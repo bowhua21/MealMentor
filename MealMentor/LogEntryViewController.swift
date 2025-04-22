@@ -444,7 +444,7 @@ class LogEntryViewController: DarkModeViewController, UIImagePickerControllerDel
         dismiss(animated: true)
     }
     
-    private func uploadImage(_ image: UIImage) {
+    func uploadImage(_ image: UIImage) {
         guard let uid = currentUserId else {
             showError("Sign in to upload images.")
             return
