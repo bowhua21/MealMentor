@@ -3,6 +3,7 @@
     <device id="retina6_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -117,7 +118,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstItem="XFD-1I-86S" firstAttribute="top" secondItem="wY2-6z-CYV" secondAttribute="top" constant="8" id="3Xw-00-mxV"/>
                                                     <constraint firstAttribute="height" constant="120" id="Dbk-Py-n7H"/>
@@ -225,7 +226,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstItem="tlS-pC-W3k" firstAttribute="leading" secondItem="Lbb-Qk-jkb" secondAttribute="leading" constant="20" id="1zR-bZ-yFW"/>
                                                     <constraint firstAttribute="bottom" secondItem="tlS-pC-W3k" secondAttribute="bottom" constant="8" id="8Ec-wg-Wpc"/>
@@ -306,7 +307,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="SBw-l7-5uO" secondAttribute="bottom" constant="8" id="Hrj-Pj-TDB"/>
                                                     <constraint firstItem="SBw-l7-5uO" firstAttribute="leading" secondItem="b0Z-XV-7Jm" secondAttribute="leading" constant="20" id="Y3p-l3-cdx"/>
@@ -358,7 +359,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="tFQ-WY-f61" secondAttribute="trailing" constant="20" id="3XH-c9-7SH"/>
                                                     <constraint firstItem="tFQ-WY-f61" firstAttribute="leading" secondItem="Vv0-J8-hDB" secondAttribute="leading" constant="20" id="bMG-jJ-zHt"/>
@@ -410,7 +411,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstItem="NY7-Se-j6N" firstAttribute="top" secondItem="jV9-sg-j9g" secondAttribute="top" constant="8" id="3a0-7o-UBj"/>
                                                     <constraint firstItem="NY7-Se-j6N" firstAttribute="leading" secondItem="jV9-sg-j9g" secondAttribute="leading" constant="20" id="7Br-PN-BgA"/>
@@ -462,7 +463,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="4gn-vt-dXx"/>
                                                     <constraint firstItem="OiY-Is-3Wp" firstAttribute="top" secondItem="3o4-zI-2ik" secondAttribute="top" constant="8" id="BY0-4X-PvA"/>
@@ -514,7 +515,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="4iK-c4-9GP" secondAttribute="bottom" constant="8" id="E5H-oq-Sk9"/>
                                                     <constraint firstAttribute="trailing" secondItem="4iK-c4-9GP" secondAttribute="trailing" constant="20" id="KAf-vp-1ei"/>
@@ -566,7 +567,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="9YN-fJ-mQ5"/>
                                                     <constraint firstAttribute="trailing" secondItem="BTF-zQ-aYK" secondAttribute="trailing" constant="20" id="R3F-ZF-y6W"/>
@@ -618,7 +619,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="trb-ur-BfN" secondAttribute="bottom" constant="8" id="Ert-9d-DaE"/>
                                                     <constraint firstItem="trb-ur-BfN" firstAttribute="top" secondItem="36G-Fm-VnU" secondAttribute="top" constant="8" id="KJU-a5-cJh"/>
@@ -670,7 +671,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="lightgreen_black"/>
                                                 <constraints>
                                                     <constraint firstItem="nKb-Wf-elP" firstAttribute="top" secondItem="ErW-o7-9Sq" secondAttribute="top" constant="8" id="M6c-d1-v44"/>
                                                     <constraint firstAttribute="trailing" secondItem="nKb-Wf-elP" secondAttribute="trailing" constant="20" id="ONR-8D-wia"/>
@@ -694,7 +695,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="lightgreen_black"/>
                         <constraints>
                             <constraint firstItem="0wd-nB-JG3" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="15" id="EUD-It-zaX"/>
                             <constraint firstItem="O85-1K-mIL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="GDd-NZ-LWu"/>
@@ -1029,6 +1030,9 @@
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="message" catalog="system" width="128" height="116"/>
+        <namedColor name="lightgreen_black">
+            <color red="0.75300002098083496" green="0.87800002098083496" blue="0.70999997854232788" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
