@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -14,7 +14,7 @@
             <objects>
                 <viewController storyboardIdentifier="CalendarPageStoryboard" id="Y6W-OH-hqX" customClass="CalendarPageViewController" customModule="MealMentor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="lightgreen_black"/>
@@ -30,15 +30,89 @@
             <objects>
                 <viewController id="TOf-Y9-acn" customClass="LogHistoryViewController" customModule="MealMentor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WXu-JH-lYL">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="PEK-uK-PuK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <segue destination="rhT-L6-YFX" kind="show" identifier="SegueToLogHistoryFoodGallery" id="hoe-cQ-fMJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y8J-AR-Q6s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="919.84732824427476" y="-27.464788732394368"/>
+        </scene>
+        <!--Log History Food Gallery View Controller-->
+        <scene sceneID="sTp-q1-SzQ">
+            <objects>
+                <viewController storyboardIdentifier="logHistoryFoodGalleryViewController" id="rhT-L6-YFX" customClass="LogHistoryFoodGalleryViewController" customModule="MealMentor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pdt-Ac-qI7">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0yB-tD-tmk">
+                                <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaR-un-rM5">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="720" translatesAutoresizingMaskIntoConstraints="NO" id="GZB-yN-aGy">
+                                        <rect key="frame" x="0.0" y="20.333333333333314" width="440" height="787.33333333333348"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="770" translatesAutoresizingMaskIntoConstraints="NO" id="unP-Ag-SUb">
+                                        <rect key="frame" x="0.0" y="807.66666666666663" width="440" height="138.33333333333337"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfv-Z6-cVw">
+                                                <rect key="frame" x="0.0" y="0.0" width="146.66666666666666" height="138.33333333333334"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Previous"/>
+                                                <connections>
+                                                    <action selector="onPreviousButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="nRV-JE-h36"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWv-Gk-teM">
+                                                <rect key="frame" x="146.66666666666669" y="0.0" width="146.66666666666669" height="138.33333333333334"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Reset"/>
+                                                <connections>
+                                                    <action selector="onResetButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="w6y-Kb-LnQ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcV-Lf-nYN">
+                                                <rect key="frame" x="293.33333333333331" y="0.0" width="146.66666666666669" height="138.33333333333334"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Next"/>
+                                                <connections>
+                                                    <action selector="onNextButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="NLj-EL-MbR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MQ3-ks-vfc"/>
+                        <color key="backgroundColor" name="green_black"/>
+                        <constraints>
+                            <constraint firstItem="0yB-tD-tmk" firstAttribute="leading" secondItem="MQ3-ks-vfc" secondAttribute="leading" id="22O-lP-Lee"/>
+                            <constraint firstItem="MQ3-ks-vfc" firstAttribute="trailing" secondItem="0yB-tD-tmk" secondAttribute="trailing" id="PWU-rI-cmN"/>
+                            <constraint firstItem="MQ3-ks-vfc" firstAttribute="bottom" secondItem="0yB-tD-tmk" secondAttribute="bottom" id="Vw5-Yf-5gd"/>
+                            <constraint firstItem="0yB-tD-tmk" firstAttribute="top" secondItem="MQ3-ks-vfc" secondAttribute="top" id="ZbW-8i-NR3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="fxK-4h-MmJ"/>
+                    <connections>
+                        <outlet property="imageView" destination="GZB-yN-aGy" id="SqY-nu-mTj"/>
+                        <outlet property="label" destination="vaR-un-rM5" id="mAy-1Z-XeR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g8s-PM-mLb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1750" y="-27"/>
         </scene>
     </scenes>
     <resources>
