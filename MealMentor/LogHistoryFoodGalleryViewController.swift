@@ -37,6 +37,8 @@ class LogHistoryFoodGalleryViewController: UIViewController {
             label.text = "No date selected."
             return
         }
+        
+        label.text = String(selectedCategory.rawValue.dropFirst(4))
 
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: date)

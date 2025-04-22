@@ -46,7 +46,7 @@
         <!--Log History Food Gallery View Controller-->
         <scene sceneID="sTp-q1-SzQ">
             <objects>
-                <viewController id="rhT-L6-YFX" customClass="LogHistoryFoodGalleryViewController" customModule="MealMentor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="logHistoryFoodGalleryViewController" id="rhT-L6-YFX" customClass="LogHistoryFoodGalleryViewController" customModule="MealMentor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pdt-Ac-qI7">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,16 +70,25 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="146.66666666666666" height="138.33333333333334"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Previous"/>
+                                                <connections>
+                                                    <action selector="onPreviousButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="nRV-JE-h36"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWv-Gk-teM">
                                                 <rect key="frame" x="146.66666666666669" y="0.0" width="146.66666666666669" height="138.33333333333334"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Reset"/>
+                                                <connections>
+                                                    <action selector="onResetButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="w6y-Kb-LnQ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcV-Lf-nYN">
                                                 <rect key="frame" x="293.33333333333331" y="0.0" width="146.66666666666669" height="138.33333333333334"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Next"/>
+                                                <connections>
+                                                    <action selector="onNextButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="NLj-EL-MbR"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

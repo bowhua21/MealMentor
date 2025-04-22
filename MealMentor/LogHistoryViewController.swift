@@ -95,7 +95,16 @@ class LogHistoryViewController: DarkModeViewController {
     
     @objc private func galleryButtonTapped(_ sender: UIButton) {
         let category = MealCategory.allCases[sender.tag]
-        performSegue(withIdentifier: "SegueToLogHistoryFoodGallery", sender: category)
+
+        let storyboard = UIStoryboard(name: "CalendarPage", bundle: nil)
+        if let galleryVC = storyboard.instantiateViewController(withIdentifier: "logHistoryFoodGalleryViewController") as? LogHistoryFoodGalleryViewController {
+            galleryVC.selectedCategory = category
+            galleryVC.selectedDate = self.selectedDate
+            galleryVC.modalPresentationStyle = .formSheet
+            present(galleryVC, animated: true)
+        } else {
+            print("Could not instantiate logHistoryFoodGalleryViewController")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
