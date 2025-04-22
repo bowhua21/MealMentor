@@ -56,20 +56,57 @@ class LogHistoryViewController: DarkModeViewController {
             tableView.layer.cornerRadius = 12
             tableView.backgroundColor = UIColor(hex: "BADAAF")
             
-            // Simplified header with just the category name
+            let headerView = UIView()
+            headerView.backgroundColor = UIColor(hex: "BADAAF")
+            headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40)
+            
+            // add label
             let headerLabel = UILabel()
             headerLabel.text = category.rawValue.replacingOccurrences(of: "Add ", with: "")
             headerLabel.font = UIFont.boldSystemFont(ofSize: 18)
-            headerLabel.textAlignment = .center
-            headerLabel.backgroundColor = UIColor(hex: "BADAAF")
-            headerLabel.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40)
+            headerLabel.textAlignment = .left
+            headerLabel.translatesAutoresizingMaskIntoConstraints = false
             
-            tableView.tableHeaderView = headerLabel
+            // add button
+            let galleryButton = UIButton(type: .system)
+            galleryButton.setImage(UIImage(systemName: "photo.on.rectangle"), for: .normal)
+            galleryButton.tintColor = .black
+            galleryButton.translatesAutoresizingMaskIntoConstraints = false
+            galleryButton.tag = MealCategory.allCases.firstIndex(of: category) ?? 0
+            galleryButton.addTarget(self, action: #selector(galleryButtonTapped(_:)), for: .touchUpInside)
+
+            headerView.addSubview(headerLabel)
+            headerView.addSubview(galleryButton)
+            
+            NSLayoutConstraint.activate([
+                headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+                headerLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+
+                galleryButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+                galleryButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+            ])
+            
+            tableView.tableHeaderView = headerView
             mealTables[category] = tableView
             mealData[category] = []
             stackView.addArrangedSubview(tableView)
         }
     }
+    
+    @objc private func galleryButtonTapped(_ sender: UIButton) {
+        let category = MealCategory.allCases[sender.tag]
+        performSegue(withIdentifier: "SegueToLogHistoryFoodGallery", sender: category)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueToLogHistoryFoodGallery",
+           let destinationVC = segue.destination as? LogHistoryFoodGalleryViewController,
+           let category = sender as? MealCategory {
+            destinationVC.selectedCategory = category
+            destinationVC.selectedDate = self.selectedDate
+        }
+    }
+    
     private func displayDate() {
         guard let date = selectedDate else {
             dateLabel.text = "No date selected"
