@@ -68,24 +68,33 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfv-Z6-cVw">
                                                 <rect key="frame" x="0.0" y="0.0" width="146.66666666666666" height="138.33333333333334"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Previous"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Previous">
+                                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="onPreviousButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="nRV-JE-h36"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWv-Gk-teM">
                                                 <rect key="frame" x="146.66666666666669" y="0.0" width="146.66666666666669" height="138.33333333333334"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Reset"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Reset">
+                                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="onResetButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="w6y-Kb-LnQ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcV-Lf-nYN">
                                                 <rect key="frame" x="293.33333333333331" y="0.0" width="146.66666666666669" height="138.33333333333334"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Next"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
+                                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="onNextButton:" destination="rhT-L6-YFX" eventType="touchUpInside" id="NLj-EL-MbR"/>
                                                 </connections>
@@ -116,6 +125,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="green_black">
+            <color red="0.72899997234344482" green="0.85500001907348633" blue="0.68599998950958252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="lightgreen_black">
             <color red="0.75300002098083496" green="0.87800002098083496" blue="0.70999997854232788" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

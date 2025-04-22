@@ -97,6 +97,7 @@ class FoodGalleryViewController: UIViewController {
         
     }
     @IBAction func onPreviousButton(_ sender: Any) {
+        if (images.count == 0) { return }
         currentIndex = (currentIndex + images.count - 1) % images.count
         showImage(index: currentIndex)
     }
