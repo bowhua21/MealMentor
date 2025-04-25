@@ -27,6 +27,11 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
 
     let userDoc = db.collection("users").document(Auth.auth().currentUser!.uid)
     var profileData = Profile()
+    var goals: String?
+    var dietRestrictions: String?
+    var allergies: String?
+    var nutritionFocus: String?
+    
     let lightPurple = UIColor(red: 0.9451, green: 0.9255, blue: 0.9804, alpha: 1.0)
     let darkPurple = UIColor(red: 0.4392, green: 0.2588, blue: 0.7882, alpha: 1.0)
     let currentUserId = Auth.auth().currentUser?.uid
@@ -136,6 +141,47 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
                     self.profileData.height = profile.height
                     completion()
                 }
+            }
+        }
+        
+        getDocumentData(from: userDoc, category: "goals") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else if let value = value {
+                print("Fetched field value: \(value)")
+                self.goals = value as? String
+            } else {
+                print("Field does not exist")
+            }
+        }
+        getDocumentData(from: userDoc, category: "dietaryRestrictions") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else if let value = value {
+                print("Fetched field value: \(value)")
+                self.dietRestrictions = value as? String
+            } else {
+                print("Field does not exist")
+            }
+        }
+        getDocumentData(from: userDoc, category: "allergies") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else if let value = value {
+                print("Fetched field value: \(value)")
+                self.allergies = value as? String
+            } else {
+                print("Field does not exist")
+            }
+        }
+        getDocumentData(from: userDoc, category: "nutritionfocuses") { value, error in
+            if let error = error {
+                print("Error fetching field: \(error.localizedDescription)")
+            } else if let value = value {
+                print("Fetched field value: \(value)")
+                self.nutritionFocus = value as? String
+            } else {
+                print("Field does not exist")
             }
         }
     }
@@ -302,12 +348,16 @@ class ChatPageViewController: DarkModeViewController, UITextFieldDelegate {
         let heightText = (profileData.heightFormatted != "") ? "\nHeight:  \(profileData.heightFormatted)" : ""
         let weightText = (profileData.weight != nil) ? "\nWeight:  \(profileData.weight ?? 0)" : ""
         let ageText = (profileData.age != nil) ? "\nAge: \(profileData.age ?? 0)" : ""
+        let allergiesText = (allergies != nil && allergies != "") ? "\nallergies: \(String(describing: allergies))" : ""
+        let nutritionFocusText = (nutritionFocus != nil && nutritionFocus != "[]") ? "\nnutrition focuses: \(String(describing: nutritionFocus))" : ""
+        let goalsText = (goals != nil && goals != "") ? "\ngoals: \(String(describing: goals))" : ""
+        let dietRestrictionText = (dietRestrictions != nil && dietRestrictions != "") ? "\n diet restrictions: \(String(describing: dietRestrictions))" : ""
         
         let todaysNutritionData = "Today's nutrition intake: \n \(nutritionDataToday["calories", default: 0]) calories \n \(nutritionDataToday["protein", default: 0]) grams of protein \n \(nutritionDataToday["carbohydrates", default: 0]) grams of carbs \n \(nutritionDataToday["fat", default: 0]) grams of fat \n \(nutritionDataToday["vitaminA", default: 0]) mcg of Vitamin A \n  \(nutritionDataToday["vitaminC", default: 0]) mcg of Vitamin C \n"
         
         let payload: [String: Any] = [
             "messages": [
-                ["role": "system", "content": "You are an assistant for food and nutrition. Please give advice to \(profileData.fullName) based on their data. \(genderText) \(ageText) \(heightText) \(weightText) \n \(todaysNutritionData). You may organize the advice into paragraphs and bullet points but do not use astericks or hashtags. \(chatLengthPreference)"]
+                ["role": "system", "content": "You are an assistant for food and nutrition. Please give advice to \(profileData.fullName) based on their data. \(genderText) \(ageText) \(heightText) \(weightText) \(allergiesText) \(nutritionFocusText) \(goalsText) \(dietRestrictionText) \n \(todaysNutritionData). You may organize the advice into paragraphs and bullet points but do not use astericks or hashtags. \(chatLengthPreference)"]
                 ,
                 ["role": "user", "content": message]
             ],
